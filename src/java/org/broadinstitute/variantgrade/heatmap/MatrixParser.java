@@ -4,10 +4,10 @@ import org.broadinstitute.variantgrade.bean.PositionHeat;
 import org.broadinstitute.variantgrade.util.GradeException;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +17,7 @@ import java.util.Map;
 public class MatrixParser {
     // instance variables
     Map<Integer, PositionHeat> heatMap = new HashMap<Integer, PositionHeat>();
-    File heatMapFile;
+    InputStream heatMapStream;
 
     // singleton variable
     private static MatrixParser matrixParser;
@@ -35,8 +35,8 @@ public class MatrixParser {
         return matrixParser;
     }
 
-    public void setHeatMapFile(File heatMapFile) {
-        this.heatMapFile = heatMapFile;
+    public void setHeatMapStream(InputStream heatMapStream) {
+        this.heatMapStream = heatMapStream;
     }
 
     /**
@@ -59,7 +59,7 @@ public class MatrixParser {
 
         try {
             // read file and parse
-            reader = new BufferedReader(new FileReader(this.heatMapFile));
+            reader = new BufferedReader(new InputStreamReader(this.heatMapStream));
 
             while ((line = reader.readLine()) != null) {
                 // first line is header line
@@ -98,12 +98,9 @@ public class MatrixParser {
                     // if all went well, add to map
                     this.heatMap.put(position, positionHeat);
                 }
-                // use comma as separator
-                String[] country = line.split(cvsSplitBy);
 
-                System.out.println("Country [code= " + country[4]
-                        + " , name=" + country[5] + "]");
-
+                // add to count
+                count++;
             }
 
         } catch (FileNotFoundException exception) {

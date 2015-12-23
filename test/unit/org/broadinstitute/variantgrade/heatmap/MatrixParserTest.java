@@ -5,7 +5,7 @@ import org.broadinstitute.variantgrade.util.GradeException;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
+import java.io.InputStream;
 
 /**
  * Created by mduby on 12/22/15.
@@ -18,8 +18,8 @@ public class MatrixParserTest extends TestCase {
     public void setUp() throws Exception {
         // set the json builder
         this.matrixParser = MatrixParser.getMatrixParser();
-        File matrixFile = this.getClass().getrenew File("./matrixHeat.csv");
-        this.matrixParser.setHeatMapFile(matrixFile);
+        InputStream matrixStream = this.getClass().getResourceAsStream("./matrixHeat.csv");
+        this.matrixParser.setHeatMapStream(matrixStream);
     }
 
     @Test
@@ -36,5 +36,24 @@ public class MatrixParserTest extends TestCase {
         }
     }
 
+    @Test
+    public void testGetHeatAmount() {
+        // local variables
+        int position = 245;
+        String referenceLetter = "G";
+        Double result = null;
+
+        // get heat amount and test
+        try {
+            result = this.matrixParser.getHeatAtPositionAndLetter(position, referenceLetter);
+
+        } catch (GradeException exception) {
+            fail("got heat exception: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(result);
+        assertEquals(new Double(0.130984994891909), result);
+    }
 
 }
