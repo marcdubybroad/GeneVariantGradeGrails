@@ -1,8 +1,5 @@
 
 
-
-
-
 step 1:
 - given: protein position and letter
   - get: number from matrix
@@ -15,5 +12,5 @@ step 2:
   - get 3 letter segment with alt letter in it
   - determine what protein letter maps to 3 letter dna seq
   - from protein position and protein letter, get number from matrix
-  
-  
+
+
