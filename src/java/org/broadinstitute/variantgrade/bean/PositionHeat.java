@@ -50,7 +50,6 @@ public class PositionHeat {
      * @throws GradeException
      */
     public Double getHeatNumber(String referenceLetter) throws GradeException {
-        // TODO - fix in parser; hack for now
-        return this.heatMap.get("\"" + referenceLetter + "\"");
+        return this.heatMap.get(referenceLetter);
     }
 }

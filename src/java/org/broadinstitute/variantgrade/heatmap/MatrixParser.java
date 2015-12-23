@@ -8,7 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,8 +18,9 @@ import java.util.Map;
  */
 public class MatrixParser {
     // instance variables
-    Map<Integer, PositionHeat> heatMap = new HashMap<Integer, PositionHeat>();
-    InputStream heatMapStream;
+    private Map<Integer, PositionHeat> heatMap = new HashMap<Integer, PositionHeat>();
+    private InputStream heatMapStream;
+    private List<String> referenceLetterList = new ArrayList<String>();
 
     // singleton variable
     private static MatrixParser matrixParser;
@@ -65,6 +68,12 @@ public class MatrixParser {
                 // first line is header line
                 if (count == 0) {
                     headerLine = line.split(cvsSplitBy);
+
+                    // add in the reference letters to the reference list
+                    for (int i = 3; i < headerLine.length; i++) {
+                        this.referenceLetterList.add(headerLine[i].substring(1, 2));
+                    }
+
                 } else {
                     tempLine = line.split(cvsSplitBy);
 
@@ -92,7 +101,7 @@ public class MatrixParser {
                     // loop through rest of array and create heat object
                     positionHeat = new PositionHeat(position, referenceLetter);
                     for (int i = 3; i < headerLine.length; i++) {
-                        positionHeat.addHeatEntry(headerLine[i], new Double(tempLine[i]));
+                        positionHeat.addHeatEntry(headerLine[i].substring(1, 2), new Double(tempLine[i]));
                     }
 
                     // if all went well, add to map
@@ -156,5 +165,9 @@ public class MatrixParser {
 
     public Map<Integer, PositionHeat> getHeatMap() {
         return heatMap;
+    }
+
+    public List<String> getReferenceLetterList() {
+        return referenceLetterList;
     }
 }

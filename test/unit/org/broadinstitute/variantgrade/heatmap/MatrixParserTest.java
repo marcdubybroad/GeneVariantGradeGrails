@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created by mduby on 12/22/15.
@@ -20,20 +21,18 @@ public class MatrixParserTest extends TestCase {
         this.matrixParser = MatrixParser.getMatrixParser();
         InputStream matrixStream = this.getClass().getResourceAsStream("./matrixHeat.csv");
         this.matrixParser.setHeatMapStream(matrixStream);
+        try {
+            this.matrixParser.populate();
+        } catch (GradeException exception) {
+            fail("got error initializing parser: " + exception.getMessage());
+        }
     }
 
     @Test
     public void testSetup() {
-        try {
             assertNotNull(this.matrixParser);
-            this.matrixParser.populate();
-
             assertNotNull(this.matrixParser.getHeatMap());
             assertTrue(this.matrixParser.getHeatMap().size() > 0);
-
-        } catch (GradeException exception) {
-            fail("got error initializing parser: " + exception.getMessage());
-        }
     }
 
     @Test
@@ -56,4 +55,14 @@ public class MatrixParserTest extends TestCase {
         assertEquals(new Double(0.130984994891909), result);
     }
 
+    @Test
+    public void testGetReferenceLetterList() {
+        // local variables
+        List<String> referenceLetterList = this.matrixParser.getReferenceLetterList();
+
+        // test
+        assertNotNull(referenceLetterList);
+        assertTrue(referenceLetterList.size() > 0);
+        assertEquals(20, referenceLetterList.size());
+    }
 }
