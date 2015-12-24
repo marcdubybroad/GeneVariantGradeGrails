@@ -21,6 +21,7 @@ public class MatrixParser {
     private Map<Integer, PositionHeat> heatMap = new HashMap<Integer, PositionHeat>();
     private InputStream heatMapStream;
     private List<String> referenceLetterList = new ArrayList<String>();
+    private boolean isInitialized;
 
     // singleton variable
     private static MatrixParser matrixParser;
@@ -128,6 +129,9 @@ public class MatrixParser {
                 }
             }
         }
+
+        // set initialization
+        this.isInitialized = true;
     }
 
     /**
@@ -169,5 +173,9 @@ public class MatrixParser {
 
     public List<String> getReferenceLetterList() {
         return referenceLetterList;
+    }
+
+    public boolean isInitialized() {
+        return isInitialized;
     }
 }
