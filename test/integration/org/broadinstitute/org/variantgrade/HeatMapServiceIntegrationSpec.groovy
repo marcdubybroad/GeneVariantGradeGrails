@@ -8,13 +8,12 @@ import org.junit.Before
 /**
  * Created by mduby on 12/24/15.
  */
-class HeatMapServiceIntegrationTest extends IntegrationSpec {
+class HeatMapServiceIntegrationSpec extends IntegrationSpec {
     // instance variables
     HeatMapService heatMapService;
 
     @Before
     void setup() {
-        metaDataService.getCommonPropertiesAsJson(false)
     }
 
     @After
@@ -27,7 +26,8 @@ class HeatMapServiceIntegrationTest extends IntegrationSpec {
         int position = 245;
         String referenceAllele = "G";
         Double resultDouble = null;
-
+        resultDouble = this.heatMapService.getHeatMapReadingFromProtein(position, referenceAllele);
+        
         then:
         assert resultDouble != null;
         assert resultDouble == (new Double(0.130984994891909))
