@@ -78,31 +78,43 @@
             margin-top: 0;
         }
     }
+        div.formWrapper {
+            font-size: 16px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+        div.bold {
+            font-weight: bold;
+        }
+        div.title {
+            font-size: 24px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 <a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 <div id="status" role="complementary">
 </div>
-<div id="page-body" role="main">
+<div id="page-body" role="main" class="formWrapper">
     <g:form name="myForm" action="proteinSearch" id="1">
-        <div>
+        <div class="formWrapper title">
             Get the disease risk by protein change
         </div>
-        <div>
+        <div class="formWrapper">
             Position: <input type="text" name="position">
         </div>
-        <div>
-            Reference letter: <input type="text" name="referenceLetter">
+        <div class="formWrapper">
+            Reference letter: <g:select name="referenceLetter" from="${referenceLetterList}"></g:select>
         </div>
-        <div>
+        <div class="formWrapper">
             <input type="submit" name="submit">
         </div>
     </g:form>
 
-<div>
+<div class="formWrapper bold">
     <g:if test="${resultAmount != null}">
-        The disease effect is: ${resultAmount}
+        For ${submittedInput} the disease effect is: ${resultAmount}
     </g:if>
 
     <g:if test="${errorMessage}">

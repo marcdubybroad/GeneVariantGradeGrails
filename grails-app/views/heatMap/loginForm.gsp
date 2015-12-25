@@ -78,24 +78,36 @@
             margin-top: 0;
         }
     }
+        div.formWrapper {
+            font-size: 16px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+        div.bold {
+            font-weight: bold;
+        }
+        div.title {
+            font-size: 24px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 <a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 <div id="status" role="complementary">
 </div>
-<div id="page-body" role="main">
+<div id="page-body" role="main" class="formWrapper">
     <g:form name="myForm" action="login" id="1">
-        <div>
+        <div class="formWrapper title">
             Login to the application
         </div>
-        <div>
+        <div class="formWrapper">
             User: <input type="text" name="username">
         </div>
-        <div>
+        <div class="formWrapper">
             Password: <input type="password" name="password">
         </div>
-        <div>
+        <div class="formWrapper">
             <input type="submit" name="submit">
         </div>
     </g:form>
