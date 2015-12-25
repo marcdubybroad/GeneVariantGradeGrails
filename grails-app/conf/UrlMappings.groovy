@@ -7,7 +7,8 @@ class UrlMappings {
             }
         }
 
-        "/"(view:"/index")
+//        "/"(view:"/index")
+        "/" (controller: "heatMap", action: "proteinSearch")
         "500"(view:'/error')
 	}
 }

@@ -86,18 +86,27 @@
 </div>
 <div id="page-body" role="main">
     <g:form name="myForm" action="proteinSearch" id="1">
-        Position: <input type="text" name="position">
-        Reference letter: <input type="text" name="referenceLetter">
-        <input type="submit" name="submit">
+        <div>
+            Get the disease risk by protein change
+        </div>
+        <div>
+            Position: <input type="text" name="position">
+        </div>
+        <div>
+            Reference letter: <input type="text" name="referenceLetter">
+        </div>
+        <div>
+            <input type="submit" name="submit">
+        </div>
     </g:form>
 
 <div>
-    <g:if test="${resultAmount}">
+    <g:if test="${resultAmount != null}">
         The disease effect is: ${resultAmount}
     </g:if>
 
-    <g:if test="${resultError}">
-        ${resultError}
+    <g:if test="${errorMessage}">
+        ${errorMessage}
     </g:if>
 </div>
 </div>

@@ -86,9 +86,18 @@
 </div>
 <div id="page-body" role="main">
     <g:form name="myForm" action="login" id="1">
-        User: <input type="text" name="username">
-        Password: <input type="password" name="password">
-        <input type="submit" name="submit">
+        <div>
+            Login to the application
+        </div>
+        <div>
+            User: <input type="text" name="username">
+        </div>
+        <div>
+            Password: <input type="password" name="password">
+        </div>
+        <div>
+            <input type="submit" name="submit">
+        </div>
     </g:form>
 
 

@@ -152,7 +152,7 @@ public class MatrixParser {
 
         // make sure exists
         if (positionHeat == null) {
-            throw new GradeException("Got null position heat for position: " + position);
+            throw new GradeException("Got null position heat for position: " + position, GradeException.MESSAGE_NOT_PROTEIN_POSITION);
         }
 
         // get the heat number
