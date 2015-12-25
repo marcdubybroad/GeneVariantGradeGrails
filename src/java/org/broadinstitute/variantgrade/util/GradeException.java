@@ -21,4 +21,8 @@ public class GradeException extends Exception {
         super(message);
         this.webMessage = webMessage;
     }
+
+    public String getWebMessage() {
+        return webMessage;
+    }
 }
