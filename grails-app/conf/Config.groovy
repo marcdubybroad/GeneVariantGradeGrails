@@ -96,7 +96,7 @@ environments {
 }
 
 // log4j configuration
-log4j.main = {
+log4j.main = { root ->
     // Example of changing the log pattern for the default console appender:
     //
     //appenders {
@@ -114,4 +114,11 @@ log4j.main = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+    info    'grails-app'
+    root.level = org.apache.log4j.Level.INFO
+
+    appenders {
+        console name: 'stdout', layout: pattern(conversionPattern: "%d [%t] %-5p %c %l %x - %m%n")
+    }
+
 }

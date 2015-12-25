@@ -87,7 +87,7 @@
 <div id="page-body" role="main">
     <g:form name="myForm" action="proteinSearch" id="1">
         Position: <input type="text" name="position">
-        Reference letter: <input type="password" name="referenceLetter">
+        Reference letter: <input type="text" name="referenceLetter">
         <input type="submit" name="submit">
     </g:form>
 
