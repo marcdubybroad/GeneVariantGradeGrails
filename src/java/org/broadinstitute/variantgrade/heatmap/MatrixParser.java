@@ -1,5 +1,7 @@
 package org.broadinstitute.variantgrade.heatmap;
 
+import org.broadinstitute.variantgrade.bean.CodingRegion;
+import org.broadinstitute.variantgrade.bean.CodingSegment;
 import org.broadinstitute.variantgrade.bean.PositionHeat;
 import org.broadinstitute.variantgrade.util.GradeException;
 
@@ -9,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +26,7 @@ public class MatrixParser {
     private List<String> referenceLetterList = new ArrayList<String>();
     private boolean isInitialized;
     private Map<String, String> codonToAminoAcidMap = null;
+    private List<CodingRegion> codingRegionList = null;
 
     // constants to build maps
     private final String[] codonArray = new String[]{"t", "c", "a", "g"};
@@ -198,6 +202,63 @@ public class MatrixParser {
 
         // return the map
         return this.codonToAminoAcidMap;
+    }
+
+    /**
+     * returns the split gene strings
+     *
+     * @param inputString
+     * @return
+     * @throws GradeException
+     */
+    protected String[] getStringArraysFromString(String inputString) throws GradeException {
+        // local variables
+        String[] splitString;
+        String pattern = "\\s+";
+        String[] finalArray;
+
+        // make sure correct string
+        if (inputString == null) {
+            throw new GradeException("Got null string to split for gene");
+        }
+
+        // split the string
+        splitString = inputString.split(pattern);
+
+        // create final array; cut first 2 elements out
+        finalArray = Arrays.copyOfRange(splitString, 2, splitString.length);
+
+        // return
+        return finalArray;
+    }
+
+    public List<CodingRegion> getCodingRegionList() {
+        // initialize list if null
+        if (this.codingRegionList == null) {
+            // build first coding region by hand
+            CodingRegion region = new CodingRegion("Coding region 1");
+            region.addCodingSegment(new CodingSegment(68744, 68825));
+            region.addCodingSegment(new CodingSegment(96855, 97082));
+            region.addCodingSegment(new CodingSegment(98473, 98642));
+            region.addCodingSegment(new CodingSegment(109765, 109903));
+            region.addCodingSegment(new CodingSegment(123033, 123232));
+            region.addCodingSegment(new CodingSegment(133855, 134305));
+            region.addCodingSegment(new CodingSegment(151049, 151296));
+            this.codingRegionList.add(region);
+
+            // build second coding region by hand
+            region = new CodingRegion("Coding region 2");
+            region.addCodingSegment(new CodingSegment(96857, 97082));
+            region.addCodingSegment(new CodingSegment(98473, 98642));
+            region.addCodingSegment(new CodingSegment(109765, 109903));
+            region.addCodingSegment(new CodingSegment(123033, 123232));
+            region.addCodingSegment(new CodingSegment(133855, 134305));
+            region.addCodingSegment(new CodingSegment(151049, 151296));
+            this.codingRegionList.add(region);
+        }
+
+        // return
+        return this.codingRegionList;
     }
 
     public Map<Integer, PositionHeat> getHeatMap() {

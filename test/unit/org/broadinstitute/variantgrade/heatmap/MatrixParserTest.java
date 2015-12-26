@@ -98,4 +98,50 @@ public class MatrixParserTest extends TestCase {
         assertEquals(64, codonMap.size());
         assertEquals("Q", codonMap.get("caa"));
     }
+
+    @Test
+    public void testGetStringArrays() {
+        // local variables
+        String[] splitArray = null;
+        String testLine = "      181 atttcataac tagacataaa aatcacaagt gggaacatgt cagagtcatt caaaaagtag\n";
+        String testLine2 = "   153481 ctcttttttt ttcttccttg atgccaa\n";
+
+        // get the string arrays
+        try {
+            splitArray = this.matrixParser.getStringArraysFromString(testLine);
+
+        } catch (GradeException exception) {
+            fail("got error splitting gene string: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(splitArray);
+        assertTrue(splitArray.length > 0);
+        assertEquals(6, splitArray.length);
+        for (int i = 0; i < splitArray.length; i++) {
+            assertNotNull(splitArray[i]);
+            assertEquals(10, splitArray[i].length());
+        }
+
+        // get the string arrays
+        try {
+            splitArray = this.matrixParser.getStringArraysFromString(testLine2);
+
+        } catch (GradeException exception) {
+            fail("got error splitting gene string: " + exception.getMessage());
+        }
+
+        // test again
+        assertNotNull(splitArray);
+        assertTrue(splitArray.length > 0);
+        assertEquals(3, splitArray.length);
+        for (int i = 0; i < splitArray.length; i++) {
+            assertNotNull(splitArray[i]);
+            if (i == splitArray.length - 1) {
+                assertEquals(7, splitArray[i].length());
+            } else {
+                assertEquals(10, splitArray[i].length());
+            }
+        }
+    }
 }
