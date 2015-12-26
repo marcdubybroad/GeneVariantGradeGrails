@@ -12,6 +12,54 @@ public class GeneRegion {
     private int regionEnd;
 
     /**
+     * return the relative position within this gene region
+     *
+     * @param position
+     * @return
+     * @throws GradeException
+     */
+    protected int getRelativePosition(int position) throws GradeException {
+        // local variables
+        int relativePosition = -1;
+
+        // check to make sure position is good
+        if (position < this.regionStart) {
+            throw new GradeException("got position: " + position + " that is less than the start position: " + this.regionStart);
+        }
+        if (position > this.regionEnd) {
+            throw new GradeException("got position: " + position + " that is greater than the end position: " + this.regionEnd);
+        }
+
+        // get the relative position
+        relativePosition = position - this.regionStart + 1;
+
+        // return
+        return relativePosition;
+    }
+
+    /**
+     * returns the reference allele at the given position
+     * 
+     * @param position
+     * @return
+     * @throws GradeException
+     */
+    public String getReferenceAtPosition(int position) throws GradeException {
+        // local variables
+        String reference = null;
+        int relativePosition = -1;
+
+        // get the relative position
+        relativePosition = this.getRelativePosition(position);
+
+        // get the reference at the position
+        reference = this.regionSequence.substring(relativePosition - 1, relativePosition);
+
+        // return
+        return reference;
+    }
+
+    /**
      * returns the codon for the given position
      *
      * @param position
@@ -30,7 +78,7 @@ public class GeneRegion {
         }
 
         // translate position
-        relativePosition = position - this.regionStart - 1;
+        relativePosition = this.getRelativePosition(position);
 
         // get the codon
         moduloPosition = relativePosition % 3;
