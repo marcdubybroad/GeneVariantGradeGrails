@@ -12,6 +12,7 @@ public class Gene {
     // instance variables
     private String name;
     private List<GeneRegion> geneRegionList = new ArrayList<GeneRegion>();
+    private List<CodingRegion> codingRegionList = new ArrayList<CodingRegion>();
 
     /**
      * default constructor
@@ -31,8 +32,40 @@ public class Gene {
     }
 
     /**
+     * add to a gene coding region
+     *
+     * @param region
+     */
+    public void addCodingRegion(CodingRegion region) {
+        this.codingRegionList.add(region);
+    }
+
+    /**
+     * checks to see if a position is in one of the gene's coding regions
+     *
+     * @param position
+     * @return
+     * @throws GradeException
+     */
+    public boolean isPositionInCodingRegion(int position) throws GradeException {
+        // local variables
+        boolean isInCodingRegion = false;
+
+        // loop through regions
+        for (CodingRegion region : this.codingRegionList) {
+            if (region.isPositionInCodingRegion(position)) {
+                isInCodingRegion = true;
+                break;
+            }
+        }
+
+        // return
+        return isInCodingRegion;
+    }
+
+    /**
      * return the codon at the given position
-     * 
+     *
      * @param position
      * @return
      * @throws GradeException
@@ -60,5 +93,9 @@ public class Gene {
 
     public List<GeneRegion> getGeneRegionList() {
         return geneRegionList;
+    }
+
+    public List<CodingRegion> getCodingRegionList() {
+        return codingRegionList;
     }
 }

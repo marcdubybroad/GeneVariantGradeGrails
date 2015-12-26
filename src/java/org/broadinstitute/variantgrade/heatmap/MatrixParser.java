@@ -2,6 +2,7 @@ package org.broadinstitute.variantgrade.heatmap;
 
 import org.broadinstitute.variantgrade.bean.CodingRegion;
 import org.broadinstitute.variantgrade.bean.CodingSegment;
+import org.broadinstitute.variantgrade.bean.Gene;
 import org.broadinstitute.variantgrade.bean.PositionHeat;
 import org.broadinstitute.variantgrade.util.GradeException;
 
@@ -26,7 +27,7 @@ public class MatrixParser {
     private List<String> referenceLetterList = new ArrayList<String>();
     private boolean isInitialized;
     private Map<String, String> codonToAminoAcidMap = null;
-    private List<CodingRegion> codingRegionList = null;
+    private Gene gene = null;
 
     // constants to build maps
     private final String[] codonArray = new String[]{"t", "c", "a", "g"};
@@ -232,9 +233,12 @@ public class MatrixParser {
         return finalArray;
     }
 
-    public List<CodingRegion> getCodingRegionList() {
+    public Gene getGene() {
         // initialize list if null
-        if (this.codingRegionList == null) {
+        if (this.gene == null) {
+            // build the gene
+            this.gene = new Gene("PPARG");
+
             // build first coding region by hand
             CodingRegion region = new CodingRegion("Coding region 1");
             region.addCodingSegment(new CodingSegment(68744, 68825));
@@ -244,7 +248,7 @@ public class MatrixParser {
             region.addCodingSegment(new CodingSegment(123033, 123232));
             region.addCodingSegment(new CodingSegment(133855, 134305));
             region.addCodingSegment(new CodingSegment(151049, 151296));
-            this.codingRegionList.add(region);
+            this.gene.addCodingRegion(region);
 
             // build second coding region by hand
             region = new CodingRegion("Coding region 2");
@@ -254,11 +258,11 @@ public class MatrixParser {
             region.addCodingSegment(new CodingSegment(123033, 123232));
             region.addCodingSegment(new CodingSegment(133855, 134305));
             region.addCodingSegment(new CodingSegment(151049, 151296));
-            this.codingRegionList.add(region);
+            this.gene.addCodingRegion(region);
         }
 
         // return
-        return this.codingRegionList;
+        return this.gene;
     }
 
     public Map<Integer, PositionHeat> getHeatMap() {
