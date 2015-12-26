@@ -39,7 +39,7 @@ public class GeneRegion {
 
     /**
      * returns the reference allele at the given position
-     * 
+     *
      * @param position
      * @return
      * @throws GradeException

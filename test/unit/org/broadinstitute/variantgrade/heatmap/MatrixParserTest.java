@@ -1,6 +1,7 @@
 package org.broadinstitute.variantgrade.heatmap;
 
 import junit.framework.TestCase;
+import org.broadinstitute.variantgrade.bean.PositionHeat;
 import org.broadinstitute.variantgrade.util.GradeException;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,6 +35,26 @@ public class MatrixParserTest extends TestCase {
             assertNotNull(this.matrixParser);
             assertNotNull(this.matrixParser.getHeatMap());
             assertTrue(this.matrixParser.getHeatMap().size() > 0);
+    }
+
+    @Test
+    public void testGetProteinReferenceAllele() {
+        // local variables
+        int position = 119;
+        String referenceLetter = "K";
+        PositionHeat resultHeat = null;
+
+        // get heat amount and test
+        try {
+            resultHeat = this.matrixParser.getPositionHeatAtPosition(position);
+
+        } catch (GradeException exception) {
+            fail("got heat exception: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(resultHeat);
+        assertEquals(referenceLetter, resultHeat.getReferenceLetter());
     }
 
     @Test

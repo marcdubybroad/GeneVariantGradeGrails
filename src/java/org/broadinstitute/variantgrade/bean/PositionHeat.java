@@ -52,4 +52,8 @@ public class PositionHeat {
     public Double getHeatNumber(String referenceLetter) throws GradeException {
         return this.heatMap.get(referenceLetter);
     }
+
+    public String getReferenceLetter() {
+        return referenceLetter;
+    }
 }

@@ -3,6 +3,7 @@ package org.broadinstitute.variantgrade.heatmap;
 import org.broadinstitute.variantgrade.bean.CodingRegion;
 import org.broadinstitute.variantgrade.bean.CodingSegment;
 import org.broadinstitute.variantgrade.bean.Gene;
+import org.broadinstitute.variantgrade.bean.GeneRegion;
 import org.broadinstitute.variantgrade.bean.PositionHeat;
 import org.broadinstitute.variantgrade.util.GradeException;
 
@@ -24,6 +25,7 @@ public class MatrixParser {
     // instance variables
     private Map<Integer, PositionHeat> heatMap = new HashMap<Integer, PositionHeat>();
     private InputStream heatMapStream;
+    private InputStream geneRegionStream;
     private List<String> referenceLetterList = new ArrayList<String>();
     private boolean isInitialized;
     private Map<String, String> codonToAminoAcidMap = null;
@@ -51,6 +53,10 @@ public class MatrixParser {
 
     public void setHeatMapStream(InputStream heatMapStream) {
         this.heatMapStream = heatMapStream;
+    }
+
+    public void setGeneRegionStream(InputStream geneRegionStream) {
+        this.geneRegionStream = geneRegionStream;
     }
 
     /**
@@ -98,7 +104,7 @@ public class MatrixParser {
                     }
 
                     // index 2 is reference letter
-                    referenceLetter = tempLine[2];
+                    referenceLetter = tempLine[2].substring(1, 2);
 
                     // check data issues
                     if (position == null) {
@@ -158,12 +164,7 @@ public class MatrixParser {
         Double heatNumber = null;
 
         // get the position heat
-        positionHeat = this.heatMap.get(new Integer(position));
-
-        // make sure exists
-        if (positionHeat == null) {
-            throw new GradeException("Got null position heat for position: " + position, GradeException.MESSAGE_NOT_PROTEIN_POSITION);
-        }
+        positionHeat = this.getPositionHeatAtPosition(position);
 
         // get the heat number
         heatNumber = positionHeat.getHeatNumber(letter);
@@ -175,6 +176,29 @@ public class MatrixParser {
 
         // return
         return heatNumber;
+    }
+
+    /**
+     * get the postion heat at the position
+     *
+     * @param position
+     * @return
+     * @throws GradeException
+     */
+    public PositionHeat getPositionHeatAtPosition(int position) throws GradeException {
+        // local variables
+        PositionHeat positionHeat;
+
+        // get the position heat
+        positionHeat = this.heatMap.get(new Integer(position));
+
+        // make sure exists
+        if (positionHeat == null) {
+            throw new GradeException("Got null position heat for position: " + position, GradeException.MESSAGE_NOT_PROTEIN_POSITION);
+        }
+
+        // return
+        return positionHeat;
     }
 
     /**
@@ -233,11 +257,16 @@ public class MatrixParser {
         return finalArray;
     }
 
-    public Gene getGene() {
+    public Gene getGene() throws GradeException {
         // initialize list if null
         if (this.gene == null) {
             // build the gene
             this.gene = new Gene("PPARG");
+
+            // if gene region stream is null, throw exception
+            if (this.geneRegionStream == null) {
+                throw new GradeException("the geen region for the gene: " + this.gene.getName() + " has not been set");
+            }
 
             // build first coding region by hand
             CodingRegion region = new CodingRegion("Coding region 1");
@@ -263,6 +292,32 @@ public class MatrixParser {
 
         // return
         return this.gene;
+    }
+
+    protected List<GeneRegion> parseGeneRegions(InputStream regionStream) throws GradeException {
+        // instance variables
+        List<GeneRegion> regionList = new ArrayList<GeneRegion>();
+        BufferedReader reader = null;
+        String line = null;
+
+        // read the input stream
+        // read file and parse
+        try {
+            reader = new BufferedReader(new InputStreamReader(this.geneRegionStream));
+
+            while ((line = reader.readLine()) != null) {
+
+            }
+
+        } catch (IOException exception) {
+            throw new GradeException("got exception reading gene regions for gene: " + this.gene.getName() + ": " + exception.getMessage());
+        }
+
+        // parse the gene regions
+
+        // return
+        return regionList;
+
     }
 
     public Map<Integer, PositionHeat> getHeatMap() {

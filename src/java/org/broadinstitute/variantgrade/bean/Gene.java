@@ -41,6 +41,15 @@ public class Gene {
     }
 
     /**
+     * add all gene regions
+     *
+     * @param regionList
+     */
+    public void addAllGeneRegions(List<GeneRegion> regionList) {
+        this.geneRegionList.addAll(regionList);
+    }
+
+    /**
      * checks to see if a position is in one of the gene's coding regions
      *
      * @param position
