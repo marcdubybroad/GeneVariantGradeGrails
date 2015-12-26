@@ -22,6 +22,11 @@ public class MatrixParser {
     private InputStream heatMapStream;
     private List<String> referenceLetterList = new ArrayList<String>();
     private boolean isInitialized;
+    private Map<String, String> codonToAminoAcidMap = null;
+
+    // constants to build maps
+    private final String[] codonArray = new String[]{"t", "c", "a", "g"};
+    private final String proteinString = "FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG";
 
     // singleton variable
     private static MatrixParser matrixParser;
@@ -167,6 +172,34 @@ public class MatrixParser {
         return heatNumber;
     }
 
+    /**
+     * get the codon to amino acid coding map
+     *
+     * @return
+     * @throws GradeException
+     */
+    public Map<String, String> getCodonToAminoAcidMap() throws GradeException {
+        // if map not built yet, build it
+        if (this.codonToAminoAcidMap == null) {
+            // create map
+            this.codonToAminoAcidMap = new HashMap<String, String>();
+            int count = 0;
+
+            // populate the map
+            for (int i = 0; i < this.codonArray.length; i++) {
+                for (int j = 0; j < this.codonArray.length; j++) {
+                    for (int k = 0; k < this.codonArray.length; k++) {
+                        this.codonToAminoAcidMap.put((this.codonArray[i] + this.codonArray[j] + this.codonArray[k]), this.proteinString.substring(count, count + 1));
+                        count++;
+                    }
+                }
+            }
+        }
+
+        // return the map
+        return this.codonToAminoAcidMap;
+    }
+
     public Map<Integer, PositionHeat> getHeatMap() {
         return heatMap;
     }
@@ -177,5 +210,9 @@ public class MatrixParser {
 
     public boolean isInitialized() {
         return isInitialized;
+    }
+
+    public String getProteinString() {
+        return proteinString;
     }
 }

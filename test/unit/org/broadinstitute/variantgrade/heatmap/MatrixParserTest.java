@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by mduby on 12/22/15.
@@ -64,5 +65,37 @@ public class MatrixParserTest extends TestCase {
         assertNotNull(referenceLetterList);
         assertTrue(referenceLetterList.size() > 0);
         assertEquals(20, referenceLetterList.size());
+    }
+
+    @Test
+    public void testGetProteinString() {
+        // local variables
+        String proteinString;
+
+        // get the string
+        proteinString = this.matrixParser.getProteinString();
+
+        // test
+        assertNotNull(proteinString);
+        assertEquals(64, proteinString.length());
+    }
+
+    @Test
+    public void testGetCodonToAminoAcidMap() {
+        // local variables
+        Map<String, String> codonMap = null;
+
+        // get the map
+        try {
+            codonMap = this.matrixParser.getCodonToAminoAcidMap();
+
+        } catch (GradeException exception) {
+            fail("got error building codon translation map: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(codonMap);
+        assertEquals(64, codonMap.size());
+        assertEquals("Q", codonMap.get("caa"));
     }
 }
