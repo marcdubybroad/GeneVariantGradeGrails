@@ -82,7 +82,7 @@ public class MatrixParserTest extends TestCase {
     @Test
     public void testGetReferenceLetterList() {
         // local variables
-        List<String> referenceLetterList = this.matrixParser.getReferenceLetterList();
+        List<String> referenceLetterList = this.matrixParser.getProteinReferenceLetterList();
 
         // test
         assertNotNull(referenceLetterList);

@@ -113,8 +113,10 @@
     </g:form>
 
 <div class="formWrapper bold">
-    <g:if test="${resultAmount != null}">
-        For ${submittedInput} the disease effect is: ${resultAmount}
+    <g:if test="${proteinResult != null}">
+        The reference allele for position ${proteinResult.getPosition()} is ${proteinResult.getReferenceAllele()}
+        <p/>
+        For ${proteinResult.getPosition()}:${proteinResult.getInputAllele()} the disease effect is: ${proteinResult.getHeatAmount()}
     </g:if>
 
     <g:if test="${errorMessage}">

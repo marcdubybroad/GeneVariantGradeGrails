@@ -350,11 +350,34 @@ public class MatrixParser {
 
     }
 
+    /**
+     * get the protein reference letter at a given position
+     *
+     * @param position
+     * @return
+     * @throws GradeException
+     */
+    public String getProteinReferenceLetterAtPosition(int position) throws GradeException {
+        // local variables
+        PositionHeat positionHeat = null;
+
+        // get the position heat
+        positionHeat = this.getPositionHeatAtPosition(position);
+
+        // if null throw error
+        if (positionHeat == null) {
+            throw new GradeException("got incorrect position: " + position);
+        }
+
+        // get the reference letter
+        return positionHeat.getReferenceLetter();
+    }
+
     public Map<Integer, PositionHeat> getHeatMap() {
         return heatMap;
     }
 
-    public List<String> getReferenceLetterList() {
+    public List<String> getProteinReferenceLetterList() {
         return referenceLetterList;
     }
 
