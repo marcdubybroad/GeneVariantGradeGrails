@@ -12,6 +12,19 @@ public class GeneRegion {
     private int regionEnd;
 
     /**
+     * default constructor
+     *
+     * @param start
+     * @param end
+     * @param sequence
+     */
+    public GeneRegion(int start, int end, String sequence) {
+        this.regionStart = start;
+        this.regionEnd = end;
+        this.regionSequence = sequence;
+    }
+
+    /**
      * return the relative position within this gene region
      *
      * @param position
@@ -116,5 +129,17 @@ public class GeneRegion {
 
         // return
         return isInRegion;
+    }
+
+    public String getRegionSequence() {
+        return regionSequence;
+    }
+
+    public int getRegionStart() {
+        return regionStart;
+    }
+
+    public int getRegionEnd() {
+        return regionEnd;
     }
 }

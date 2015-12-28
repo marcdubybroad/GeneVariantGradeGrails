@@ -236,7 +236,7 @@ public class MatrixParser {
      * @return
      * @throws GradeException
      */
-    protected String[] getStringArraysFromString(String inputString) throws GradeException {
+    protected String[] getGeneRegionStringArrasFromString(String inputString) throws GradeException {
         // local variables
         String[] splitString;
         String pattern = "\\s+";
@@ -299,21 +299,36 @@ public class MatrixParser {
         List<GeneRegion> regionList = new ArrayList<GeneRegion>();
         BufferedReader reader = null;
         String line = null;
+        GeneRegion region = null;
+        StringBuffer buffer = null;
+        String[] regionStringArray = null;
+        int position = 0;
 
         // read the input stream
         // read file and parse
         try {
-            reader = new BufferedReader(new InputStreamReader(this.geneRegionStream));
+            reader = new BufferedReader(new InputStreamReader(regionStream));
 
             while ((line = reader.readLine()) != null) {
+                // for each line, get string array
+                regionStringArray = this.getGeneRegionStringArrasFromString(line);
 
+                // add all the arrays together
+                buffer = new StringBuffer();
+                for (int i = 0; i < regionStringArray.length; i++) {
+                    buffer.append(regionStringArray[i]);
+                }
+
+                // for each line, parse the regions
+                region = new GeneRegion(position + 1, position + 60, buffer.toString());
+
+                // add to list
+                regionList.add(region);
             }
 
         } catch (IOException exception) {
             throw new GradeException("got exception reading gene regions for gene: " + this.gene.getName() + ": " + exception.getMessage());
         }
-
-        // parse the gene regions
 
         // return
         return regionList;
