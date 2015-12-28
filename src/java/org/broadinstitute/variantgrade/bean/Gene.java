@@ -87,7 +87,7 @@ public class Gene {
         GeneRegion region;
 
         // find the array index for the region needed
-        arrayIndex = position / this.geneRegionLength;
+        arrayIndex = (position - 1)/ this.geneRegionLength;
         region = this.geneRegionList.get(arrayIndex);
 
         // get the codon

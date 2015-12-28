@@ -84,6 +84,8 @@ public class GeneRegion {
         String codon = null;
         int relativePosition = -1;
         int moduloPosition;
+        int codonStartPosition = -1;
+        int codonEndPostion = -1;
 
         // for the position, make sure it is contained in this segment
         if (!isPositionInThisRegion(position)) {
@@ -95,17 +97,28 @@ public class GeneRegion {
 
         // get the codon
         moduloPosition = relativePosition % 3;
-        if (moduloPosition == 0) {
+        if (moduloPosition == 1) {
             // position is at start of codon
-            codon = this.regionSequence.substring(relativePosition, relativePosition + 4);
+            codonStartPosition = relativePosition;
+            codonEndPostion = relativePosition + 2;
 
-        } else if (moduloPosition == 1) {
+        } else if (moduloPosition == 2) {
             // position is in middle of codon
-            codon = this.regionSequence.substring(relativePosition - 1, relativePosition + 3);
+            codonStartPosition = relativePosition - 1;
+            codonEndPostion = relativePosition + 1;
 
         } else {
             // position is at end of codon
-            codon = this.regionSequence.substring(relativePosition - 2, relativePosition + 2);
+            codonStartPosition = relativePosition - 2;
+            codonEndPostion = relativePosition;
+        }
+
+        // get the codon
+        // remember that relative positions are 1 based array, but strings are 0 besed arrays
+        if (codonEndPostion == this.regionSequence.length()) {
+            codon = this.regionSequence.substring(codonStartPosition - 1);
+        } else {
+            codon = this.regionSequence.substring(codonStartPosition - 1, codonEndPostion);
         }
 
         // return
