@@ -13,6 +13,7 @@ public class Gene {
     private String name;
     private List<GeneRegion> geneRegionList = new ArrayList<GeneRegion>();
     private List<CodingRegion> codingRegionList = new ArrayList<CodingRegion>();
+    private int geneRegionLength;
 
     /**
      * default constructor
@@ -86,7 +87,7 @@ public class Gene {
         GeneRegion region;
 
         // find the array index for the region needed
-        arrayIndex = position / 60;
+        arrayIndex = position / this.geneRegionLength;
         region = this.geneRegionList.get(arrayIndex);
 
         // get the codon
@@ -106,5 +107,13 @@ public class Gene {
 
     public List<CodingRegion> getCodingRegionList() {
         return codingRegionList;
+    }
+
+    public int getGeneRegionLength() {
+        return geneRegionLength;
+    }
+
+    public void setGeneRegionLength(int geneRegionLength) {
+        this.geneRegionLength = geneRegionLength;
     }
 }

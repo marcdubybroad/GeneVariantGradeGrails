@@ -173,6 +173,7 @@ public class MatrixParserTest extends TestCase {
         // local variables
         List<GeneRegion> regionList = null;
         InputStream geneStream = null;
+        int geneRegionLength = 60;
 
         // get the input stream
         try {
@@ -180,7 +181,7 @@ public class MatrixParserTest extends TestCase {
             geneStream = this.getClass().getResourceAsStream("./geneRegion.txt");
 
             // parse the stream regions
-            regionList = this.matrixParser.parseGeneRegions(geneStream);
+            regionList = this.matrixParser.parseGeneRegions(geneStream, geneRegionLength);
 
         } catch (GradeException exception) {
             fail("got error initializing parser: " + exception.getMessage());

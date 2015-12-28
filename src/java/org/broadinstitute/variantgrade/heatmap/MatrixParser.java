@@ -271,6 +271,7 @@ public class MatrixParser {
         if (this.gene == null) {
             // build the gene
             this.gene = new Gene("PPARG");
+            this.gene.setGeneRegionLength(60);
 
             // if gene region stream is null, throw exception
             if (this.geneRegionStream == null) {
@@ -278,7 +279,7 @@ public class MatrixParser {
             }
 
             // get the region list
-            regionList = this.parseGeneRegions(this.geneRegionStream);
+            regionList = this.parseGeneRegions(this.geneRegionStream, this.gene.getGeneRegionLength());
 
             // add to the gene
             gene.addAllGeneRegions(regionList);
@@ -309,7 +310,7 @@ public class MatrixParser {
         return this.gene;
     }
 
-    protected List<GeneRegion> parseGeneRegions(InputStream regionStream) throws GradeException {
+    protected List<GeneRegion> parseGeneRegions(InputStream regionStream, int geneRegionLength) throws GradeException {
         // instance variables
         List<GeneRegion> regionList = new ArrayList<GeneRegion>();
         BufferedReader reader = null;
@@ -335,7 +336,7 @@ public class MatrixParser {
                 }
 
                 // for each line, parse the regions
-                region = new GeneRegion(position + 1, position + 60, buffer.toString());
+                region = new GeneRegion(position + 1, position + geneRegionLength, buffer.toString());
 
                 // add to list
                 regionList.add(region);

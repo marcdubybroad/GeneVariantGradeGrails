@@ -2,6 +2,7 @@ package org.broadinstitute.org.variantgrade
 
 import grails.test.spock.IntegrationSpec
 import org.broadinstitute.variantgrade.HeatMapService
+import org.broadinstitute.variantgrade.result.ProteinResult
 import org.junit.After
 import org.junit.Before
 
@@ -25,11 +26,12 @@ class HeatMapServiceIntegrationSpec extends IntegrationSpec {
         when:
         int position = 245;
         String referenceAllele = "G";
+        ProteinResult result = null;
         Double resultDouble = null;
-        resultDouble = this.heatMapService.getHeatMapReadingFromProtein(position, referenceAllele);
+        result = this.heatMapService.getHeatMapReadingFromProtein(position, referenceAllele);
 
         then:
-        assert resultDouble != null;
-        assert resultDouble == (new Double(0.130984994891909))
+        assert result.getHeatAmount() != null;
+        assert result.getHeatAmount() == (new Double(0.130984994891909))
     }
 }
