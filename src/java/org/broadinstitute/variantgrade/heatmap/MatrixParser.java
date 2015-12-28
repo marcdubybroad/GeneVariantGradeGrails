@@ -258,6 +258,9 @@ public class MatrixParser {
     }
 
     public Gene getGene() throws GradeException {
+        // local variables
+        List<GeneRegion> regionList = null;
+
         // initialize list if null
         if (this.gene == null) {
             // build the gene
@@ -265,8 +268,14 @@ public class MatrixParser {
 
             // if gene region stream is null, throw exception
             if (this.geneRegionStream == null) {
-                throw new GradeException("the geen region for the gene: " + this.gene.getName() + " has not been set");
+                throw new GradeException("the gene region for the gene: " + this.gene.getName() + " has not been set");
             }
+
+            // get the region list
+            regionList = this.parseGeneRegions(this.geneRegionStream);
+
+            // add to the gene
+            gene.addAllGeneRegions(regionList);
 
             // build first coding region by hand
             CodingRegion region = new CodingRegion("Coding region 1");

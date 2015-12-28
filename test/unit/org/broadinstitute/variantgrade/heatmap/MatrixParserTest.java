@@ -1,6 +1,7 @@
 package org.broadinstitute.variantgrade.heatmap;
 
 import junit.framework.TestCase;
+import org.broadinstitute.variantgrade.bean.Gene;
 import org.broadinstitute.variantgrade.bean.GeneRegion;
 import org.broadinstitute.variantgrade.bean.PositionHeat;
 import org.broadinstitute.variantgrade.util.GradeException;
@@ -186,6 +187,47 @@ public class MatrixParserTest extends TestCase {
         }
 
         // test length and content
+        assertNotNull(regionList);
+        assertTrue(regionList.size() > 0);
+        assertEquals(2559, regionList.size());
+        for (int i = 0; i < regionList.size(); i++) {
+            GeneRegion region = regionList.get(i);
+            assertNotNull(region);
+            assertNotNull(region.getRegionSequence());
+            assertTrue(region.getRegionSequence().length() > 0);
+            if (i == regionList.size() - 1) {
+                assertEquals(27, region.getRegionSequence().length());
+            } else {
+                assertEquals(60, region.getRegionSequence().length());
+            }
+            assertTrue(region.getRegionStart() > 0);
+            assertTrue(region.getRegionEnd() > 0);
+        }
+    }
+
+    @Test
+    public void testGetGene() {
+        // local variables
+        List<GeneRegion> regionList = null;
+        InputStream geneStream = null;
+        Gene gene = null;
+
+        // get the input stream
+        try {
+            // get the stream
+            geneStream = this.getClass().getResourceAsStream("./geneRegion.txt");
+            this.matrixParser.setGeneRegionStream(geneStream);
+
+            // get the gene
+            gene = this.matrixParser.getGene();
+
+        } catch (GradeException exception) {
+            fail("got error initializing parser: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(gene);
+        regionList = gene.getGeneRegionList();
         assertNotNull(regionList);
         assertTrue(regionList.size() > 0);
         assertEquals(2559, regionList.size());
