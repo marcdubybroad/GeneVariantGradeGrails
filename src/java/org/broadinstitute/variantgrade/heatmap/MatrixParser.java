@@ -257,6 +257,12 @@ public class MatrixParser {
         return finalArray;
     }
 
+    /**
+     * parse the gene
+     *
+     * @return
+     * @throws GradeException
+     */
     public Gene getGene() throws GradeException {
         // local variables
         List<GeneRegion> regionList = null;

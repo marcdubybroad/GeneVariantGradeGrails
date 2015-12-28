@@ -11,3 +11,12 @@
 *= require mobile
 *= require_self
 */
+
+div.apptitle {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
