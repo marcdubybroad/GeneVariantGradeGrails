@@ -118,4 +118,56 @@ public class GeneRegionTest extends TestCase {
 
     }
 
+    @Test
+    public void testGetNewCodonForAlleleAtPosition() {
+        // local variables
+        int position = -1;
+        String expectedCodon = null;
+        String resultCodon = null;
+        String allele = "c";
+
+        // get the codon
+        position = 25;
+        expectedCodon = "caa";
+        try {
+            resultCodon = this.geneRegion.getNewCodonForAlleleAtPosition(position, allele);
+
+        } catch (GradeException exception) {
+            fail("got error retrieving codon at position: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(resultCodon);
+        assertEquals(expectedCodon, resultCodon);
+
+        // get the codon
+        position = 35;
+        expectedCodon = "gcg";
+        try {
+            resultCodon = this.geneRegion.getNewCodonForAlleleAtPosition(position, allele);
+
+        } catch (GradeException exception) {
+            fail("got error retrieving codon at position: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(resultCodon);
+        assertEquals(expectedCodon, resultCodon);
+
+        // get the codon
+        position = 36;
+        expectedCodon = "ggc";
+        try {
+            resultCodon = this.geneRegion.getNewCodonForAlleleAtPosition(position, allele);
+
+        } catch (GradeException exception) {
+            fail("got error retrieving codon at position: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(resultCodon);
+        assertEquals(expectedCodon, resultCodon);
+
+    }
+
 }

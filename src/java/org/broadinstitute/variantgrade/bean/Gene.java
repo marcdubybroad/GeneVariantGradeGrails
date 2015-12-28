@@ -97,6 +97,30 @@ public class Gene {
         return codon;
     }
 
+    /**
+     * return the codon at the given position
+     *
+     * @param position
+     * @return
+     * @throws GradeException
+     */
+    public String getNewCodonForAlleleAtPosition(int position, String allele) throws GradeException {
+        // local variables
+        String codon;
+        int arrayIndex = -1;
+        GeneRegion region;
+
+        // find the array index for the region needed
+        arrayIndex = (position - 1)/ this.geneRegionLength;
+        region = this.geneRegionList.get(arrayIndex);
+
+        // get the codon
+        codon = region.getNewCodonForAlleleAtPosition(position, allele);
+
+        // return
+        return codon;
+    }
+
     public String getName() {
         return name;
     }

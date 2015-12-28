@@ -104,4 +104,54 @@ public class GeneTest extends TestCase {
         assertEquals(codonEnd, codon);
 
     }
+
+    @Test
+    public void testGetNewCodonForAlleleAtPosition() {
+        // local variables
+        String codon = null;
+        String codonStart = "cbb";
+        int positionStart = 4;
+        String codonMiddle = "gcg";
+        int positionMiddle = 20;
+        String codonEnd = "hhc";
+        int positionEnd = 24;
+        String allele = "c";
+
+        try {
+            // get the codon
+            codon = this.gene.getNewCodonForAlleleAtPosition(positionStart, allele);
+
+        } catch (GradeException exception) {
+            fail("got codon retrieval exception: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(codon);
+        assertEquals(codonStart, codon);
+
+        try {
+            // get the codon
+            codon = this.gene.getNewCodonForAlleleAtPosition(positionMiddle, allele);
+
+        } catch (GradeException exception) {
+            fail("got codon retrieval exception: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(codon);
+        assertEquals(codonMiddle, codon);
+
+        try {
+            // get the codon
+            codon = this.gene.getNewCodonForAlleleAtPosition(positionEnd, allele);
+
+        } catch (GradeException exception) {
+            fail("got codon retrieval exception: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(codon);
+        assertEquals(codonEnd, codon);
+
+    }
 }

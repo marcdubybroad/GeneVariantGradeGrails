@@ -126,6 +126,39 @@ public class GeneRegion {
     }
 
     /**
+     * returns the new codon for an allele at a position
+     *
+     * @param position
+     * @param allele
+     * @return
+     * @throws GradeException
+     */
+    public String getNewCodonForAlleleAtPosition(int position, String allele) throws GradeException {
+        // local variables
+        String codon = null;
+        int modulo = -1;
+        String newCodon = null;
+
+        // get the codon at the position
+        codon = this.getCodonAtPosition(position);
+
+        // based on the modulo, replace the appropriate letter
+        modulo = position % 3;
+        if (modulo == 1) {
+            newCodon = allele + codon.substring(1);
+
+        } else if (modulo == 2) {
+            newCodon = codon.substring(0, 1) + allele + codon.substring(2);
+
+        } else {
+            newCodon = codon.substring(0, 2) + allele;
+        }
+
+        // return
+        return newCodon;
+    }
+
+    /**
      * returns if the given position is in the gene region
      *
      * @param position
