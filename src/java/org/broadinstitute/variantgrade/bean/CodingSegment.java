@@ -20,4 +20,26 @@ public class CodingSegment {
     public int getEndPosition() {
         return endPosition;
     }
+
+    /**
+     * returns whether the given position is in the segment
+     *
+     * @param position
+     * @return
+     */
+    public boolean isPositionInSegment(int position) {
+        // local variables
+        boolean isInSegment = true;
+
+        // check
+        if (position < this.startPosition) {
+            isInSegment = false;
+
+        } else if (position > this.endPosition) {
+            isInSegment = false;
+        }
+
+        // return
+        return isInSegment;
+    }
 }

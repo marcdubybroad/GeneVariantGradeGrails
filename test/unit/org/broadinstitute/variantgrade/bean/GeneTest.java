@@ -21,9 +21,59 @@ public class GeneTest extends TestCase {
         this.gene.addGeneRegion(new GeneRegion(13, 24, "eeefffggghhh"));
         this.gene.addGeneRegion(new GeneRegion(25, 27, "iii"));
         CodingRegion codingRegion = new CodingRegion("region 1");
-        codingRegion.addCodingSegment(new CodingSegment(4, 9));
+        codingRegion.addCodingSegment(new CodingSegment(4, 9));             // coding region sequence is bbbccceee
         codingRegion.addCodingSegment(new CodingSegment(13, 15));
         this.gene.addCodingRegion(codingRegion);
+    }
+
+    @Test
+    public void testgetProteinPositionForCodingRegionAllele() {
+        // local variables
+        int proteinPosition = -1;
+        int allelePosition = -1;
+
+        // first part of codon
+        allelePosition = 4;
+        try {
+            // get the protein position
+            proteinPosition = this.gene.getProteinPositionForCodingRegionAllele(allelePosition);
+
+        } catch (GradeException exception) {
+            fail("got error getting protein position for allele position: " + allelePosition + ": " + exception.getMessage());
+        }
+
+        // test
+        assertTrue(proteinPosition > 0);
+        assertEquals(1, proteinPosition);
+
+        // last part of codon
+        allelePosition = 9;
+        try {
+            // get the protein position
+            proteinPosition = this.gene.getProteinPositionForCodingRegionAllele(allelePosition);
+
+        } catch (GradeException exception) {
+            fail("got error getting protein position for allele position: " + allelePosition + ": " + exception.getMessage());
+        }
+
+        // test
+        assertTrue(proteinPosition > 0);
+        assertEquals(2, proteinPosition);
+
+        // first part of second region codon
+        allelePosition = 14;
+        try {
+            // get the protein position
+            proteinPosition = this.gene.getProteinPositionForCodingRegionAllele(allelePosition);
+
+        } catch (GradeException exception) {
+            fail("got error getting protein position for allele position: " + allelePosition + ": " + exception.getMessage());
+        }
+
+
+        // test
+        assertTrue(proteinPosition > 0);
+        assertEquals(3, proteinPosition);
     }
 
     @Test

@@ -340,6 +340,9 @@ public class MatrixParser {
 
                 // add to list
                 regionList.add(region);
+
+                // increment position
+                position = position + geneRegionLength;
             }
 
         } catch (IOException exception) {

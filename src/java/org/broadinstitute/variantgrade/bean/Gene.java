@@ -121,6 +121,36 @@ public class Gene {
         return codon;
     }
 
+    /**
+     * returns the converted protein position for the coding region allele
+     *
+     * @param position
+     * @return
+     * @throws GradeException
+     */
+    public int getProteinPositionForCodingRegionAllele(int position) throws GradeException {
+        // local variables
+        int proteinPosition = -1;
+
+        // loop through coding regions and get the converted protein position
+        for (int i = 0; i < this.getCodingRegionList().size(); i++) {
+            CodingRegion region = this.getCodingRegionList().get(i);
+
+            if (region.isPositionInCodingRegion(position)) {
+                proteinPosition = region.getProteinPositionForCodingRegionAllele(position);
+                break;
+            }
+        }
+
+        // if not found, error
+        if (proteinPosition < 0) {
+            throw new GradeException("could not find protein position for any of the coding regions for postion: " + position);
+        }
+
+        // return
+        return proteinPosition;
+    }
+
     public String getName() {
         return name;
     }

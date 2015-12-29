@@ -1,5 +1,7 @@
 package org.broadinstitute.variantgrade.bean;
 
+import org.broadinstitute.variantgrade.util.GradeException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,46 @@ public class CodingRegion {
 
         // return
         return isInRegion;
+    }
+
+    /**
+     * get the protein position from the gene coding position
+     *
+     * @param position
+     * @return
+     * @throws GradeException
+     */
+    public int getProteinPositionForCodingRegionAllele(int position) throws GradeException {
+        // local variables
+        int proteinCodingPosition = -1;
+        int tempAllelePosition = 0;
+
+        // make sure in this coding region
+        if (!this.isPositionInCodingRegion(position)) {
+            throw new GradeException("the position: " + position + " is not in this coding region");
+        }
+
+        // go through all coding regions as necessary until get protein position
+        for (int i = 0; i < this.getSegmentList().size(); i++) {
+            // get the segment
+            CodingSegment segment = this.getSegmentList().get(i);
+
+            // if the position is in the segment, then calculate where
+            if (segment.isPositionInSegment(position)) {
+                // calculate the protein position from there
+                tempAllelePosition = tempAllelePosition + 1 + (position - segment.getStartPosition());
+                break;
+
+            } else {
+                tempAllelePosition = tempAllelePosition + 1 + (segment.getEndPosition() - segment.getStartPosition());
+            }
+        }
+
+        // now convert to protein position
+        proteinCodingPosition = (((tempAllelePosition -1)/ 3) + 1);
+
+        // return
+        return proteinCodingPosition;
     }
 
     public List<CodingSegment> getSegmentList() {
