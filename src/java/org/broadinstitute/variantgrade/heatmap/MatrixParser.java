@@ -295,6 +295,7 @@ public class MatrixParser {
             region.addCodingSegment(new CodingSegment(151049, 151296));
             this.gene.addCodingRegion(region);
 
+            /* skip this coding region for now
             // build second coding region by hand
             region = new CodingRegion("Coding region 2");
             region.addCodingSegment(new CodingSegment(96857, 97082));
@@ -304,6 +305,7 @@ public class MatrixParser {
             region.addCodingSegment(new CodingSegment(133855, 134305));
             region.addCodingSegment(new CodingSegment(151049, 151296));
             this.gene.addCodingRegion(region);
+            */
         }
 
         // return

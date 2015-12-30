@@ -57,7 +57,7 @@ public class GeneRegion {
      * @return
      * @throws GradeException
      */
-    public String getReferenceAtPosition(int position) throws GradeException {
+    public String getReferenceAtGenePosition(int position) throws GradeException {
         // local variables
         String reference = null;
         int relativePosition = -1;

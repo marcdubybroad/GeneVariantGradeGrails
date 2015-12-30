@@ -246,4 +246,35 @@ public class MatrixParserTest extends TestCase {
             assertTrue(region.getRegionEnd() > 0);
         }
     }
+
+    @Test
+    public void testCompareMatrixReferenceToCodingStringTranslation() {
+        // local variables
+        String proteinMatrixReference = null;
+        String genotypeProteinReference = null;
+        String codon = null;
+
+        // compare starting from the protein reference string
+        for (int i = 1; i <= this.matrixParser.getProteinReferenceLetterList().size(); i++) {
+            try {
+                // get the codon and translated protein
+                codon = this.matrixParser.getGene().getCodonAtProteinPosition(i);
+                genotypeProteinReference = this.matrixParser.getCodonToAminoAcidMap().get(codon);
+
+                // get the matrix reference
+                proteinMatrixReference = this.matrixParser.getProteinReferenceLetterAtPosition(i);
+
+            } catch (GradeException exception) {
+                fail("got error comparing protein sequence at protein position: " + i + " with codon: " + codon + ": " + exception.getMessage());
+            }
+
+            // test
+            assertNotNull(genotypeProteinReference);
+            assertNotNull(proteinMatrixReference);
+            if (!proteinMatrixReference.equals(genotypeProteinReference)) {
+                fail("at protein position: " + i + " got protein reference: " + genotypeProteinReference + " for expected protein reference: " + proteinMatrixReference + " for codon: " + codon);
+            }
+        }
+    }
+
 }
