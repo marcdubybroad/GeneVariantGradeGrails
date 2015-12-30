@@ -9,6 +9,7 @@ public class ProteinResult {
     private String inputAllele;
     private String referenceAllele;
     private Double heatAmount;
+    private String referenceCodon;
 
     public Integer getPosition() {
         return position;
@@ -40,5 +41,13 @@ public class ProteinResult {
 
     public void setHeatAmount(Double heatAmount) {
         this.heatAmount = heatAmount;
+    }
+
+    public String getReferenceCodon() {
+        return referenceCodon;
+    }
+
+    public void setReferenceCodon(String referenceCodon) {
+        this.referenceCodon = referenceCodon;
     }
 }

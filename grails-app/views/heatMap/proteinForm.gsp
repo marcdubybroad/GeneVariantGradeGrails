@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Welcome to Grails</title>
+    <title>Missense Interpreter</title>
     <style type="text/css" media="screen">
     #status {
         background-color: #eee;
@@ -114,7 +114,9 @@
 
 <div class="formWrapper bold">
     <g:if test="${proteinResult != null}">
-        The reference allele for position ${proteinResult.getPosition()} is ${proteinResult.getReferenceAllele()}
+        The reference gene codon for protein position ${proteinResult.getPosition()} is ${proteinResult.getReferenceCodon()}
+        <p/>
+        The reference protein allele for protein position ${proteinResult.getPosition()} is ${proteinResult.getReferenceAllele()}
         <p/>
         For ${proteinResult.getPosition()}:${proteinResult.getInputAllele()} the disease effect is: ${proteinResult.getHeatAmount()}
     </g:if>
