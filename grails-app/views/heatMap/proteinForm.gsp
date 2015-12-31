@@ -116,9 +116,7 @@
     <g:if test="${proteinResult != null}">
         The reference gene codon for protein position ${proteinResult.getPosition()} is ${proteinResult.getReferenceCodon()}
         <p/>
-        The reference protein allele for protein position ${proteinResult.getPosition()} is ${proteinResult.getReferenceAllele()}
-        <p/>
-        For ${proteinResult.getPosition()}:${proteinResult.getInputAllele()} the disease effect is: ${proteinResult.getHeatAmount()}
+        For ${proteinResult.getScientificAlleleCode()} the disease effect is: ${proteinResult.getHeatAmount()}
     </g:if>
 
     <g:if test="${errorMessage}">

@@ -19,6 +19,7 @@ step 2:
 questions:
 - where to store the appication
   - do we need a domain name
+- what to show when person inputs reference allele p.Leu99Leu
 
 
 

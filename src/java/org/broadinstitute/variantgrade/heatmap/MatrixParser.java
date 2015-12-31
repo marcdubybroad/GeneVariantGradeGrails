@@ -5,6 +5,7 @@ import org.broadinstitute.variantgrade.bean.CodingSegment;
 import org.broadinstitute.variantgrade.bean.Gene;
 import org.broadinstitute.variantgrade.bean.GeneRegion;
 import org.broadinstitute.variantgrade.bean.PositionHeat;
+import org.broadinstitute.variantgrade.bean.ProteinBean;
 import org.broadinstitute.variantgrade.util.GradeException;
 
 import java.io.BufferedReader;
@@ -30,6 +31,9 @@ public class MatrixParser {
     private boolean isInitialized;
     private Map<String, String> codonToAminoAcidMap = null;
     private Gene gene = null;
+    private List<ProteinBean> proteinList = null;
+    private Map<String, ProteinBean> proteinMapKeyedOnOneLetterCode = null;
+    private Map<String, ProteinBean> proteinMapKeyedOnThreeLetterCode = null;
 
     // constants to build maps
     private final String[] codonArray = new String[]{"t", "c", "a", "g"};
@@ -57,6 +61,85 @@ public class MatrixParser {
 
     public void setGeneRegionStream(InputStream geneRegionStream) {
         this.geneRegionStream = geneRegionStream;
+    }
+
+    /**
+     * returns the protein map with one letter code as lookup key
+     *
+     * @return
+     */
+    protected Map<String, ProteinBean> getProteinMapKeyedOnOneLetterCode() {
+        // if map not built, build it
+        if (this.proteinMapKeyedOnOneLetterCode == null) {
+            this.proteinMapKeyedOnOneLetterCode = new HashMap<String, ProteinBean>();
+
+            // loop through protein list and build
+            for (ProteinBean bean: this.getProteinList()) {
+                this.proteinMapKeyedOnOneLetterCode.put(bean.getCodeOneLetter(), bean);
+            }
+        }
+
+        // return
+        return this.proteinMapKeyedOnOneLetterCode;
+    }
+
+    /**
+     * returns the protein map with three letter code as lookup key
+     *
+     * @return
+     */
+    protected Map<String, ProteinBean> getProteinMapKeyedOnThreeLetterCode() {
+        // if map not built, build it
+        if (this.proteinMapKeyedOnThreeLetterCode == null) {
+            this.proteinMapKeyedOnThreeLetterCode = new HashMap<String, ProteinBean>();
+
+            // loop through protein list and build
+            for (ProteinBean bean: this.getProteinList()) {
+                this.proteinMapKeyedOnThreeLetterCode.put(bean.getCodeThreeLetter(), bean);
+            }
+        }
+
+        // return
+        return this.proteinMapKeyedOnThreeLetterCode;
+    }
+
+    /**
+     * returns the protein bean list
+     *
+     * @return
+     */
+    protected List<ProteinBean> getProteinList() {
+        // look to see if list built already
+        if (this.proteinList == null) {
+            this.proteinList = new ArrayList<ProteinBean>();
+
+            // add in the 20 proteins
+            this.proteinList.add(new ProteinBean("A", "Ala", "Alanine"));
+            this.proteinList.add(new ProteinBean("C", "Cys", "Cysteine"));
+            this.proteinList.add(new ProteinBean("D", "Asp", "Aspartic acid"));
+            this.proteinList.add(new ProteinBean("E", "Glu", "Glutamic acid"));
+            this.proteinList.add(new ProteinBean("F", "Phe", "Phenylalanine"));
+            this.proteinList.add(new ProteinBean("G", "Gly", "Glycine"));
+            this.proteinList.add(new ProteinBean("H", "His", "Histidine"));
+            this.proteinList.add(new ProteinBean("K", "Lys", "Lysine"));
+            this.proteinList.add(new ProteinBean("L", "Leu", "Leucine"));
+            this.proteinList.add(new ProteinBean("I", "Ile", "Isoleucine"));
+            this.proteinList.add(new ProteinBean("M", "Met", "Methionine"));
+            this.proteinList.add(new ProteinBean("N", "Asn", "Asparagine"));
+            this.proteinList.add(new ProteinBean("P", "Pro", "Proline"));
+            this.proteinList.add(new ProteinBean("Q", "Gln", "Glutamine"));
+            this.proteinList.add(new ProteinBean("R", "Arg", "Arginine"));
+//            this.proteinList.add(new ProteinBean("R", "Arg", "Arginine"));
+            this.proteinList.add(new ProteinBean("S", "Ser", "Serine"));
+//            this.proteinList.add(new ProteinBean("S", "Ser", "Serine"));
+            this.proteinList.add(new ProteinBean("T", "Thr", "Threonine"));
+            this.proteinList.add(new ProteinBean("V", "Val", "Valine"));
+            this.proteinList.add(new ProteinBean("Y", "Tyr", "Tyrosine"));
+            this.proteinList.add(new ProteinBean("W", "Trp", "Tryptophan"));
+        }
+
+        // return
+        return this.proteinList;
     }
 
     /**
@@ -377,6 +460,52 @@ public class MatrixParser {
 
         // get the reference letter
         return positionHeat.getReferenceLetter();
+    }
+
+    /**
+     * returns the protein one letter code given the three letter code
+     *
+     * @param code
+     * @return
+     * @throws GradeException
+     */
+    public String getOneLetterProteinCodeFromThreeLetterCode(String code) throws GradeException {
+        // local variables
+        ProteinBean protein = null;
+
+        // get the code
+        protein = this.getProteinMapKeyedOnThreeLetterCode().get(code);
+
+        // test if null
+        if (protein == null) {
+            throw new GradeException("Got incorrect three letter protein code for lookup: " + code);
+        }
+
+        // return
+        return protein.getCodeOneLetter();
+    }
+
+    /**
+     * returns the protein three letter code given the one letter code
+     *
+     * @param code
+     * @return
+     * @throws GradeException
+     */
+    public String getThreeLetterProteinCodeFromOneLetterCode(String code) throws GradeException {
+        // local variables
+        ProteinBean protein = null;
+
+        // get the code
+        protein = this.getProteinMapKeyedOnOneLetterCode().get(code);
+
+        // test if null
+        if (protein == null) {
+            throw new GradeException("Got incorrect one letter protein code for lookup: " + code);
+        }
+
+        // return
+        return protein.getCodeThreeLetter();
     }
 
     public Map<Integer, PositionHeat> getHeatMap() {
