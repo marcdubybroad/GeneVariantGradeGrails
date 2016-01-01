@@ -97,32 +97,48 @@
 <div id="status" role="complementary">
 </div>
 <div id="page-body" role="main" class="formWrapper">
-    <g:form name="myForm" action="proteinSearch" id="1">
-        <div class="formWrapper title">
-            Get the disease risk by protein change
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <g:form name="myForm" action="proteinSearch" id="1">
+                    <div class="formWrapper title">
+                        Get the disease risk by protein change
+                    </div>
+                    <div class="formWrapper">
+                        <input id="searchbox" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
+                        <p class="text-muted small-text">
+                            Examples - Protein change: <a href="heatMap/proteinSearch?query=p.Leu345Asn">p.Leu345Asn</a>,
+                        Variant: <a href="heatMap/proteinSearch/query=chr3-68746-T-C">chr3-68746-T-C</a>
+                        </p>
+                    </div>
+                    <div class="formWrapper">
+                        Position: <input type="text" name="position">
+                    </div>
+                    <div class="formWrapper">
+                        Reference letter: <g:select name="referenceLetter" from="${referenceLetterList}"></g:select>
+                    </div>
+                    <div class="formWrapper">
+                        <input type="submit" name="submit">
+                    </div>
+                </g:form>
+            </div>
         </div>
-        <div class="formWrapper">
-            Position: <input type="text" name="position">
-        </div>
-        <div class="formWrapper">
-            Reference letter: <g:select name="referenceLetter" from="${referenceLetterList}"></g:select>
-        </div>
-        <div class="formWrapper">
-            <input type="submit" name="submit">
-        </div>
-    </g:form>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="formWrapper bold">
+                    <g:if test="${proteinResult != null}">
+                        The reference gene codon for protein position ${proteinResult.getPosition()} is ${proteinResult.getReferenceCodon()}
+                        <p/>
+                        For ${proteinResult.getScientificAlleleCode()} the disease effect is: ${proteinResult.getHeatAmount()}
+                    </g:if>
 
-<div class="formWrapper bold">
-    <g:if test="${proteinResult != null}">
-        The reference gene codon for protein position ${proteinResult.getPosition()} is ${proteinResult.getReferenceCodon()}
-        <p/>
-        For ${proteinResult.getScientificAlleleCode()} the disease effect is: ${proteinResult.getHeatAmount()}
-    </g:if>
-
-    <g:if test="${errorMessage}">
-        ${errorMessage}
-    </g:if>
-</div>
+                    <g:if test="${errorMessage}">
+                        ${errorMessage}
+                    </g:if>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

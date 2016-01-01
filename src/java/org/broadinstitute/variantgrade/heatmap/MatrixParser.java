@@ -1,11 +1,11 @@
 package org.broadinstitute.variantgrade.heatmap;
 
+import org.broadinstitute.variantgrade.bean.AminoAcidBean;
 import org.broadinstitute.variantgrade.bean.CodingRegion;
 import org.broadinstitute.variantgrade.bean.CodingSegment;
 import org.broadinstitute.variantgrade.bean.Gene;
 import org.broadinstitute.variantgrade.bean.GeneRegion;
 import org.broadinstitute.variantgrade.bean.PositionHeat;
-import org.broadinstitute.variantgrade.bean.ProteinBean;
 import org.broadinstitute.variantgrade.util.GradeException;
 
 import java.io.BufferedReader;
@@ -31,9 +31,9 @@ public class MatrixParser {
     private boolean isInitialized;
     private Map<String, String> codonToAminoAcidMap = null;
     private Gene gene = null;
-    private List<ProteinBean> proteinList = null;
-    private Map<String, ProteinBean> proteinMapKeyedOnOneLetterCode = null;
-    private Map<String, ProteinBean> proteinMapKeyedOnThreeLetterCode = null;
+    private List<AminoAcidBean> proteinList = null;
+    private Map<String, AminoAcidBean> proteinMapKeyedOnOneLetterCode = null;
+    private Map<String, AminoAcidBean> proteinMapKeyedOnThreeLetterCode = null;
 
     // constants to build maps
     private final String[] codonArray = new String[]{"t", "c", "a", "g"};
@@ -68,13 +68,13 @@ public class MatrixParser {
      *
      * @return
      */
-    protected Map<String, ProteinBean> getProteinMapKeyedOnOneLetterCode() {
+    protected Map<String, AminoAcidBean> getProteinMapKeyedOnOneLetterCode() {
         // if map not built, build it
         if (this.proteinMapKeyedOnOneLetterCode == null) {
-            this.proteinMapKeyedOnOneLetterCode = new HashMap<String, ProteinBean>();
+            this.proteinMapKeyedOnOneLetterCode = new HashMap<String, AminoAcidBean>();
 
             // loop through protein list and build
-            for (ProteinBean bean: this.getProteinList()) {
+            for (AminoAcidBean bean: this.getProteinList()) {
                 this.proteinMapKeyedOnOneLetterCode.put(bean.getCodeOneLetter(), bean);
             }
         }
@@ -88,13 +88,13 @@ public class MatrixParser {
      *
      * @return
      */
-    protected Map<String, ProteinBean> getProteinMapKeyedOnThreeLetterCode() {
+    protected Map<String, AminoAcidBean> getProteinMapKeyedOnThreeLetterCode() {
         // if map not built, build it
         if (this.proteinMapKeyedOnThreeLetterCode == null) {
-            this.proteinMapKeyedOnThreeLetterCode = new HashMap<String, ProteinBean>();
+            this.proteinMapKeyedOnThreeLetterCode = new HashMap<String, AminoAcidBean>();
 
             // loop through protein list and build
-            for (ProteinBean bean: this.getProteinList()) {
+            for (AminoAcidBean bean: this.getProteinList()) {
                 this.proteinMapKeyedOnThreeLetterCode.put(bean.getCodeThreeLetter(), bean);
             }
         }
@@ -108,34 +108,34 @@ public class MatrixParser {
      *
      * @return
      */
-    protected List<ProteinBean> getProteinList() {
+    protected List<AminoAcidBean> getProteinList() {
         // look to see if list built already
         if (this.proteinList == null) {
-            this.proteinList = new ArrayList<ProteinBean>();
+            this.proteinList = new ArrayList<AminoAcidBean>();
 
             // add in the 20 proteins
-            this.proteinList.add(new ProteinBean("A", "Ala", "Alanine"));
-            this.proteinList.add(new ProteinBean("C", "Cys", "Cysteine"));
-            this.proteinList.add(new ProteinBean("D", "Asp", "Aspartic acid"));
-            this.proteinList.add(new ProteinBean("E", "Glu", "Glutamic acid"));
-            this.proteinList.add(new ProteinBean("F", "Phe", "Phenylalanine"));
-            this.proteinList.add(new ProteinBean("G", "Gly", "Glycine"));
-            this.proteinList.add(new ProteinBean("H", "His", "Histidine"));
-            this.proteinList.add(new ProteinBean("K", "Lys", "Lysine"));
-            this.proteinList.add(new ProteinBean("L", "Leu", "Leucine"));
-            this.proteinList.add(new ProteinBean("I", "Ile", "Isoleucine"));
-            this.proteinList.add(new ProteinBean("M", "Met", "Methionine"));
-            this.proteinList.add(new ProteinBean("N", "Asn", "Asparagine"));
-            this.proteinList.add(new ProteinBean("P", "Pro", "Proline"));
-            this.proteinList.add(new ProteinBean("Q", "Gln", "Glutamine"));
-            this.proteinList.add(new ProteinBean("R", "Arg", "Arginine"));
+            this.proteinList.add(new AminoAcidBean("A", "Ala", "Alanine"));
+            this.proteinList.add(new AminoAcidBean("C", "Cys", "Cysteine"));
+            this.proteinList.add(new AminoAcidBean("D", "Asp", "Aspartic acid"));
+            this.proteinList.add(new AminoAcidBean("E", "Glu", "Glutamic acid"));
+            this.proteinList.add(new AminoAcidBean("F", "Phe", "Phenylalanine"));
+            this.proteinList.add(new AminoAcidBean("G", "Gly", "Glycine"));
+            this.proteinList.add(new AminoAcidBean("H", "His", "Histidine"));
+            this.proteinList.add(new AminoAcidBean("K", "Lys", "Lysine"));
+            this.proteinList.add(new AminoAcidBean("L", "Leu", "Leucine"));
+            this.proteinList.add(new AminoAcidBean("I", "Ile", "Isoleucine"));
+            this.proteinList.add(new AminoAcidBean("M", "Met", "Methionine"));
+            this.proteinList.add(new AminoAcidBean("N", "Asn", "Asparagine"));
+            this.proteinList.add(new AminoAcidBean("P", "Pro", "Proline"));
+            this.proteinList.add(new AminoAcidBean("Q", "Gln", "Glutamine"));
+            this.proteinList.add(new AminoAcidBean("R", "Arg", "Arginine"));
 //            this.proteinList.add(new ProteinBean("R", "Arg", "Arginine"));
-            this.proteinList.add(new ProteinBean("S", "Ser", "Serine"));
+            this.proteinList.add(new AminoAcidBean("S", "Ser", "Serine"));
 //            this.proteinList.add(new ProteinBean("S", "Ser", "Serine"));
-            this.proteinList.add(new ProteinBean("T", "Thr", "Threonine"));
-            this.proteinList.add(new ProteinBean("V", "Val", "Valine"));
-            this.proteinList.add(new ProteinBean("Y", "Tyr", "Tyrosine"));
-            this.proteinList.add(new ProteinBean("W", "Trp", "Tryptophan"));
+            this.proteinList.add(new AminoAcidBean("T", "Thr", "Threonine"));
+            this.proteinList.add(new AminoAcidBean("V", "Val", "Valine"));
+            this.proteinList.add(new AminoAcidBean("Y", "Tyr", "Tyrosine"));
+            this.proteinList.add(new AminoAcidBean("W", "Trp", "Tryptophan"));
         }
 
         // return
@@ -471,7 +471,7 @@ public class MatrixParser {
      */
     public String getOneLetterProteinCodeFromThreeLetterCode(String code) throws GradeException {
         // local variables
-        ProteinBean protein = null;
+        AminoAcidBean protein = null;
 
         // get the code
         protein = this.getProteinMapKeyedOnThreeLetterCode().get(code);
@@ -494,7 +494,7 @@ public class MatrixParser {
      */
     public String getThreeLetterProteinCodeFromOneLetterCode(String code) throws GradeException {
         // local variables
-        ProteinBean protein = null;
+        AminoAcidBean protein = null;
 
         // get the code
         protein = this.getProteinMapKeyedOnOneLetterCode().get(code);

@@ -6,10 +6,18 @@ package org.broadinstitute.variantgrade.input;
 public class SearchInputBean {
     // instance variables
     private String inputString;
+
+    // protein variables
     private String proteinInputAllele;
     private String proteinReferenceAllele;
     private int proteinPosition;
     private boolean isProteinInput;
+
+    // genotype variables
+    private String chromosome;
+    private int genePosition;
+    private String geneReferenceAllele;
+    private String geneInputAllele;
 
     public String getInputString() {
         return inputString;
@@ -47,7 +55,43 @@ public class SearchInputBean {
         return isProteinInput;
     }
 
+    public void setIsProteinInput(boolean isProteinInput) {
+        this.isProteinInput = isProteinInput;
+    }
+
     public void setProteinInput(boolean isProteinInput) {
         this.isProteinInput = isProteinInput;
+    }
+
+    public String getChromosome() {
+        return chromosome;
+    }
+
+    public void setChromosome(String chromosome) {
+        this.chromosome = chromosome;
+    }
+
+    public int getGenePosition() {
+        return genePosition;
+    }
+
+    public void setGenePosition(int genePosition) {
+        this.genePosition = genePosition;
+    }
+
+    public String getGeneReferenceAllele() {
+        return geneReferenceAllele;
+    }
+
+    public void setGeneReferenceAllele(String geneReferenceAllele) {
+        this.geneReferenceAllele = geneReferenceAllele;
+    }
+
+    public String getGeneInputAllele() {
+        return geneInputAllele;
+    }
+
+    public void setGeneInputAllele(String geneInputAllele) {
+        this.geneInputAllele = geneInputAllele;
     }
 }

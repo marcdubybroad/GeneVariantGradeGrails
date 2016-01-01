@@ -35,10 +35,59 @@ public class SearchInputTranslator {
 
         } else if (this.inputString.substring(0, 1).equals("p")) {
             // got protein input
-            bean=this.parseProteinInput();
+            bean = this.parseProteinInput();
+
+        } else if (this.inputString.substring(0, 3).equals("chr")) {
+            // got protein input
+            bean = this.parseGenotypeInput();
 
         } else {
-            throw new GradeException("got incorrect input string: " + this.inputString, "incorrect input string: " + this.inputString);
+            throw new GradeException("got incorrect input string: " + this.inputString, "Incorrect input string: " + this.inputString);
+        }
+
+        // return
+        return bean;
+    }
+
+    /**
+     * parse the genotype string
+     *
+     * @return
+     * @throws GradeException
+     */
+    protected SearchInputBean parseGenotypeInput() throws GradeException {
+        // local variables
+        SearchInputBean bean = new SearchInputBean();
+        String tempString = null;
+        int position;
+        String referenceAllele;
+        String alternateAllele;
+        String[] splitString;
+
+        try {
+            // parse the string
+            splitString = this.inputString.split("-");
+
+            // make sure correct number of arguments
+            if (splitString.length < 4) {
+                throw new GradeException("got improperly formatted search input string: " + this.inputString);
+            }
+
+            // set the bean parameters
+            bean.setGeneReferenceAllele(splitString[2]);
+            bean.setGeneInputAllele(splitString[3]);
+
+            // set the position
+            try {
+                bean.setGenePosition(Integer.valueOf(splitString[1]));
+                bean.setIsProteinInput(false);
+
+            } catch (NumberFormatException exception) {
+                throw new GradeException("got input gene position error for input: " + exception.getMessage());
+            }
+
+        } catch (GradeException exception) {
+            throw new GradeException("got error with input string: " + this.inputString + ": " + exception.getMessage(), "Incorrect variant input string: " + this.inputString);
         }
 
         // return
@@ -51,7 +100,7 @@ public class SearchInputTranslator {
      * @return
      * @throws GradeException
      */
-    public SearchInputBean parseProteinInput() throws GradeException {
+    protected SearchInputBean parseProteinInput() throws GradeException {
         // local variables
         SearchInputBean bean = new SearchInputBean();
         String tempString = null;
@@ -75,13 +124,14 @@ public class SearchInputTranslator {
             try {
                 position = Integer.valueOf(tempString.substring(3, tempString.length() - 3));
                 bean.setProteinPosition(position);
+                bean.setIsProteinInput(true);
 
             } catch (NumberFormatException exception) {
                 throw new GradeException("got input protein position error for input: " + exception.getMessage());
             }
 
         } catch (GradeException exception) {
-            throw new GradeException("got error with input string: " + this.inputString + ": " + exception.getMessage(), "incorrect input string: " + this.inputString);
+            throw new GradeException("got error with input string: " + this.inputString + ": " + exception.getMessage(), "Incorrect protein change input string: " + this.inputString);
         }
 
         // return

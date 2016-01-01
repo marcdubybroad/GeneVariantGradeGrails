@@ -20,3 +20,11 @@ div.apptitle {
     padding-bottom: 20px;
 }
 
+input.searchbox {
+    width: 80%;
+}
+
+p.small-text {
+    font-size: 14px;
+}
+

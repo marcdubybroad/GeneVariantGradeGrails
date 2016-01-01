@@ -3,12 +3,12 @@ package org.broadinstitute.variantgrade.bean;
 /**
  * Created by mduby on 12/31/15.
  */
-public class ProteinBean {
+public class AminoAcidBean {
     private String codeThreeLetter;
     private String codeOneLetter;
     private String name;
 
-    public ProteinBean(String oneLetterCode, String threeLetterCode, String name) {
+    public AminoAcidBean(String oneLetterCode, String threeLetterCode, String name) {
         this.codeOneLetter = oneLetterCode;
         this.codeThreeLetter = threeLetterCode;
         this.name = name;
