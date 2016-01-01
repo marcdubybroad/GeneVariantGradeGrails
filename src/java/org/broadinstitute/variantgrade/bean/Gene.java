@@ -116,7 +116,7 @@ public class Gene {
         region = this.geneRegionList.get(arrayIndex);
 
         // get the codon
-        codon = region.getNewCodonForAlleleAtPosition(position, allele);
+        codon = region.getNewCodonForAlleleAtPosition(position, allele.toLowerCase());
 
         // return
         return codon;

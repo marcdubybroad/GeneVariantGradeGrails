@@ -74,8 +74,8 @@ public class SearchInputTranslator {
             }
 
             // set the bean parameters
-            bean.setGeneReferenceAllele(splitString[2]);
-            bean.setGeneInputAllele(splitString[3]);
+            bean.setGeneReferenceAllele(splitString[2].toLowerCase());
+            bean.setGeneInputAllele(splitString[3].toLowerCase());
 
             // set the position
             try {

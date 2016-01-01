@@ -102,20 +102,14 @@
             <div class="col-md-12">
                 <g:form name="myForm" action="proteinSearch" id="1">
                     <div class="formWrapper title">
-                        Get the disease risk by protein change
+                        Get the disease risk by protein change or variant
                     </div>
                     <div class="formWrapper">
                         <input id="searchbox" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
                         <p class="text-muted small-text">
-                            Examples - Protein change: <a href="heatMap/proteinSearch?query=p.Leu345Asn">p.Leu345Asn</a>,
-                        Variant: <a href="heatMap/proteinSearch/query=chr3-68746-T-C">chr3-68746-T-C</a>
+                            Examples - Protein change: <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.Leu345Asn']">p.Leu345Asn</g:link>,
+                        Variant: <g:link action="proteinSearch" controller="heatMap" params="[query: 'chr3-68747-G-A']">chr3-68747-G-A</g:link>
                         </p>
-                    </div>
-                    <div class="formWrapper">
-                        Position: <input type="text" name="position">
-                    </div>
-                    <div class="formWrapper">
-                        Reference letter: <g:select name="referenceLetter" from="${referenceLetterList}"></g:select>
                     </div>
                     <div class="formWrapper">
                         <input type="submit" name="submit">
