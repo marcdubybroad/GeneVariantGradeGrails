@@ -1,0 +1,220 @@
+package org.broadinstitute.variantgrade
+import grails.transaction.Transactional
+import org.broadinstitute.variantgrade.bean.Gene
+import org.broadinstitute.variantgrade.heatmap.MatrixParser
+import org.broadinstitute.variantgrade.input.SearchInputBean
+import org.broadinstitute.variantgrade.result.GeneResult
+import org.broadinstitute.variantgrade.result.ProteinResult
+import org.broadinstitute.variantgrade.translator.SearchInputTranslator
+import org.broadinstitute.variantgrade.util.GradeException
+
+@Transactional
+class HeatMapService {
+    // instance variables
+    MatrixParser matrixParser = null;
+
+    def serviceMethod() {
+
+    }
+
+    /**
+     * return the map result given a search string
+     *
+     * @param searchString
+     * @return
+     * @throws GradeException
+     */
+    public ProteinResult getHeatMapReadingFromSearchString(String searchString) throws GradeException {
+        // local variables
+        SearchInputBean inputBean = null;
+        SearchInputTranslator translator = new SearchInputTranslator(searchString);
+        ProteinResult resultBean;
+
+        // translate the bean
+        inputBean = translator.translate();
+
+        if (inputBean.isProteinInput()) {
+            // log
+            log.info("calling protein heat map for position: " + inputBean.getProteinPosition() + " and input allele: " + inputBean.getProteinInputAllele());
+
+            // call
+            resultBean =  this.getHeatMapReadingFromProtein(inputBean.getProteinPosition(), inputBean.getProteinInputAllele());
+
+        } else {
+            resultBean =  this.getHeatMapReadingFromVariant(inputBean.getGenePosition(), inputBean.getGeneInputAllele());
+
+        }
+
+        // return
+        return resultBean;
+    }
+
+    /**
+     * return result from variant allele input
+     *
+     * @param variantPosition
+     * @param alternateAllele
+     * @return
+     * @throws GradeException
+     */
+    public ProteinResult getHeatMapReadingFromVariant(int variantPosition, String alternateAllele) throws GradeException {
+        // local variables
+        int proteinPosition;
+        String proteinAllele;
+        String newCodon;
+        ProteinResult proteinResult;
+
+        // get the protein position
+        try {
+            proteinPosition = this.matrixParser.getGene().getProteinPositionForCodingRegionAllele(variantPosition);
+
+        } catch (GradeException exception) {
+            throw new GradeException(exception.getMessage(), "The variant position " + variantPosition + " is not in the protein coding region");
+        }
+
+        // get the new protein allele
+        newCodon = this.matrixParser.getGene().getNewCodonForAlleleAtPosition(variantPosition, alternateAllele);
+        proteinAllele = this.matrixParser.getCodonToAminoAcidMap().get(newCodon);
+
+        // log
+        log.info("calling variant heat map for position: " + variantPosition + " and variant allele: " + alternateAllele + " and new codon: " + newCodon);
+
+        // call the protein function
+        proteinResult = this.getHeatMapReadingFromProtein(proteinPosition, proteinAllele);
+
+        // add in the variant data
+        proteinResult.setGenePosition(variantPosition);
+        proteinResult.setGeneInputAllele(alternateAllele.toLowerCase());
+        proteinResult.setGeneReferenceAllele(this.matrixParser.getGene().getReferenceAtGenePosition(variantPosition));
+
+        // return
+        return proteinResult;
+    }
+
+    /**
+     * get the heat map from protein map
+     *
+     * @param position
+     * @param referenceAllele
+     * @return
+     * @throws GradeException
+     */
+    public ProteinResult getHeatMapReadingFromProtein(int position, String allele) throws GradeException {
+        // local variables
+        Double proteinGrade = null;
+        ProteinResult result = new ProteinResult();
+        String referenceAllele = null;
+        String referenceCodon = null;
+
+        // log
+        log.info("got heat map reading call for protein position: " + position + " and allele: " + allele);
+
+        // get the map amount
+        proteinGrade = this.getMatrixParser().getHeatAtPositionAndLetter(position, allele);
+
+        // get the reference allele
+        referenceAllele = this.getMatrixParser().getProteinReferenceLetterAtPosition(position);
+
+        // get the reference gene codon
+        referenceCodon = this.getMatrixParser().getGene().getCodonAtProteinPosition(position);
+
+        // set the result
+        result.setHeatAmount(proteinGrade);
+        result.setInputAllele(allele);
+        result.setPosition(position);
+        result.setReferenceAllele(referenceAllele);
+        result.setReferenceCodon(referenceCodon);
+
+        // set the scientific code
+        result.setScientificAlleleCode("p." + this.matrixParser.getThreeLetterProteinCodeFromOneLetterCode(result.getReferenceAllele()) + result.getPosition() + this.matrixParser.getThreeLetterProteinCodeFromOneLetterCode(result.getInputAllele()));
+
+        // return
+        return result;
+    }
+
+    /**
+     * get and initialize the heat map parser
+     *
+     * @return
+     */
+    protected MatrixParser getMatrixParser() throws GradeException {
+        // initialize if not already
+        if (this.matrixParser == null) {
+            this.matrixParser = MatrixParser.getMatrixParser();
+
+            // get the file stream and load it to the parser
+            InputStream heatMapStream = this.class.classLoader.getResourceAsStream('matrixHeat.csv');
+            this.matrixParser.setHeatMapStream(heatMapStream);
+            this.matrixParser.populate();
+
+            // set the gene file stream
+            InputStream geneStream = this.class.classLoader.getResourceAsStream('geneRegion.txt');
+            this.matrixParser.setGeneRegionStream(geneStream);
+        }
+
+       // return
+        return this.matrixParser;
+    }
+
+    /**
+     * get the protein reference letter list
+     *
+     * @return
+     */
+    public List<String> getProteinReferenceLetterList() {
+        // local variables
+        List<String> letterList;
+
+        // get the list from the matrix parser
+        letterList = this.getMatrixParser().getProteinReferenceLetterList();
+
+        // return
+        return letterList;
+    }
+
+    /**
+     * get the gene allele effect
+     *
+     * @param position
+     * @param allele
+     * @return
+     * @throws GradeException
+     */
+    public GeneResult getGeneResultForAllele(int position, String allele) throws GradeException {
+        // local variables
+        GeneResult geneResult = new GeneResult();
+        Gene gene;
+
+        // get the gene
+        gene = this.matrixParser.getGene();
+
+        // get the 2 codons at the position
+        geneResult.setReferenceCodon(gene.getCodonAtPosition(position));
+        geneResult.setNewCodon(gene.getNewCodonForAlleleAtPosition(position, allele));
+
+        // look to see if coding position
+        if (gene.isPositionInCodingRegion(position)) {
+            geneResult.setProteinCodingPosition(true);
+
+            // get protein reference and allele
+            // get the protein position and reference allele
+            int positionTemp = gene.getProteinPositionForCodingRegionAllele(position);
+            geneResult.setProteinPosition(positionTemp);
+            geneResult.setReferenceProteinAllele(this.matrixParser.getProteinReferenceLetterAtPosition(geneResult.getProteinPosition()));
+
+            // get the new protein allele based on the new codon
+            geneResult.setNewProteinAllele(this.matrixParser.getCodonToAminoAcidMap().get(geneResult.getNewCodon()));
+
+            // get the heat amount based on the new protein allele
+            if (!geneResult.isResultStopCodon()) {
+                geneResult.setHeatAmount(this.matrixParser.getHeatAtPositionAndLetter(geneResult.getProteinPosition(), geneResult.getNewProteinAllele()));
+            }
+
+        } else {
+            geneResult.setProteinCodingPosition(false);
+        }
+
+        // return
+        return geneResult;
+    }
+}
