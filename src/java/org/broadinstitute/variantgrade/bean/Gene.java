@@ -145,7 +145,7 @@ public class Gene {
 
         // if not found, error
         if (proteinPosition < 0) {
-            throw new GradeException("could not find protein position for any of the coding regions for postion: " + position);
+            throw new GradeException("could not find protein position for any of the coding regions for position: " + position);
         }
 
         // return

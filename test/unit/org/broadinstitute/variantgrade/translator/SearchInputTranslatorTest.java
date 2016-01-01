@@ -37,7 +37,7 @@ public class SearchInputTranslatorTest extends TestCase {
     public void testTranslateGoodGenotypeInput() {
         // local variables
         SearchInputBean bean = null;
-        SearchInputTranslator translator = new SearchInputTranslator("chr3-68746-A-D");
+        SearchInputTranslator translator = new SearchInputTranslator("chr3-68746-A-G");
 
         // get the bean
         try {
@@ -49,9 +49,54 @@ public class SearchInputTranslatorTest extends TestCase {
 
         // test
         assertNotNull(bean);
-        assertEquals("A", bean.getGeneReferenceAllele());
+        assertEquals("a", bean.getGeneReferenceAllele());
         assertEquals(68746, bean.getGenePosition());
-        assertEquals("D", bean.getGeneInputAllele());
+        assertEquals("g", bean.getGeneInputAllele());
         assertTrue(!bean.isProteinInput());
     }
+
+    @Test
+    public void testTranslateGoodGenotypeInput2() {
+        // local variables
+        SearchInputBean bean = null;
+        SearchInputTranslator translator = new SearchInputTranslator("chr3-68747-G-A");
+
+        // get the bean
+        try {
+            bean = translator.translate();
+
+        } catch (GradeException exception) {
+            fail("got protein translation error: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(bean);
+        assertEquals("g", bean.getGeneReferenceAllele());
+        assertEquals(68747, bean.getGenePosition());
+        assertEquals("a", bean.getGeneInputAllele());
+        assertTrue(!bean.isProteinInput());
+    }
+
+    @Test
+    public void testTranslateGoodGenotypeInput3() {
+        // local variables
+        SearchInputBean bean = null;
+        SearchInputTranslator translator = new SearchInputTranslator("chr3-1-G-A");
+
+        // get the bean
+        try {
+            bean = translator.translate();
+
+        } catch (GradeException exception) {
+            fail("got protein translation error: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(bean);
+        assertEquals("g", bean.getGeneReferenceAllele());
+        assertEquals(1, bean.getGenePosition());
+        assertEquals("a", bean.getGeneInputAllele());
+        assertTrue(!bean.isProteinInput());
+    }
+
 }

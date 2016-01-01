@@ -204,4 +204,21 @@ public class GeneTest extends TestCase {
         assertEquals(codonEnd, codon);
 
     }
+
+    @Test
+    public void testGetReferenceAtGenePosition() {
+        int position = 68747;
+        String allele = null;
+
+        try {
+            allele = this.gene.getReferenceAtGenePosition(23);
+
+        } catch (GradeException exception) {
+            fail(exception.getMessage());
+        }
+
+        assertNotNull(allele);
+        assertEquals("a", allele);
+
+    }
 }

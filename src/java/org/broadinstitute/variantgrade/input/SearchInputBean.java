@@ -94,4 +94,5 @@ public class SearchInputBean {
     public void setGeneInputAllele(String geneInputAllele) {
         this.geneInputAllele = geneInputAllele;
     }
+
 }
