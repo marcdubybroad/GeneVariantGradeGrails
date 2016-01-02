@@ -3,7 +3,7 @@ package org.broadinstitute.variantgrade.heatmap;
 import junit.framework.TestCase;
 import org.broadinstitute.variantgrade.bean.Gene;
 import org.broadinstitute.variantgrade.bean.GeneRegion;
-import org.broadinstitute.variantgrade.bean.PositionHeat;
+import org.broadinstitute.variantgrade.bean.PositionMatrixBean;
 import org.broadinstitute.variantgrade.util.GradeException;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +25,8 @@ public class MatrixParserTest extends TestCase {
         this.matrixParser = MatrixParser.getMatrixParser();
         InputStream matrixStream = this.getClass().getResourceAsStream("./matrixHeat.csv");
         this.matrixParser.setHeatMapStream(matrixStream);
+        matrixStream = this.getClass().getResourceAsStream("./matrixLogp.csv");
+        this.matrixParser.setLogpMapStream(matrixStream);
         try {
             this.matrixParser.populate();
         } catch (GradeException exception) {
@@ -44,11 +46,11 @@ public class MatrixParserTest extends TestCase {
         // local variables
         int position = 119;
         String referenceLetter = "K";
-        PositionHeat resultHeat = null;
+        PositionMatrixBean resultHeat = null;
 
         // get heat amount and test
         try {
-            resultHeat = this.matrixParser.getPositionHeatAtPosition(position);
+            resultHeat = this.matrixParser.getPositionMatrixAtPositionAndType(position, MatrixParser.MATRIX_TYPE_POSITION_HEAT);
 
         } catch (GradeException exception) {
             fail("got heat exception: " + exception.getMessage());
@@ -68,7 +70,27 @@ public class MatrixParserTest extends TestCase {
 
         // get heat amount and test
         try {
-            result = this.matrixParser.getHeatAtPositionAndLetter(position, referenceLetter);
+            result = this.matrixParser.getMatrixValueAtPositionAndLetterAndType(position, referenceLetter, MatrixParser.MATRIX_TYPE_POSITION_HEAT);
+
+        } catch (GradeException exception) {
+            fail("got heat exception: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(result);
+        assertEquals(new Double(0.130984994891909), result);
+    }
+
+    @Test
+    public void testGetLogpAmount() {
+        // local variables
+        int position = 245;
+        String referenceLetter = "G";
+        Double result = null;
+
+        // get heat amount and test
+        try {
+            result = this.matrixParser.getMatrixValueAtPositionAndLetterAndType(position, referenceLetter, MatrixParser.MATRIX_TYPE_POSITION_LOGP);
 
         } catch (GradeException exception) {
             fail("got heat exception: " + exception.getMessage());

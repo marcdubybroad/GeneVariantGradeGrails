@@ -5,7 +5,7 @@ import org.broadinstitute.variantgrade.bean.CodingRegion;
 import org.broadinstitute.variantgrade.bean.CodingSegment;
 import org.broadinstitute.variantgrade.bean.Gene;
 import org.broadinstitute.variantgrade.bean.GeneRegion;
-import org.broadinstitute.variantgrade.bean.PositionHeat;
+import org.broadinstitute.variantgrade.bean.PositionMatrixBean;
 import org.broadinstitute.variantgrade.util.GradeException;
 
 import java.io.BufferedReader;
@@ -24,9 +24,11 @@ import java.util.Map;
  */
 public class MatrixParser {
     // instance variables
-    private Map<Integer, PositionHeat> heatMap = new HashMap<Integer, PositionHeat>();
+    private Map<Integer, PositionMatrixBean> heatMap = new HashMap<Integer, PositionMatrixBean>();
+    private Map<Integer, PositionMatrixBean> logpMap = new HashMap<Integer, PositionMatrixBean>();
     private InputStream heatMapStream;
     private InputStream geneRegionStream;
+    private InputStream logpMapStream;
     private List<String> referenceLetterList = new ArrayList<String>();
     private boolean isInitialized;
     private Map<String, String> codonToAminoAcidMap = null;
@@ -41,6 +43,10 @@ public class MatrixParser {
 
     // singleton variable
     private static MatrixParser matrixParser;
+
+    // constants
+    public static final int MATRIX_TYPE_POSITION_HEAT           = 1;
+    public static final int MATRIX_TYPE_POSITION_LOGP           = 2;
 
     /**
      * singleton method to return parser
@@ -61,6 +67,10 @@ public class MatrixParser {
 
     public void setGeneRegionStream(InputStream geneRegionStream) {
         this.geneRegionStream = geneRegionStream;
+    }
+
+    public void setLogpMapStream(InputStream logpMapStream) {
+        this.logpMapStream = logpMapStream;
     }
 
     /**
@@ -142,11 +152,18 @@ public class MatrixParser {
         return this.proteinList;
     }
 
+    public void populate() throws GradeException {
+
+
+        // set initialization
+        this.isInitialized = true;
+    }
+
     /**
      * populates the instance heat map from the given file
      * @throws GradeException
      */
-    public void populate() throws GradeException {
+    protected void populateMatrix(int matrixType) throws GradeException {
         // local variables
         BufferedReader reader = null;
         String[] headerLine = null;
@@ -154,7 +171,8 @@ public class MatrixParser {
         int count = 0;
         Integer position = null;
         String referenceLetter = null;
-        PositionHeat positionHeat;
+        PositionMatrixBean positionMatrixBean;
+        Map<Integer, PositionMatrixBean> mapToPopulate = null;
 
         // load and parse the file
         String line = "";
@@ -162,7 +180,17 @@ public class MatrixParser {
 
         try {
             // read file and parse
-            reader = new BufferedReader(new InputStreamReader(this.heatMapStream));
+            if (matrixType == MATRIX_TYPE_POSITION_HEAT) {
+                reader = new BufferedReader(new InputStreamReader(this.heatMapStream));
+                mapToPopulate = this.heatMap;
+
+            } else if (matrixType == MATRIX_TYPE_POSITION_LOGP) {
+                reader = new BufferedReader(new InputStreamReader(this.logpMapStream));
+                mapToPopulate = this.logpMap;
+
+            } else {
+                throw new GradeException("incorrect matrix type for populating: " + matrixType);
+            }
 
             while ((line = reader.readLine()) != null) {
                 // first line is header line
@@ -170,8 +198,11 @@ public class MatrixParser {
                     headerLine = line.split(cvsSplitBy);
 
                     // add in the reference letters to the reference list
-                    for (int i = 3; i < headerLine.length; i++) {
-                        this.referenceLetterList.add(headerLine[i].substring(1, 2));
+                    // only use the heat map for the reference letters
+                    if (matrixType == MATRIX_TYPE_POSITION_HEAT) {
+                        for (int i = 3; i < headerLine.length; i++) {
+                            this.referenceLetterList.add(headerLine[i].substring(1, 2));
+                        }
                     }
 
                 } else {
@@ -199,13 +230,13 @@ public class MatrixParser {
                     }
 
                     // loop through rest of array and create heat object
-                    positionHeat = new PositionHeat(position, referenceLetter);
+                    positionMatrixBean = new PositionMatrixBean(position, referenceLetter);
                     for (int i = 3; i < headerLine.length; i++) {
-                        positionHeat.addHeatEntry(headerLine[i].substring(1, 2), new Double(tempLine[i]));
+                        positionMatrixBean.addHeatEntry(headerLine[i].substring(1, 2), new Double(tempLine[i]));
                     }
 
                     // if all went well, add to map
-                    this.heatMap.put(position, positionHeat);
+                    mapToPopulate.put(position, positionMatrixBean);
                 }
 
                 // add to count
@@ -228,9 +259,6 @@ public class MatrixParser {
                 }
             }
         }
-
-        // set initialization
-        this.isInitialized = true;
     }
 
     /**
@@ -241,16 +269,16 @@ public class MatrixParser {
      * @return
      * @throws GradeException
      */
-    public Double getHeatAtPositionAndLetter(int position, String letter) throws GradeException {
+    public Double getMatrixValueAtPositionAndLetterAndType(int position, String letter, int matrixType) throws GradeException {
         // local variables
-        PositionHeat positionHeat;
+        PositionMatrixBean positionMatrixBean;
         Double heatNumber = null;
 
         // get the position heat
-        positionHeat = this.getPositionHeatAtPosition(position);
+        positionMatrixBean = this.getPositionMatrixAtPositionAndType(position, matrixType);
 
         // get the heat number
-        heatNumber = positionHeat.getHeatNumber(letter);
+        heatNumber = positionMatrixBean.getHeatNumber(letter);
 
         // if null, error
         if (heatNumber == null) {
@@ -262,26 +290,34 @@ public class MatrixParser {
     }
 
     /**
-     * get the postion heat at the position
+     * get the position heat at the position
      *
      * @param position
      * @return
      * @throws GradeException
      */
-    public PositionHeat getPositionHeatAtPosition(int position) throws GradeException {
+    public PositionMatrixBean getPositionMatrixAtPositionAndType(int position, int matrixType) throws GradeException {
         // local variables
-        PositionHeat positionHeat;
+        PositionMatrixBean positionMatrixBean;
 
         // get the position heat
-        positionHeat = this.heatMap.get(new Integer(position));
+        if (matrixType == MATRIX_TYPE_POSITION_HEAT) {
+            positionMatrixBean = this.heatMap.get(new Integer(position));
+
+        } else if (matrixType == MATRIX_TYPE_POSITION_LOGP) {
+            positionMatrixBean = this.logpMap.get(new Integer(position));
+
+        } else {
+            throw new GradeException("got incorrect matrix type: " + matrixType);
+        }
 
         // make sure exists
-        if (positionHeat == null) {
+        if (positionMatrixBean == null) {
             throw new GradeException("Got null position heat for position: " + position, GradeException.MESSAGE_NOT_PROTEIN_POSITION);
         }
 
         // return
-        return positionHeat;
+        return positionMatrixBean;
     }
 
     /**
@@ -339,6 +375,7 @@ public class MatrixParser {
         // return
         return finalArray;
     }
+
 
     /**
      * parse the gene
@@ -448,18 +485,18 @@ public class MatrixParser {
      */
     public String getProteinReferenceLetterAtPosition(int position) throws GradeException {
         // local variables
-        PositionHeat positionHeat = null;
+        PositionMatrixBean positionMatrixBean = null;
 
         // get the position heat
-        positionHeat = this.getPositionHeatAtPosition(position);
+        positionMatrixBean = this.getPositionMatrixAtPositionAndType(position, MATRIX_TYPE_POSITION_HEAT);
 
         // if null throw error
-        if (positionHeat == null) {
+        if (positionMatrixBean == null) {
             throw new GradeException("got incorrect position: " + position);
         }
 
         // get the reference letter
-        return positionHeat.getReferenceLetter();
+        return positionMatrixBean.getReferenceLetter();
     }
 
     /**
@@ -508,8 +545,12 @@ public class MatrixParser {
         return protein.getCodeThreeLetter();
     }
 
-    public Map<Integer, PositionHeat> getHeatMap() {
+    public Map<Integer, PositionMatrixBean> getHeatMap() {
         return heatMap;
+    }
+
+    public Map<Integer, PositionMatrixBean> getLogpMap() {
+        return logpMap;
     }
 
     public List<String> getProteinReferenceLetterList() {

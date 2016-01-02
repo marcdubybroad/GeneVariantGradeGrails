@@ -110,7 +110,7 @@ class HeatMapService {
         log.info("got heat map reading call for protein position: " + position + " and allele: " + allele);
 
         // get the map amount
-        proteinGrade = this.getMatrixParser().getHeatAtPositionAndLetter(position, allele);
+        proteinGrade = this.getMatrixParser().getMatrixValueAtPositionAndLetterAndType(position, allele, MatrixParser.MATRIX_TYPE_POSITION_HEAT);
 
         // get the reference allele
         referenceAllele = this.getMatrixParser().getProteinReferenceLetterAtPosition(position);
@@ -207,7 +207,7 @@ class HeatMapService {
 
             // get the heat amount based on the new protein allele
             if (!geneResult.isResultStopCodon()) {
-                geneResult.setHeatAmount(this.matrixParser.getHeatAtPositionAndLetter(geneResult.getProteinPosition(), geneResult.getNewProteinAllele()));
+                geneResult.setHeatAmount(this.matrixParser.getMatrixValueAtPositionAndLetterAndType(geneResult.getProteinPosition(), geneResult.getNewProteinAllele()), MatrixParser.MATRIX_TYPE_POSITION_HEAT);
             }
 
         } else {

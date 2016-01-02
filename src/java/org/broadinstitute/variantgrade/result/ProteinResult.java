@@ -89,7 +89,7 @@ public class ProteinResult {
 
     public String getVariantDisplay() {
         if ((this.getGeneInputAllele() != null) && (this.getGenePosition() != -1) && (this.getGeneReferenceAllele() != null)) {
-            return "chr3-" + this.getGenePosition() + "-" + this.getGeneReferenceAllele() + "-" + this.getGeneInputAllele();
+            return "chr3:" + this.getGenePosition() + "_" + this.getGeneReferenceAllele() + "/" + this.getGeneInputAllele();
         } else {
             return null;
         }

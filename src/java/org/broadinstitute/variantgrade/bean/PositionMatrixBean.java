@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by mduby on 12/22/15.
  */
-public class PositionHeat {
+public class PositionMatrixBean {
     // instance variables
     private int position;
     private String referenceLetter;
@@ -20,7 +20,7 @@ public class PositionHeat {
      * @param position
      * @param reference
      */
-    public PositionHeat(int position, String reference) {
+    public PositionMatrixBean(int position, String reference) {
         this.position = position;
         this.referenceLetter = reference;
     }

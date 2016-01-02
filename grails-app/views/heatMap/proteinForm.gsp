@@ -123,7 +123,7 @@
                     <g:if test="${proteinResult != null}">
                         The reference gene codon for protein position ${proteinResult.getPosition()} is ${proteinResult.getReferenceCodon()}
                         <p/>
-                        <g:if test="true">
+                        <g:if test="${proteinResult.getVariantDisplay()}">
                             For variant ${proteinResult.getVariantDisplay()} the protein change is: ${proteinResult.getScientificAlleleCode()}
                             <p/>
                         </g:if>
