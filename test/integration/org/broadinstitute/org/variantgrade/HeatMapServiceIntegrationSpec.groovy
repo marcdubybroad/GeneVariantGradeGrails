@@ -29,7 +29,7 @@ class HeatMapServiceIntegrationSpec extends IntegrationSpec {
         String newAllele = "G";
         ProteinResult result = null;
         Double resultDouble = null;
-        result = this.heatMapService.getHeatMapReadingFromProtein(position, newAllele);
+        result = this.heatMapService.getHeatMapReadingFromProtein(position, newAllele, 0.01, false);
 
         then:
         assert result.getHeatAmount() != null;
