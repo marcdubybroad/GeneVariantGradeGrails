@@ -85,6 +85,36 @@ public class CodingRegion {
         return proteinCodingPosition;
     }
 
+    /**
+     * translates the gene position to the coding sequence position
+     *
+     * @param genePosition
+     * @return
+     * @throws GradeException
+     */
+    public int translateGenePositionToCodingSequencePosition(int genePosition) throws GradeException {
+        // local variables
+        int codingSequencePosition = 0;
+
+        // check that in coding regions
+        if (!this.isPositionInCodingRegion(genePosition)) {
+            throw new GradeException("position: " + genePosition + " is not in the protein coding region");
+        }
+
+        // loop though the coding regions and add the positions
+        for (CodingSegment segment: this.segmentList) {
+            if (!segment.isPositionInSegment(genePosition)) {
+                codingSequencePosition = codingSequencePosition + segment.getEndPosition() - segment.getStartPosition() + 1;
+            } else {
+                codingSequencePosition = codingSequencePosition + genePosition - segment.getStartPosition() + 1;
+                break;
+            }
+        }
+
+        // return
+        return codingSequencePosition;
+    }
+
     public List<CodingSegment> getSegmentList() {
         return segmentList;
     }

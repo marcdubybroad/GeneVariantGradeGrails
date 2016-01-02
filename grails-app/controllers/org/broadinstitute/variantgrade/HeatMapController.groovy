@@ -74,7 +74,7 @@ class HeatMapController {
         if (params.query) {
             try {
                 // get the result
-                proteinResult = this.heatMapService.getHeatMapReadingFromSearchString(params.query)
+                proteinResult = this.heatMapService.getHeatMapReadingFromSearchString(params.query, 1)
 
                 // log
                 log.info("for protein position: " + position + " and letter: " + referenceLetter + " got result:" + proteinResult.getHeatAmount())
@@ -96,7 +96,7 @@ class HeatMapController {
             } else {
                 try {
                     // get the result
-                    proteinResult = this.heatMapService.getHeatMapReadingFromProtein(Integer.parseInt(position), referenceLetter)
+                    proteinResult = this.heatMapService.getHeatMapReadingFromProtein(Integer.parseInt(position), referenceLetter, 0.01, false)
 
                     // log
                     log.info("for protein position: " + position + " and letter: " + referenceLetter + " got result:" + proteinResult.getHeatAmount())

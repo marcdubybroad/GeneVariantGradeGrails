@@ -123,11 +123,26 @@
                     <g:if test="${proteinResult != null}">
                         The reference gene codon for protein position ${proteinResult.getPosition()} is ${proteinResult.getReferenceCodon()}
                         <p/>
+
+                        <g:if test="${proteinResult.getAlternateCodon()}">
+                            The modified gene codon for protein position ${proteinResult.getPosition()} is ${proteinResult.getAlternateCodon()}
+                            <p/>
+
+                            <g:if test="${proteinResult.isResultStopCodon()}">
+                                The modified gene codon ${proteinResult.getAlternateCodon()} is a stop codon.
+                                <p/>
+                            </g:if>
+                        </g:if>
+
                         <g:if test="${proteinResult.getVariantDisplay()}">
                             For variant ${proteinResult.getVariantDisplay()} the protein change is: ${proteinResult.getScientificAlleleCode()}
                             <p/>
                         </g:if>
-                        For ${proteinResult.getScientificAlleleCode()} the disease effect is: ${proteinResult.getHeatAmount()}
+                        For ${proteinResult.getScientificAlleleCode()} the combined functional score is: ${proteinResult.getHeatAmount()}
+                        <p/>
+                        For ${proteinResult.getScientificAlleleCode()}, the effect is ${proteinResult.getEffect()} with logp value: ${proteinResult.getLogP()}
+                        <p/>
+                        For ${proteinResult.getScientificAlleleCode()} at prevalence of ${proteinResult.getInputOddsRatio().getValue()}, the pValue is ${proteinResult.getpValue()}
                     </g:if>
 
                     <g:if test="${errorMessage}">

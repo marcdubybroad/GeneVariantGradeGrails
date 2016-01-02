@@ -1,6 +1,7 @@
 package org.broadinstitute.variantgrade
 import grails.transaction.Transactional
 import org.broadinstitute.variantgrade.bean.Gene
+import org.broadinstitute.variantgrade.bean.OddsRatioBean
 import org.broadinstitute.variantgrade.heatmap.MatrixParser
 import org.broadinstitute.variantgrade.input.SearchInputBean
 import org.broadinstitute.variantgrade.result.GeneResult
@@ -24,7 +25,7 @@ class HeatMapService {
      * @return
      * @throws GradeException
      */
-    public ProteinResult getHeatMapReadingFromSearchString(String searchString) throws GradeException {
+    public ProteinResult getHeatMapReadingFromSearchString(String searchString, int oddsRatioIndex) throws GradeException {
         // local variables
         SearchInputBean inputBean = null;
         SearchInputTranslator translator = new SearchInputTranslator(searchString);
@@ -38,10 +39,10 @@ class HeatMapService {
             log.info("calling protein heat map for position: " + inputBean.getProteinPosition() + " and input allele: " + inputBean.getProteinInputAllele());
 
             // call
-            resultBean =  this.getHeatMapReadingFromProtein(inputBean.getProteinPosition(), inputBean.getProteinInputAllele());
+            resultBean =  this.getHeatMapReadingFromProtein(inputBean.getProteinPosition(), inputBean.getProteinInputAllele(), oddsRatioIndex, false);
 
         } else {
-            resultBean =  this.getHeatMapReadingFromVariant(inputBean.getGenePosition(), inputBean.getGeneInputAllele());
+            resultBean =  this.getHeatMapReadingFromVariant(inputBean.getGenePosition(), inputBean.getGeneInputAllele(), oddsRatioIndex);
 
         }
 
@@ -57,7 +58,7 @@ class HeatMapService {
      * @return
      * @throws GradeException
      */
-    public ProteinResult getHeatMapReadingFromVariant(int variantPosition, String alternateAllele) throws GradeException {
+    public ProteinResult getHeatMapReadingFromVariant(int variantPosition, String alternateAllele, int oddsRatioIndex) throws GradeException {
         // local variables
         int proteinPosition;
         String proteinAllele;
@@ -73,16 +74,17 @@ class HeatMapService {
         }
 
         // get the new protein allele
-        newCodon = this.matrixParser.getGene().getNewCodonForAlleleAtPosition(variantPosition, alternateAllele);
+        newCodon = this.matrixParser.getGene().getNewCodingCodonForAlelleAtCodingPosition(variantPosition, alternateAllele);
         proteinAllele = this.matrixParser.getCodonToAminoAcidMap().get(newCodon);
 
         // log
         log.info("calling variant heat map for position: " + variantPosition + " and variant allele: " + alternateAllele + " and new codon: " + newCodon);
 
         // call the protein function
-        proteinResult = this.getHeatMapReadingFromProtein(proteinPosition, proteinAllele);
+        proteinResult = this.getHeatMapReadingFromProtein(proteinPosition, proteinAllele, oddsRatioIndex, this.getMatrixParser().isResultStopCodon(newCodon));
 
         // add in the variant data
+        proteinResult.setAlternateCodon(newCodon);
         proteinResult.setGenePosition(variantPosition);
         proteinResult.setGeneInputAllele(alternateAllele.toLowerCase());
         proteinResult.setGeneReferenceAllele(this.matrixParser.getGene().getReferenceAtGenePosition(variantPosition));
@@ -99,18 +101,37 @@ class HeatMapService {
      * @return
      * @throws GradeException
      */
-    public ProteinResult getHeatMapReadingFromProtein(int position, String allele) throws GradeException {
+    public ProteinResult getHeatMapReadingFromProtein(int position, String allele, int oddsRatioIndex, boolean isStopCodon) throws GradeException {
         // local variables
         Double proteinGrade = null;
         ProteinResult result = new ProteinResult();
         String referenceAllele = null;
         String referenceCodon = null;
+        Double tempDouble = null;
+        OddsRatioBean oddsRatioBean = null;
 
         // log
-        log.info("got heat map reading call for protein position: " + position + " and allele: " + allele);
+        log.info("got heat map reading call for protein position: " + position + " and allele: " + allele + " and stop codon: " + isStopCodon);
 
-        // get the map amount
-        proteinGrade = this.getMatrixParser().getMatrixValueAtPositionAndLetterAndType(position, allele, MatrixParser.MATRIX_TYPE_POSITION_HEAT);
+        // if not a stop codon
+        if (!isStopCodon) {
+            // log
+            log.info("got stop codon");
+
+            // get the map amount
+            proteinGrade = this.getMatrixParser().getMatrixValueAtPositionAndLetterAndType(position, allele, MatrixParser.MATRIX_TYPE_POSITION_HEAT);
+            result.setHeatAmount(proteinGrade);
+
+            // set the logp values
+            oddsRatioBean = this.getMatrixParser().getOddsRatioOptionsMap().get(new Integer(oddsRatioIndex));
+            result.setInputOddsRatio(oddsRatioBean);
+            tempDouble = this.getMatrixParser().getLogPForPositionLetterAndProbability(position, allele, oddsRatioBean.getValue());
+            result.setLogP(tempDouble);
+
+            // set the pValue
+            tempDouble = this.getMatrixParser().getResultPValueForPositionLetterAndProbability(position, allele, oddsRatioBean.getValue());
+            result.setpValue(tempDouble);
+        }
 
         // get the reference allele
         referenceAllele = this.getMatrixParser().getProteinReferenceLetterAtPosition(position);
@@ -119,7 +140,6 @@ class HeatMapService {
         referenceCodon = this.getMatrixParser().getGene().getCodonAtProteinPosition(position);
 
         // set the result
-        result.setHeatAmount(proteinGrade);
         result.setInputAllele(allele);
         result.setPosition(position);
         result.setReferenceAllele(referenceAllele);
@@ -145,6 +165,10 @@ class HeatMapService {
             // get the file stream and load it to the parser
             InputStream heatMapStream = this.class.classLoader.getResourceAsStream('matrixHeat.csv');
             this.matrixParser.setHeatMapStream(heatMapStream);
+
+            // set the logp stream
+            InputStream logpStream = this.class.classLoader.getResourceAsStream('matrixLogp.csv');
+            this.matrixParser.setLogpMapStream(logpStream);
             this.matrixParser.populate();
 
             // set the gene file stream

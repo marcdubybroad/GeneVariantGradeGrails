@@ -303,4 +303,45 @@ public class MatrixParserTest extends TestCase {
         }
     }
 
+    @Test
+    public void testGetLogPValue() {
+        // local variables
+        int position = 245;
+        String referenceLetter = "G";
+        Double result = null;
+        Double probablity = 0.01;
+
+        try {
+            // get the logp
+            result = this.matrixParser.getLogPForPositionLetterAndProbability(position, referenceLetter, probablity);
+
+        } catch (GradeException exception) {
+            fail("got error calculating logp value");
+        }
+
+        // test
+        assertNotNull(result);
+        assertEquals(18.493063199638296, result);
+    }
+
+    @Test
+    public void testGetPValue() {
+        // local variables
+        int position = 245;
+        String referenceLetter = "G";
+        Double result = null;
+        Double probablity = 0.01;
+
+        try {
+            // get the logp
+            result = this.matrixParser.getResultPValueForPositionLetterAndProbability(position, referenceLetter, probablity);
+
+        } catch (GradeException exception) {
+            fail("got error calculating pValue");
+        }
+
+        // test
+        assertNotNull(result);
+        assertEquals(0.9486996994900958, result);
+    }
 }

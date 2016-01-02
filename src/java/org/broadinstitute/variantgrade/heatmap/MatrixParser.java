@@ -5,6 +5,7 @@ import org.broadinstitute.variantgrade.bean.CodingRegion;
 import org.broadinstitute.variantgrade.bean.CodingSegment;
 import org.broadinstitute.variantgrade.bean.Gene;
 import org.broadinstitute.variantgrade.bean.GeneRegion;
+import org.broadinstitute.variantgrade.bean.OddsRatioBean;
 import org.broadinstitute.variantgrade.bean.PositionMatrixBean;
 import org.broadinstitute.variantgrade.util.GradeException;
 
@@ -36,7 +37,7 @@ public class MatrixParser {
     private List<AminoAcidBean> proteinList = null;
     private Map<String, AminoAcidBean> proteinMapKeyedOnOneLetterCode = null;
     private Map<String, AminoAcidBean> proteinMapKeyedOnThreeLetterCode = null;
-
+    private Map<Integer, OddsRatioBean> oddsRationOtionMap = null;
     // constants to build maps
     private final String[] codonArray = new String[]{"t", "c", "a", "g"};
     private final String proteinString = "FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG";
@@ -157,14 +158,35 @@ public class MatrixParser {
      * @throws GradeException
      */
     public void populate() throws GradeException {
-        // populate the heat matrix
-        this.populateMatrix(MATRIX_TYPE_POSITION_HEAT);
+        if (!this.isInitialized) {
+            // populate the heat matrix
+            this.populateMatrix(MATRIX_TYPE_POSITION_HEAT);
 
-        // populate the logp matrix
-        this.populateMatrix(MATRIX_TYPE_POSITION_LOGP);
+            // populate the logp matrix
+            this.populateMatrix(MATRIX_TYPE_POSITION_LOGP);
 
-        // set initialization
-        this.isInitialized = true;
+            // set initialization
+            this.isInitialized = true;
+        }
+    }
+
+    /**
+     * returns trie if the new codon is a stop codon
+     *
+     * @return
+     */
+    public boolean isResultStopCodon(String codon) {
+        // local variables
+        boolean isStop = false;
+
+        if (codon != null) {
+            if ("taa".equals(codon) || "tag".equals(codon) || "tga".equals(codon)) {
+                isStop = true;
+            }
+        }
+
+        // return
+        return isStop;
     }
 
     /**
@@ -211,7 +233,8 @@ public class MatrixParser {
                     // only use the heat map for the reference letters
                     if (matrixType == MATRIX_TYPE_POSITION_HEAT) {
                         for (int i = 2; i < headerLine.length; i++) {
-                            this.referenceLetterList.add(headerLine[i].substring(1, 2));
+                            String tempString = headerLine[i].substring(1, 2);
+                            this.referenceLetterList.add(tempString);
                         }
                     }
 
@@ -269,6 +292,76 @@ public class MatrixParser {
                 }
             }
         }
+    }
+
+    /**
+     * get the logp value for the given position and letter
+     *
+     * @param position
+     * @param letter
+     * @param prevalance
+     * @return
+     * @throws GradeException
+     */
+    public Double getLogPForPositionLetterAndProbability(int position, String letter, Double prevalance) throws GradeException {
+        // local variables
+        Double returnLog = null;
+        Double logP = null;
+        Double oddsRatio;
+
+        // get the logp value
+        logP = this.getMatrixValueAtPositionAndLetterAndType(position, letter, MATRIX_TYPE_POSITION_LOGP);
+
+        // calculate the odds ration
+        oddsRatio = (1 - prevalance) / prevalance;
+
+        // calculate the logP value
+        returnLog = logP + Math.log(oddsRatio);
+
+        // return
+        return returnLog;
+    }
+
+    /**
+     * returns the pValue of a result
+     *
+     * @param position
+     * @param letter
+     * @param probability
+     * @return
+     * @throws GradeException
+     */
+    public Double getResultPValueForPositionLetterAndProbability(int position, String letter, Double probability) throws GradeException {
+        // local variables
+        Double pValue;
+        Double logp;
+
+        // get the logp
+        logp = this.getLogPForPositionLetterAndProbability(position, letter, probability);
+
+        // calculate the pValue
+        pValue = Math.exp(logp) / (Math.exp(logp) + 1);
+
+        // return
+        return pValue;
+    }
+
+    /**
+     * return the odds ratio option map
+     *
+     * @return
+     */
+    public Map<Integer, OddsRatioBean> getOddsRatioOptionsMap() {
+        // check to see if map already built
+        if (this.oddsRationOtionMap == null) {
+            this.oddsRationOtionMap = new HashMap<Integer, OddsRatioBean>();
+            this.oddsRationOtionMap.put(1, new OddsRatioBean(1, "1:10", 0.1));
+            this.oddsRationOtionMap.put(2, new OddsRatioBean(2, "1:100", 0.01));
+            this.oddsRationOtionMap.put(3, new OddsRatioBean(3, "1:1000", 0.001));
+        }
+
+        // return
+        return this.oddsRationOtionMap;
     }
 
     /**

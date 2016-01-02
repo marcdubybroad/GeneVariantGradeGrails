@@ -21,8 +21,8 @@ public class GeneTest extends TestCase {
         this.gene.addGeneRegion(new GeneRegion(13, 24, "eeefffggghhh"));
         this.gene.addGeneRegion(new GeneRegion(25, 27, "iii"));
         CodingRegion codingRegion = new CodingRegion("region 1");
-        codingRegion.addCodingSegment(new CodingSegment(4, 9));             // coding region sequence is bbbccceee
-        codingRegion.addCodingSegment(new CodingSegment(13, 15));
+        codingRegion.addCodingSegment(new CodingSegment(4, 8));             // coding region sequence is bbbcceeff
+        codingRegion.addCodingSegment(new CodingSegment(14, 17));
         this.gene.addCodingRegion(codingRegion);
     }
 
@@ -47,7 +47,7 @@ public class GeneTest extends TestCase {
         assertEquals(1, proteinPosition);
 
         // last part of codon
-        allelePosition = 9;
+        allelePosition = 8;
         try {
             // get the protein position
             proteinPosition = this.gene.getProteinPositionForCodingRegionAllele(allelePosition);
@@ -61,7 +61,7 @@ public class GeneTest extends TestCase {
         assertEquals(2, proteinPosition);
 
         // first part of second region codon
-        allelePosition = 14;
+        allelePosition = 16;
         try {
             // get the protein position
             proteinPosition = this.gene.getProteinPositionForCodingRegionAllele(allelePosition);
@@ -81,7 +81,7 @@ public class GeneTest extends TestCase {
         // local variables
         boolean isCodingRegion = false;
         int positionTrue = 5;
-        int positionFalse = 16;
+        int positionFalse = 18;
 
         try {
             // get the region check
@@ -218,7 +218,47 @@ public class GeneTest extends TestCase {
         }
 
         assertNotNull(allele);
-        assertEquals("a", allele);
+        assertEquals("h", allele);
+    }
 
+    @Test
+    public void testGetCodingCodonAtCodingPosition() {
+        // local variables
+        String newCodon = null;
+        String expectedCodon = "cce";
+        int position = 14;
+
+        try {
+            // get the new codon
+            newCodon = this.gene.getCodingCodonAtCodingPosition(position);
+
+        } catch (GradeException exception) {
+            fail("got codon retrieval exception: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(newCodon);
+        assertEquals(expectedCodon, newCodon);
+    }
+
+    @Test
+    public void testGetNewCodingCodonForAlelleAtCodingPosition() {
+        // local variables
+        String newCodon = null;
+        String allele = "t";
+        String expectedCodon = "etf";
+        int position = 16;
+
+        try {
+            // get the new codon
+            newCodon = this.gene.getNewCodingCodonForAlelleAtCodingPosition(position, allele);
+
+        } catch (GradeException exception) {
+            fail("got codon retrieval exception: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(newCodon);
+        assertEquals(expectedCodon, newCodon);
     }
 }

@@ -1,5 +1,7 @@
 package org.broadinstitute.variantgrade.result;
 
+import org.broadinstitute.variantgrade.bean.OddsRatioBean;
+
 /**
  * Created by mduby on 12/27/15.
  */
@@ -10,10 +12,14 @@ public class ProteinResult {
     private String referenceAllele;
     private Double heatAmount;
     private String referenceCodon;
+    private String alternateCodon;
     private String scientificAlleleCode;
     private String geneReferenceAllele;
     private String geneInputAllele;
     private int genePosition;
+    private OddsRatioBean inputOddsRatio;
+    private Double logP;
+    private Double pValue;
 
     public Integer getPosition() {
         return position;
@@ -95,4 +101,71 @@ public class ProteinResult {
         }
     }
 
+    public String getAlternateCodon() {
+        return alternateCodon;
+    }
+
+    public void setAlternateCodon(String alternateCodon) {
+        this.alternateCodon = alternateCodon;
+    }
+
+    public OddsRatioBean getInputOddsRatio() {
+        return inputOddsRatio;
+    }
+
+    public void setInputOddsRatio(OddsRatioBean inputOddsRatio) {
+        this.inputOddsRatio = inputOddsRatio;
+    }
+
+    public Double getLogP() {
+        return logP;
+    }
+
+    public void setLogP(Double logP) {
+        this.logP = logP;
+    }
+
+    public Double getpValue() {
+        return pValue;
+    }
+
+    public void setpValue(Double pValue) {
+        this.pValue = pValue;
+    }
+
+    public String getEffect() {
+        // local variables
+        String effect = "neutral";
+
+        // set according to logp value
+        if (this.logP != null) {
+            if (this.logP < 1.0) {
+                effect = "deleterious";
+            } else {
+                effect = "benign";
+            }
+        }
+
+        // return
+        return effect;
+    }
+
+    /**
+     * returns trie if the new codon is a stop codon
+     *
+     * @return
+     */
+    public boolean isResultStopCodon() {
+        // local variables
+        boolean isStop = false;
+
+        if (this.alternateCodon != null) {
+            if ("taa".equals(this.alternateCodon) || "tag".equals(this.alternateCodon) || "tga".equals(this.alternateCodon)) {
+                isStop = true;
+            }
+        }
+
+        // return
+        return isStop;
+    }
 }

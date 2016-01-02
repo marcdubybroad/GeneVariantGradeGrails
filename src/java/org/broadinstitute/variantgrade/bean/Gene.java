@@ -99,6 +99,100 @@ public class Gene {
     }
 
     /**
+     * returns the CODING codon at the gene position
+     *
+     * @param position
+     * @return
+     * @throws GradeException
+     */
+    public String getCodingCodonAtCodingPosition(int position) throws GradeException {
+        // local variables
+        String codon;
+        int proteinPosition = -1;
+
+        // check that position is coding
+        if (!this.isPositionInCodingRegion(position)) {
+            throw new GradeException("position: " + position + " is not in the protein coding region");
+        }
+
+        // get the protein position
+        proteinPosition = this.getProteinPositionForCodingRegionAllele(position);
+
+        // get the codon at the position
+        codon = this.getCodonAtProteinPosition(proteinPosition);
+
+        // return
+        return codon;
+    }
+
+    /**
+     * returns the CODING codon at the gene position
+     *
+     * @param position
+     * @return
+     * @throws GradeException
+     */
+    public String getNewCodingCodonForAlelleAtCodingPosition(int position, String allele) throws GradeException {
+        // local variables
+        String referenceCodon;
+        String alternateCodon;
+        int codingSequencePosition = -1;
+        int moduloPosition = -1;
+
+        // check that position is coding
+        if (!this.isPositionInCodingRegion(position)) {
+            throw new GradeException("position: " + position + " is not in the protein coding region");
+        }
+
+        // translate the gene position to the coding sequence position
+        codingSequencePosition = this.translateGenePositionToCodingSequencePosition(position);
+
+        // get the modulo of the coding sequence position
+        moduloPosition = codingSequencePosition % 3;
+
+        // get the original codon
+        referenceCodon = this.getCodingCodonAtCodingPosition(position);
+
+        // swap allele based on the modulo of the coding sequence position
+        if (moduloPosition == 1) {
+            alternateCodon = allele + referenceCodon.substring(1);
+
+        } else if (moduloPosition == 2) {
+            alternateCodon = referenceCodon.substring(0, 1) + allele + referenceCodon.substring(2);
+
+        } else {
+            alternateCodon = referenceCodon.substring(0, 2) + allele;
+        }
+
+        // return
+        return alternateCodon;
+    }
+
+    /**
+     * translates the gene position to the coding region position
+     *
+     * @param genePosition
+     * @return
+     * @throws GradeException
+     */
+    protected int translateGenePositionToCodingSequencePosition(int genePosition) throws GradeException {
+        // local variables
+        int codingSequencePosition = 0;
+        CodingRegion region = this.codingRegionList.get(0);
+
+        // check that in coding regions
+        if (!this.isPositionInCodingRegion(genePosition)) {
+            throw new GradeException("position: " + genePosition + " is not in the protein coding region");
+        }
+
+        // get the position in the coding region
+        codingSequencePosition = region.translateGenePositionToCodingSequencePosition(genePosition);
+
+        // return
+        return codingSequencePosition;
+    }
+
+    /**
      * return the codon at the given position
      *
      * @param position
@@ -170,7 +264,11 @@ public class Gene {
         codonStart = codonEnd - 2;
 
         // get the codon at that position
-        codon = this.getCodingSequence().substring(codonStart, codonEnd + 1);
+        if (codonEnd + 1 == this.getCodingSequence().length()) {
+            codon = this.getCodingSequence().substring(codonStart);
+        } else {
+            codon = this.getCodingSequence().substring(codonStart, codonEnd + 1);
+        }
 
         // return
         return codon;
