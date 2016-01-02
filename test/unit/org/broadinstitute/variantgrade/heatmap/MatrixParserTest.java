@@ -36,9 +36,13 @@ public class MatrixParserTest extends TestCase {
 
     @Test
     public void testSetup() {
-            assertNotNull(this.matrixParser);
-            assertNotNull(this.matrixParser.getHeatMap());
-            assertTrue(this.matrixParser.getHeatMap().size() > 0);
+        assertNotNull(this.matrixParser);
+        assertNotNull(this.matrixParser.getHeatMap());
+        assertTrue(this.matrixParser.getHeatMap().size() > 0);
+        assertEquals(505, this.matrixParser.getHeatMap().size());
+        assertNotNull(this.matrixParser.getLogpMap());
+        assertTrue(this.matrixParser.getLogpMap().size() > 0);
+        assertEquals(505, this.matrixParser.getLogpMap().size());
     }
 
     @Test
@@ -78,7 +82,7 @@ public class MatrixParserTest extends TestCase {
 
         // test
         assertNotNull(result);
-        assertEquals(new Double(0.130984994891909), result);
+        assertEquals(new Double(1.26523134366304), result);
     }
 
     @Test
@@ -98,7 +102,7 @@ public class MatrixParserTest extends TestCase {
 
         // test
         assertNotNull(result);
-        assertEquals(new Double(0.130984994891909), result);
+        assertEquals(new Double(18.5031135354918), result);
     }
 
     @Test

@@ -152,15 +152,25 @@ public class MatrixParser {
         return this.proteinList;
     }
 
+    /**
+     * populates the instance heat map from the given file
+     * @throws GradeException
+     */
     public void populate() throws GradeException {
+        // populate the heat matrix
+        this.populateMatrix(MATRIX_TYPE_POSITION_HEAT);
 
+        // populate the logp matrix
+        this.populateMatrix(MATRIX_TYPE_POSITION_LOGP);
 
         // set initialization
         this.isInitialized = true;
     }
 
     /**
-     * populates the instance heat map from the given file
+     * populate the matrix given
+     *
+     * @param matrixType
      * @throws GradeException
      */
     protected void populateMatrix(int matrixType) throws GradeException {
@@ -200,7 +210,7 @@ public class MatrixParser {
                     // add in the reference letters to the reference list
                     // only use the heat map for the reference letters
                     if (matrixType == MATRIX_TYPE_POSITION_HEAT) {
-                        for (int i = 3; i < headerLine.length; i++) {
+                        for (int i = 2; i < headerLine.length; i++) {
                             this.referenceLetterList.add(headerLine[i].substring(1, 2));
                         }
                     }
@@ -218,7 +228,7 @@ public class MatrixParser {
                     }
 
                     // index 2 is reference letter
-                    referenceLetter = tempLine[2].substring(1, 2);
+                    referenceLetter = tempLine[0].substring(1, 2);
 
                     // check data issues
                     if (position == null) {
@@ -231,7 +241,7 @@ public class MatrixParser {
 
                     // loop through rest of array and create heat object
                     positionMatrixBean = new PositionMatrixBean(position, referenceLetter);
-                    for (int i = 3; i < headerLine.length; i++) {
+                    for (int i = 2; i < headerLine.length; i++) {
                         positionMatrixBean.addHeatEntry(headerLine[i].substring(1, 2), new Double(tempLine[i]));
                     }
 
