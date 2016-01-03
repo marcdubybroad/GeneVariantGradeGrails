@@ -24,7 +24,16 @@ input.searchbox {
     width: 80%;
 }
 
+input.prevalencebox {
+    width: 40%;
+}
+
 p.small-text {
     font-size: 14px;
 }
+
+p.bold-text {
+    font-weight: bold;
+}
+
 

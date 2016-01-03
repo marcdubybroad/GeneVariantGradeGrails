@@ -25,26 +25,38 @@ class HeatMapService {
      * @return
      * @throws GradeException
      */
-    public ProteinResult getHeatMapReadingFromSearchString(String searchString, int oddsRatioIndex) throws GradeException {
+    public ProteinResult getHeatMapReadingFromSearchString(String searchString, String prevalence) throws GradeException {
         // local variables
         SearchInputBean inputBean = null;
         SearchInputTranslator translator = new SearchInputTranslator(searchString);
         ProteinResult resultBean;
+        BigDecimal prevalenceDecimal = null;
 
         // translate the bean
         inputBean = translator.translate();
+
+        // get the double of prevalence
+        try {
+            prevalenceDecimal = new BigDecimal(prevalence);
+
+        } catch (NumberFormatException exception) {
+            throw new GradeException("got number format exception for prevalence: " + exception.getMessage(), "Incorect prevalence input: " + prevalence);
+        }
 
         if (inputBean.isProteinInput()) {
             // log
             log.info("calling protein heat map for position: " + inputBean.getProteinPosition() + " and input allele: " + inputBean.getProteinInputAllele());
 
             // call
-            resultBean =  this.getHeatMapReadingFromProtein(inputBean.getProteinPosition(), inputBean.getProteinInputAllele(), oddsRatioIndex, false);
+            resultBean =  this.getHeatMapReadingFromProtein(inputBean.getProteinPosition(), inputBean.getProteinInputAllele(), prevalenceDecimal.doubleValue(), false);
 
         } else {
-            resultBean =  this.getHeatMapReadingFromVariant(inputBean.getGenePosition(), inputBean.getGeneInputAllele(), oddsRatioIndex);
+            resultBean =  this.getHeatMapReadingFromVariant(inputBean.getGenePosition(), inputBean.getGeneInputAllele(), prevalenceDecimal.doubleValue());
 
         }
+
+        // set the prevalence
+        resultBean.setInputPrevalence(prevalenceDecimal.doubleValue());
 
         // return
         return resultBean;
@@ -58,7 +70,7 @@ class HeatMapService {
      * @return
      * @throws GradeException
      */
-    public ProteinResult getHeatMapReadingFromVariant(int variantPosition, String alternateAllele, int oddsRatioIndex) throws GradeException {
+    public ProteinResult getHeatMapReadingFromVariant(int variantPosition, String alternateAllele, Double prevalence) throws GradeException {
         // local variables
         int proteinPosition;
         String proteinAllele;
@@ -81,7 +93,7 @@ class HeatMapService {
         log.info("calling variant heat map for position: " + variantPosition + " and variant allele: " + alternateAllele + " and new codon: " + newCodon);
 
         // call the protein function
-        proteinResult = this.getHeatMapReadingFromProtein(proteinPosition, proteinAllele, oddsRatioIndex, this.getMatrixParser().isResultStopCodon(newCodon));
+        proteinResult = this.getHeatMapReadingFromProtein(proteinPosition, proteinAllele, prevalence, this.getMatrixParser().isResultStopCodon(newCodon));
 
         // add in the variant data
         proteinResult.setAlternateCodon(newCodon);
@@ -101,7 +113,7 @@ class HeatMapService {
      * @return
      * @throws GradeException
      */
-    public ProteinResult getHeatMapReadingFromProtein(int position, String allele, int oddsRatioIndex, boolean isStopCodon) throws GradeException {
+    public ProteinResult getHeatMapReadingFromProtein(int position, String allele, Double prevalence, boolean isStopCodon) throws GradeException {
         // local variables
         Double proteinGrade = null;
         ProteinResult result = new ProteinResult();
@@ -123,13 +135,11 @@ class HeatMapService {
             result.setHeatAmount(proteinGrade);
 
             // set the logp values
-            oddsRatioBean = this.getMatrixParser().getOddsRatioOptionsMap().get(new Integer(oddsRatioIndex));
-            result.setInputOddsRatio(oddsRatioBean);
-            tempDouble = this.getMatrixParser().getLogPForPositionLetterAndProbability(position, allele, oddsRatioBean.getValue());
+            tempDouble = this.getMatrixParser().getLogPForPositionLetterAndProbability(position, allele, prevalence);
             result.setLogP(tempDouble);
 
             // set the pValue
-            tempDouble = this.getMatrixParser().getResultPValueForPositionLetterAndProbability(position, allele, oddsRatioBean.getValue());
+            tempDouble = this.getMatrixParser().getResultPValueForPositionLetterAndProbability(position, allele, prevalence);
             result.setpValue(tempDouble);
         }
 

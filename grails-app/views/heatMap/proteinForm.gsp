@@ -105,11 +105,14 @@
                         Get the disease risk by protein change or variant
                     </div>
                     <div class="formWrapper">
+                        <p class="bold-text">Enter Search</p>
                         <input id="searchbox" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
                         <p class="text-muted small-text">
-                            Examples - Protein change: <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.Leu345Asn']">p.Leu345Asn</g:link>,
-                        Variant: <g:link action="proteinSearch" controller="heatMap" params="[query: 'chr3-68747-G-A']">chr3-68747-G-A</g:link>
+                            Examples - Protein change: <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.Leu345Arg', prevalence: '1.0e-5']">p.Leu345Arg</g:link>,
+                        Variant: <g:link action="proteinSearch" controller="heatMap" params="[query: 'chr3-134069-T-G', prevalence: '1.0e-5']">chr3-134069-T-G</g:link>
                         </p>
+                        <p class="bold-text">Enter Prevalence</p>
+                        <input id="prevalencebox" name="prevalence" class="form-control input-lg awesomebar prevalencebox" type="text" placeholder="Enter prevalence" value="1.0e-5"/>
                     </div>
                     <div class="formWrapper">
                         <input type="submit" name="submit">
@@ -142,7 +145,7 @@
                         <p/>
                         For ${proteinResult.getScientificAlleleCode()}, the effect is ${proteinResult.getEffect()} with logp value: ${proteinResult.getLogP()}
                         <p/>
-                        For ${proteinResult.getScientificAlleleCode()} at prevalence of ${proteinResult.getInputOddsRatio().getValue()}, the pValue is ${proteinResult.getpValue()}
+                        For ${proteinResult.getScientificAlleleCode()} at prevalence of ${proteinResult.getInputPrevalence()}, the pValue is ${proteinResult.getpValue()}
                     </g:if>
 
                     <g:if test="${errorMessage}">

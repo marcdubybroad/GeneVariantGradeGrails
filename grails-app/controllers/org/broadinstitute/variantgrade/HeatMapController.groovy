@@ -71,10 +71,10 @@ class HeatMapController {
         List<String> referenceLetterList = this.heatMapService.getProteinReferenceLetterList();
 
         // if params came from query search input
-        if (params.query) {
+        if (params.query && params.prevalence) {
             try {
                 // get the result
-                proteinResult = this.heatMapService.getHeatMapReadingFromSearchString(params.query, 1)
+                proteinResult = this.heatMapService.getHeatMapReadingFromSearchString(params.query, params.prevalence)
 
                 // log
                 log.info("for protein position: " + position + " and letter: " + referenceLetter + " got result:" + proteinResult.getHeatAmount())
@@ -84,7 +84,17 @@ class HeatMapController {
                 errorMessage = exception.webMessage;
             }
 
+        } else if (!params.query) {
+            errorMessage = "The search string input is empty";
+
+        } else if (!params.prevalence) {
+            errorMessage = "The prevalence input is empty";
+
         } else {
+            errorMessage = "Incorrect input for search: " + params.query + " and/or prevalence: " + params.prevalence;
+
+
+            /*
             if (!position) {
                 log.info("missing position with params: " + params);
                 errorMessage = "Please enter a protein position";
@@ -106,6 +116,7 @@ class HeatMapController {
                     errorMessage = exception.webMessage;
                 }
             }
+            */
         }
 
         // render

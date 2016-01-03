@@ -20,6 +20,7 @@ public class ProteinResult {
     private OddsRatioBean inputOddsRatio;
     private Double logP;
     private Double pValue;
+    private Double inputPrevalence;
 
     public Integer getPosition() {
         return position;
@@ -167,5 +168,13 @@ public class ProteinResult {
 
         // return
         return isStop;
+    }
+
+    public Double getInputPrevalence() {
+        return inputPrevalence;
+    }
+
+    public void setInputPrevalence(Double inputPrevalence) {
+        this.inputPrevalence = inputPrevalence;
     }
 }
