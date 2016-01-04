@@ -43,9 +43,10 @@
             w = 400 - margin.left - margin.right,
             h = 400 - margin.top - margin.bottom;
 
-    var parseDate = d3.time.format("%d-%b-%y").parse;
+//    var parseDate = d3.time.format("%d-%b-%y").parse;
 
-    var x = d3.time.scale().range([0, w]);
+//    var x = d3.time.scale().range([0, w]);
+    var x = d3.scale.linear().range([0, w]);
     var y = d3.scale.linear().range([h, 0]);
 
     var xAxis = d3.svg.axis()
@@ -74,20 +75,21 @@
             .call(yAxis);
 
 
-    d3.csv("${g.resource(file:'data_01.csv')}", function(error, data) {
+//    d3.csv("${g.resource(file:'data_01.csv')}", function(error, data) {
+    d3.csv("${g.resource(file:'deleterious.csv')}", function(error, data) {
         // Here we will put all the SVG elements affected by the data
         // on the file!!!
         data.forEach(function(d) {
-            d.date = parseDate(d.date);
-            d.attendee = +d.attendee;
+            d.score = +d.score;
+            d.frequency = +d.frequency;
         });
 
-        x.domain(d3.extent(data, function(d) { return d.date; }));
-        y.domain(d3.extent(data, function(d) { return d.attendee; }));
+        x.domain(d3.extent(data, function(d) { return d.score; }));
+        y.domain(d3.extent(data, function(d) { return d.frequency; }));
 
         var line = d3.svg.line()
-                .x(function(d) { return x(d.date); })
-                .y(function(d) { return y(d.attendee); });
+                .x(function(d) { return x(d.score); })
+                .y(function(d) { return y(d.frequency); });
 
         svg.append("g").append("svg:path").attr("d", line(data));
     });
