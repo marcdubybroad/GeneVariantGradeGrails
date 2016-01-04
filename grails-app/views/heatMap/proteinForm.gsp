@@ -91,6 +91,7 @@
             font-weight: bold;
         }
     </style>
+    <g:render template="d3"/>
 </head>
 <body>
 <a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -152,6 +153,11 @@
                         ${errorMessage}
                     </g:if>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="lineDiv" class="lineDiv"/>
             </div>
         </div>
     </div>
