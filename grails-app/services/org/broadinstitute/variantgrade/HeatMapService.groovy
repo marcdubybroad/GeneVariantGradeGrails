@@ -40,7 +40,7 @@ class HeatMapService {
             prevalenceDecimal = new BigDecimal(prevalence);
 
         } catch (NumberFormatException exception) {
-            throw new GradeException("got number format exception for prevalence: " + exception.getMessage(), "Incorect prevalence input: " + prevalence);
+            throw new GradeException("got number format exception for prevalence: " + exception.getMessage(), "Incorrect prevalence input: " + prevalence);
         }
 
         if (inputBean.isProteinInput()) {

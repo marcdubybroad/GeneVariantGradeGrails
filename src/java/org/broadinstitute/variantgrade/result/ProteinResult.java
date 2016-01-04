@@ -140,7 +140,7 @@ public class ProteinResult {
 
         // set according to logp value
         if (this.logP != null) {
-            if (this.logP < 1.0) {
+            if (this.logP < 0.0) {
                 effect = "deleterious";
             } else {
                 effect = "benign";
