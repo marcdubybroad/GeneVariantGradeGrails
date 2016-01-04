@@ -1,9 +1,13 @@
 
 - must
-  - add grails security pass code
-  - add position and reference letter lookup
-
+  - lowercase key addition for proteion lookup
+  - chr3
+  
+  
 - nice to have
   - responsive site with bootstrap
+
+questions
+  - what about indels
 
 
