@@ -27,7 +27,6 @@
     }
 
     path {
-        stroke: steelblue;
         stroke-width: 3;
         fill: none;
     }
@@ -48,6 +47,9 @@
 //    var x = d3.time.scale().range([0, w]);
     var x = d3.scale.linear().range([0, w]);
     var y = d3.scale.linear().range([h, 0]);
+
+    x.domain([-8, 4]);
+    y.domain([0, 0.6]);
 
     var xAxis = d3.svg.axis()
             .scale(x)
@@ -84,16 +86,37 @@
             d.frequency = +d.frequency;
         });
 
-        x.domain(d3.extent(data, function(d) { return d.score; }));
-        y.domain(d3.extent(data, function(d) { return d.frequency; }));
+//        x.domain(d3.extent(data, function(d) { return d.score; }));
+//        y.domain(d3.extent(data, function(d) { return d.frequency; }));
 
         var line = d3.svg.line()
                 .x(function(d) { return x(d.score); })
                 .y(function(d) { return y(d.frequency); });
 
-        svg.append("g").append("svg:path").attr("d", line(data));
+        svg.append("g").append("svg:path").attr("d", line(data)).attr("class", "red");
+
+        svg.select('path.red').attr("stroke", "red");
     });
 
+    d3.csv("${g.resource(file:'benign.csv')}", function(error, data) {
+        // Here we will put all the SVG elements affected by the data
+        // on the file!!!
+        data.forEach(function(d) {
+            d.score = +d.score;
+            d.frequency = +d.frequency;
+        });
+
+//        x.domain(d3.extent(data, function(d) { return d.score; }));
+//        y.domain(d3.extent(data, function(d) { return d.frequency; }));
+
+        var line = d3.svg.line()
+                .x(function(d) { return x(d.score); })
+                .y(function(d) { return y(d.frequency); });
+
+        svg.append("g").append("svg:path").attr("d", line(data)).attr("class", "green");
+
+        svg.selectAll('path.green').attr("stroke", "green");
+    });
 
 </script>
 </body>
