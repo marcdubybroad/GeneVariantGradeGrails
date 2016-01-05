@@ -37,6 +37,12 @@
 </head>
 
 <body>
+<div class="dude">
+    dude
+</div>
+<div class="chart">
+
+</div>
 <script type="text/javascript">
     var margin = {top: 70, right: 20, bottom: 30, left: 50},
             w = 400 - margin.left - margin.right,
@@ -61,7 +67,7 @@
             .orient("left")
             .ticks(5);
 
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("div.chart").append("svg")
             .attr("width", w + margin.left + margin.right)
             .attr("height", h + margin.top + margin.bottom)
             .append("g")
