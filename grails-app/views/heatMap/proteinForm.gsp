@@ -98,8 +98,8 @@
     }
         div.formWrapper {
             font-size: 16px;
-            padding-top: 15px;
-            padding-bottom: 15px;
+            padding-top: 5px;
+            padding-bottom: 5px;
         }
         div.bold {
             font-weight: bold;
@@ -186,7 +186,7 @@
 <script type="text/javascript">
     var margin = {top: 0, right: 20, bottom: 30, left: 20},
             w = 600 - margin.left - margin.right,
-            h = 400 - margin.top - margin.bottom;
+            h = 300 - margin.top - margin.bottom;
 
     //    var parseDate = d3.time.format("%d-%b-%y").parse;
 
