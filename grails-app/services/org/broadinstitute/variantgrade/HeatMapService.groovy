@@ -82,7 +82,7 @@ class HeatMapService {
             proteinPosition = this.matrixParser.getGene().getProteinPositionForCodingRegionAllele(variantPosition);
 
         } catch (GradeException exception) {
-            throw new GradeException(exception.getMessage(), "The variant position " + variantPosition + " is not in the protein coding region");
+            throw new GradeException(exception.getMessage(), "The variant position " + (variantPosition + SearchInputTranslator.GENE_CHROMOSOME_OFFSET) + " is not in the protein coding region");
         }
 
         // get the new protein allele
@@ -100,6 +100,7 @@ class HeatMapService {
         proteinResult.setGenePosition(variantPosition);
         proteinResult.setGeneInputAllele(alternateAllele.toLowerCase());
         proteinResult.setGeneReferenceAllele(this.matrixParser.getGene().getReferenceAtGenePosition(variantPosition));
+        proteinResult.setChromosomePosition(variantPosition + this.matrixParser.getGene().getChromosomePosition());
 
         // return
         return proteinResult;

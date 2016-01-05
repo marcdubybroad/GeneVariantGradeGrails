@@ -7,6 +7,7 @@ import org.broadinstitute.variantgrade.bean.Gene;
 import org.broadinstitute.variantgrade.bean.GeneRegion;
 import org.broadinstitute.variantgrade.bean.OddsRatioBean;
 import org.broadinstitute.variantgrade.bean.PositionMatrixBean;
+import org.broadinstitute.variantgrade.translator.SearchInputTranslator;
 import org.broadinstitute.variantgrade.util.GradeException;
 
 import java.io.BufferedReader;
@@ -87,6 +88,7 @@ public class MatrixParser {
             // loop through protein list and build
             for (AminoAcidBean bean: this.getProteinList()) {
                 this.proteinMapKeyedOnOneLetterCode.put(bean.getCodeOneLetter(), bean);
+                this.proteinMapKeyedOnOneLetterCode.put(bean.getCodeOneLetter().toLowerCase(), bean);
             }
         }
 
@@ -107,6 +109,7 @@ public class MatrixParser {
             // loop through protein list and build
             for (AminoAcidBean bean: this.getProteinList()) {
                 this.proteinMapKeyedOnThreeLetterCode.put(bean.getCodeThreeLetter(), bean);
+                this.proteinMapKeyedOnThreeLetterCode.put(bean.getCodeThreeLetter().toLowerCase(), bean);
             }
         }
 
@@ -493,7 +496,7 @@ public class MatrixParser {
         // initialize list if null
         if (this.gene == null) {
             // build the gene
-            this.gene = new Gene("PPARG");
+            this.gene = new Gene("PPARG", SearchInputTranslator.GENE_CHROMOSOME_OFFSET);
             this.gene.setGeneRegionLength(60);
 
             // if gene region stream is null, throw exception

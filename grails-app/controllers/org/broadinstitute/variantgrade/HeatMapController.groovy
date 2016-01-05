@@ -66,6 +66,10 @@ class HeatMapController {
         // log
         log.info("in protein search, got params: " + params)
 
+        // keep last search parameters
+        String lastQuery = params.query;
+        String lastPrevalence = params.prevalence;
+
         // if logged in, protein form
         String referenceLetter = params.referenceLetter
         String position = params.position
@@ -125,7 +129,7 @@ class HeatMapController {
         }
 
         // render
-        render(view: 'proteinForm', model: [errorMessage: errorMessage, proteinResult: proteinResult, referenceLetterList: referenceLetterList])
+        render(view: 'proteinForm', model: [lastQuery: lastQuery, lastPrevalence: lastPrevalence, errorMessage: errorMessage, proteinResult: proteinResult, referenceLetterList: referenceLetterList])
 
     }
 }

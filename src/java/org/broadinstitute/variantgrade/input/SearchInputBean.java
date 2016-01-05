@@ -16,6 +16,7 @@ public class SearchInputBean {
     // genotype variables
     private String chromosome;
     private int genePosition;
+    private int chromosomePosition;
     private String geneReferenceAllele;
     private String geneInputAllele;
 
@@ -95,4 +96,11 @@ public class SearchInputBean {
         this.geneInputAllele = geneInputAllele;
     }
 
+    public int getChromosomePosition() {
+        return chromosomePosition;
+    }
+
+    public void setChromosomePosition(int chromosomePosition) {
+        this.chromosomePosition = chromosomePosition;
+    }
 }

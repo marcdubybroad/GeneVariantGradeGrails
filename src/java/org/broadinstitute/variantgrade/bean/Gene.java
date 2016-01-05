@@ -15,12 +15,14 @@ public class Gene {
     private List<CodingRegion> codingRegionList = new ArrayList<CodingRegion>();
     private int geneRegionLength;
     private String codingSequence;
+    private int chromosomePosition;
 
     /**
      * default constructor
      *
       */
-    public Gene (String name) {
+    public Gene (String name, int chromosomePosition) {
+        this.chromosomePosition = chromosomePosition;
         this.name = name;
     }
 
@@ -348,5 +350,13 @@ public class Gene {
 
     public void setGeneRegionLength(int geneRegionLength) {
         this.geneRegionLength = geneRegionLength;
+    }
+
+    public int getChromosomePosition() {
+        return chromosomePosition;
+    }
+
+    public void setChromosomePosition(int chromosomePosition) {
+        this.chromosomePosition = chromosomePosition;
     }
 }

@@ -125,13 +125,13 @@
                     </div>
                     <div class="formWrapper">
                         <p class="bold-text">Enter Search</p>
-                        <input id="searchbox" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
+                        <input id="searchbox" value="${lastQuery}" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
                         <p class="text-muted small-text">
-                            Examples - Protein change: <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.Leu345Arg', prevalence: '1.0e-5']">p.Leu345Arg</g:link>,
-                        Variant: <g:link action="proteinSearch" controller="heatMap" params="[query: 'chr3-134069-T-G', prevalence: '1.0e-5']">chr3-134069-T-G</g:link>
+                            Examples - Protein change: <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.Pro12Ala', prevalence: '1.0e-5']">p.Pro12Ala</g:link>,
+                            Variant: <g:link action="proteinSearch" controller="heatMap" params="[query: 'chr3-12393125-C-G', prevalence: '1.0e-5']">chr3-12393125-C-G</g:link>
                         </p>
                         <p class="bold-text">Enter Prevalence</p>
-                        <input id="prevalencebox" name="prevalence" class="form-control input-lg awesomebar prevalencebox" type="text" placeholder="Enter prevalence" value="1.0e-5"/>
+                        <input id="prevalencebox" name="prevalence" class="form-control input-lg awesomebar prevalencebox" type="text" placeholder="Enter prevalence" value="${lastPrevalence ? lastPrevalence : '1.0e-5'}"/>
                     </div>
                     <div class="formWrapper">
                         <input type="submit" name="submit">
@@ -194,7 +194,7 @@
     var x = d3.scale.linear().range([0, w]);
     var y = d3.scale.linear().range([h, 0]);
 
-    x.domain([-8, 4]);
+    x.domain([-8, 5]);
     y.domain([0, 0.6]);
 
     var xAxis = d3.svg.axis()
@@ -264,13 +264,22 @@
         svg.selectAll('path.green').attr("stroke", "green");
     });
 
-    var scoreData = [{xdata: ${proteinResult.getHeatAmount()}, ydata:0}, {xdata: ${proteinResult.getHeatAmount()},ydata: 0.5}];
+    var scoreData = [{xdata: ${proteinResult.getHeatAmount()}, ydata:0}, {xdata: ${proteinResult.getHeatAmount()}, ydata: 0.5}];
     var scoreLine = d3.svg.line()
             .x(function(d) { return x(d.xdata); })
             .y(function(d) { return y(d.ydata); });
+
     svg.append("g").append("svg:path").attr("d", scoreLine(scoreData)).attr("class", "black");
 
     svg.selectAll('path.black').attr("stroke", "black");
+
+    svg.append("g").append("svg:text")
+            .attr("x", w * ((${proteinResult.getHeatAmount()} + 8)/12))
+            .attr("y", 30)
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .style("fill", "black")
+            .text('${proteinResult.getScientificAlleleCode()}');
 
 </script>
 </g:if>

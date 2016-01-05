@@ -12,6 +12,15 @@ public class SearchInputTranslator {
     private String inputString;
     MatrixParser matrixParser = MatrixParser.getMatrixParser();
 
+    // constants
+    // TODO - move this to gene based data location; this should be passed in to the translator, or at least the SearchInputBean
+    public static final int GENE_CHROMOSOME_OFFSET           = 12324348;
+
+    /**
+     * default constructor
+     *
+     * @param input
+     */
     public SearchInputTranslator(String input) {
         this.inputString = input;
     }
@@ -79,7 +88,8 @@ public class SearchInputTranslator {
 
             // set the position
             try {
-                bean.setGenePosition(Integer.valueOf(splitString[1]));
+                bean.setChromosomePosition(Integer.valueOf(splitString[1]));
+                bean.setGenePosition(Integer.valueOf(splitString[1]) - GENE_CHROMOSOME_OFFSET);
                 bean.setIsProteinInput(false);
 
             } catch (NumberFormatException exception) {

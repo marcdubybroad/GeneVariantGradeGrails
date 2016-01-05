@@ -7,6 +7,13 @@ meeting
   - show github
   
   
+  
+  integrated functional score
+  density known variants
+  b/d
+  
+  3:12393125 C / G (rs1801282) to p.Pro12Ala
+  
 - nice to have
   - responsive site with bootstrap
 

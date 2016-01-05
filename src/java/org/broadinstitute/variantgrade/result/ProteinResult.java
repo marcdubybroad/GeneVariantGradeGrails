@@ -17,6 +17,7 @@ public class ProteinResult {
     private String geneReferenceAllele;
     private String geneInputAllele;
     private int genePosition;
+    private int chromosomePosition;
     private OddsRatioBean inputOddsRatio;
     private Double logP;
     private Double pValue;
@@ -70,6 +71,14 @@ public class ProteinResult {
         this.scientificAlleleCode = scientificAlleleCode;
     }
 
+    public int getChromosomePosition() {
+        return chromosomePosition;
+    }
+
+    public void setChromosomePosition(int chromosomePosition) {
+        this.chromosomePosition = chromosomePosition;
+    }
+
     public String getGeneReferenceAllele() {
         return geneReferenceAllele;
     }
@@ -96,7 +105,7 @@ public class ProteinResult {
 
     public String getVariantDisplay() {
         if ((this.getGeneInputAllele() != null) && (this.getGenePosition() != -1) && (this.getGeneReferenceAllele() != null)) {
-            return "chr3:" + this.getGenePosition() + "_" + this.getGeneReferenceAllele() + "/" + this.getGeneInputAllele();
+            return "chr3:" + this.getChromosomePosition() + "_" + this.getGeneReferenceAllele() + "/" + this.getGeneInputAllele();
         } else {
             return null;
         }
