@@ -52,6 +52,11 @@ class HeatMapController {
         }
     }
 
+    def chart() {
+        log.info("in chart test")
+        render(view: "testd3")
+    }
+
     def proteinSearch() {
         // check that logged in
         if (!session.user) {

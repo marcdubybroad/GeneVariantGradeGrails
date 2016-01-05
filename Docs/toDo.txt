@@ -3,6 +3,9 @@
   - lowercase key addition for proteion lookup
   - chr3
   
+meeting
+  - show github
+  
   
 - nice to have
   - responsive site with bootstrap
