@@ -67,8 +67,8 @@ class HeatMapController {
         log.info("in protein search, got params: " + params)
 
         // keep last search parameters
-        String lastQuery = params.query;
-        String lastPrevalence = params.prevalence;
+        String lastQuery = params.query?.trim();
+        String lastPrevalence = params.prevalence?.trim();
 
         // if logged in, protein form
         String referenceLetter = params.referenceLetter
@@ -83,7 +83,7 @@ class HeatMapController {
         if (params.query && params.prevalence) {
             try {
                 // get the result
-                proteinResult = this.heatMapService.getHeatMapReadingFromSearchString(params.query, params.prevalence)
+                proteinResult = this.heatMapService.getHeatMapReadingFromSearchString(lastQuery, lastPrevalence)
 
                 // log
                 log.info("for protein position: " + position + " and letter: " + referenceLetter + " got result:" + proteinResult.getHeatAmount())

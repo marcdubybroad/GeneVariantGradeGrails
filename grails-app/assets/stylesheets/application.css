@@ -14,10 +14,17 @@
 
 div.apptitle {
     font-size: 36px;
-    font-weight: bold;
     text-align: center;
     padding-top: 15px;
     padding-bottom: 15px;
+    color: darkslategrey;
+}
+
+ul{
+    margin-left:30px;
+}
+span.cap {
+    text-transform: uppercase;
 }
 
 input.searchbox {
@@ -36,4 +43,13 @@ p.bold-text {
     font-weight: bold;
 }
 
+span.title-black {
+    color: black;
+    font-weight: bold;
+}
+
+div.title-grey {
+    color: grey;
+    font-weight: bold;
+}
 

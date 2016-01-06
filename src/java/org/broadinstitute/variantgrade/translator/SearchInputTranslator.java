@@ -22,7 +22,11 @@ public class SearchInputTranslator {
      * @param input
      */
     public SearchInputTranslator(String input) {
-        this.inputString = input;
+        if (input != null) {
+            this.inputString = input.trim();
+        } else {
+            this.inputString = input;
+        }
     }
 
     /**

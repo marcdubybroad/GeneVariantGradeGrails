@@ -17,7 +17,7 @@
 		<g:layoutHead/>
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner" class="apptitle">Missense Interpreter</div>
+		<div id="grailsLogo" role="banner" class="apptitle"><span class="title-black">M</span>issense <span class="title-black">I</span>n<span class="title-black">T</span>erpretation by <span class="title-black">E</span>xperimental <span class="title-black">R</span>esponse</div>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>

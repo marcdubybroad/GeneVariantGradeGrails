@@ -129,7 +129,7 @@ class HeatMapService {
         // if not a stop codon
         if (!isStopCodon) {
             // log
-            log.info("got stop codon");
+            log.info("got non stop codon");
 
             // get the map amount
             proteinGrade = this.getMatrixParser().getMatrixValueAtPositionAndLetterAndType(position, allele, MatrixParser.MATRIX_TYPE_POSITION_HEAT);

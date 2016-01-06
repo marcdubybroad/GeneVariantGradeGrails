@@ -120,11 +120,8 @@
         <div class="row">
             <div class="col-md-12">
                 <g:form name="myForm" action="proteinSearch" id="1">
-                    <div class="formWrapper title">
-                        Get the disease risk by protein change or variant
-                    </div>
                     <div class="formWrapper">
-                        <p class="bold-text">Enter Search</p>
+                        <p class="bold-text">Enter Missense Variant</p>
                         <input id="searchbox" value="${lastQuery}" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
                         <p class="text-muted small-text">
                             Examples - Protein change: <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.Pro12Ala', prevalence: '1.0e-5']">p.Pro12Ala</g:link>,
@@ -143,28 +140,37 @@
             <div class="col-md-12">
                 <div class="formWrapper bold">
                     <g:if test="${proteinResult != null}">
-                        The reference gene codon for protein position ${proteinResult.getPosition()} is ${proteinResult.getReferenceCodon()}
-                        <p/>
-
-                        <g:if test="${proteinResult.getAlternateCodon()}">
-                            The modified gene codon for protein position ${proteinResult.getPosition()} is ${proteinResult.getAlternateCodon()}
-                            <p/>
-
-                            <g:if test="${proteinResult.isResultStopCodon()}">
-                                The modified gene codon ${proteinResult.getAlternateCodon()} is a stop codon.
-                                <p/>
-                            </g:if>
-                        </g:if>
-
                         <g:if test="${proteinResult.getVariantDisplay()}">
-                            For variant ${proteinResult.getVariantDisplay()} the protein change is: ${proteinResult.getScientificAlleleCode()}
-                            <p/>
+                            For variant ${proteinResult.getVariantDisplay()}
+                            <ul>
+                                <li>The reference codon is <span class="cap">${proteinResult.getReferenceCodon()}</span></li>
+                                <g:if test="${proteinResult.getAlternateCodon()}">
+                                    <li>The modified codon is <span class="cap">${proteinResult.getAlternateCodon()}</span></li>
+                                </g:if>
+                                <g:if test="${proteinResult.isResultStopCodon()}">
+                                    <li>The modified codon <span class="cap">${proteinResult.getAlternateCodon()}</span> is a stop codon</li>
+                                </g:if>
+                                <li>The protein change is ${proteinResult.getScientificAlleleCode()}</li>
+                                <li>The integrated functional score is ${proteinResult.getHeatAmount()}</li>
+                                <li>The effect is ${proteinResult.getEffect()}</li>
+                                <li>The logp value ${proteinResult.getLogP()}</li>
+                                <li>At prevalence of ${proteinResult.getInputPrevalence()}</li>
+                                <li>The pValue is ${proteinResult.getpValue()}</li>
+                            </ul>
+
                         </g:if>
-                        For ${proteinResult.getScientificAlleleCode()} the combined functional score is: ${proteinResult.getHeatAmount()}
+                        <g:else>
+                            For protein change ${proteinResult.getScientificAlleleCode()}
+                            <ul>
+                                <li>The reference codon is <span class="cap">${proteinResult.getReferenceCodon()}</span></li>
+                                <li>The integrated functional score is ${proteinResult.getHeatAmount()}</li>
+                                <li>The effect is ${proteinResult.getEffect()}</li>
+                                <li>The logp value ${proteinResult.getLogP()}</li>
+                                <li>At prevalence of ${proteinResult.getInputPrevalence()}</li>
+                                <li>The pValue is ${proteinResult.getpValue()}</li>
+                            </ul>
+                        </g:else>
                         <p/>
-                        For ${proteinResult.getScientificAlleleCode()}, the effect is ${proteinResult.getEffect()} with logp value: ${proteinResult.getLogP()}
-                        <p/>
-                        For ${proteinResult.getScientificAlleleCode()} at prevalence of ${proteinResult.getInputPrevalence()}, the pValue is ${proteinResult.getpValue()}
                     </g:if>
 
                     <g:if test="${errorMessage}">

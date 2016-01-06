@@ -1,7 +1,8 @@
 
 - must
-  - lowercase key addition for proteion lookup
   - chr3
+  - check gene allele; throw specific message
+  
   
 meeting
   - show github
@@ -12,7 +13,6 @@ meeting
   density known variants
   b/d
   
-  3:12393125 C / G (rs1801282) to p.Pro12Ala
   
 - nice to have
   - responsive site with bootstrap
