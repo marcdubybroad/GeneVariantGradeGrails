@@ -113,14 +113,13 @@
 </head>
 <body>
 <a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-<div id="status" role="complementary">
-</div>
 <div id="page-body" role="main" class="formWrapper">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <g:form name="myForm" action="proteinSearch" id="1">
                     <div class="formWrapper">
+                        <div class="apptitle-black">PPARG</div>
                         <p class="bold-text">Enter Missense Variant</p>
                         <input id="searchbox" value="${lastQuery}" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
                         <p class="text-muted small-text">
@@ -141,36 +140,101 @@
                 <div class="formWrapper bold">
                     <g:if test="${proteinResult != null}">
                         <g:if test="${proteinResult.getVariantDisplay()}">
-                            For variant ${proteinResult.getVariantDisplay()}
-                            <ul>
-                                <li>The reference codon is <span class="cap">${proteinResult.getReferenceCodon()}</span></li>
-                                <g:if test="${proteinResult.getAlternateCodon()}">
-                                    <li>The modified codon is <span class="cap">${proteinResult.getAlternateCodon()}</span></li>
-                                </g:if>
-                                <g:if test="${proteinResult.isResultStopCodon()}">
-                                    <li>The modified codon <span class="cap">${proteinResult.getAlternateCodon()}</span> is a stop codon</li>
-                                </g:if>
-                                <li>The protein change is ${proteinResult.getScientificAlleleCode()}</li>
-                                <li>The integrated functional score is <g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></li>
-                                <li>The clinical prediction is ${proteinResult.getEffect()}</li>
-                                <li>At prevalence of ${proteinResult.getInputPrevalence()}</li>
-                                <ul>
-                                    <li>The pValue is ${proteinResult.getPValueClinicalScientificNotation()}</li>
-                                </ul>
-                            </ul>
+                            <div class="row reduced-width">
+                                <div class="col-md-4">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Variant</th>
+                                            <th>${proteinResult.getVariantDisplay()}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>Reference codon</td>
+                                            <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
+                                        </tr>
+                                        <g:if test="${proteinResult.getAlternateCodon()}">
+                                            <tr>
+                                                <td>Modified Codon</td>
+                                                <td><span class="cap">${proteinResult.getAlternateCodon()}</span></td>
+                                            </tr>
+                                        </g:if>
+                                        <g:if test="${proteinResult.isResultStopCodon()}">
+                                            <tr>
+                                                <td>Modified codon</td>
+                                                <td>is a stop codon</td>
+                                            </tr>
+                                        </g:if>
+                                        <tr>
+                                            <td>Protein change</td>
+                                            <td>${proteinResult.getScientificAlleleCode()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Integrated functional score</td>
+                                            <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>At prevalence</td>
+                                            <td>${proteinResult.getInputPrevalence()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Clinical prediction</td>
+                                            <td>${proteinResult.getEffect()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>pValue</td>
+                                            <td>${proteinResult.getPValueClinicalScientificNotation()}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    Variant
+                                </div>
+                                <div class="col-md-8">
+
+                                </div>
+                            </div>
 
                         </g:if>
                         <g:else>
-                            For protein change ${proteinResult.getScientificAlleleCode()}
-                            <ul>
-                                <li>The reference codon is <span class="cap">${proteinResult.getReferenceCodon()}</span></li>
-                                <li>The integrated functional score is <g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></li>
-                                <li>The clinical prediction is ${proteinResult.getEffect()}</li>
-                                <li>At prevalence of ${proteinResult.getInputPrevalence()}</li>
-                                <ul>
-                                    <li>The pValue is ${proteinResult.getPValueClinicalScientificNotation()}</li>
-                                </ul>
-                            </ul>
+                            <div class="row reduced-width">
+                                <div class="col-md-4">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Protein change</th>
+                                            <th>${proteinResult.getScientificAlleleCode()}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>Reference codon</td>
+                                            <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Integrated functional score</td>
+                                            <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>At prevalence</td>
+                                            <td>${proteinResult.getInputPrevalence()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Clinical prediction</td>
+                                            <td>${proteinResult.getEffect()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>pValue</td>
+                                            <td>${proteinResult.getPValueClinicalScientificNotation()}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    Variant
+                                </div>
+                                <div class="col-md-8">
+
+                                </div>
+                            </div>
                         </g:else>
                         <p/>
                     </g:if>

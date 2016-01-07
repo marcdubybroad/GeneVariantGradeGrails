@@ -20,6 +20,15 @@ div.apptitle {
     color: darkslategrey;
 }
 
+div.apptitle-black {
+    font-size: 36px;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: black;
+    font-weight: bold;
+}
+
 ul{
     margin-left:30px;
 }
@@ -33,6 +42,12 @@ input.searchbox {
 
 input.prevalencebox {
     width: 40%;
+}
+
+div.reduced-width {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 80%;
 }
 
 p.small-text {

@@ -21,3 +21,12 @@ questions
   - what about indels
 
 
+for curves (green/red)
+- benign/lipodystrphy
+
+- hightliight clor very light blue
+
+y-axis - density known axis
+x-axis - integrated functional score
+
+
