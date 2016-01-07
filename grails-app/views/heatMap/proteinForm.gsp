@@ -183,7 +183,7 @@
                                             <td>${proteinResult.getEffect()}</td>
                                         </tr>
                                         <tr>
-                                            <td>pValue</td>
+                                            <td>p value</td>
                                             <td>${proteinResult.getPValueClinicalScientificNotation()}</td>
                                         </tr>
                                         </tbody>
@@ -223,12 +223,11 @@
                                             <td>${proteinResult.getEffect()}</td>
                                         </tr>
                                         <tr>
-                                            <td>pValue</td>
+                                            <td>p value</td>
                                             <td>${proteinResult.getPValueClinicalScientificNotation()}</td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    Variant
                                 </div>
                                 <div class="col-md-8">
 
@@ -255,7 +254,7 @@
 <g:if test="${proteinResult != null}">
 
 <script type="text/javascript">
-    var margin = {top: 0, right: 20, bottom: 60, left: 100},
+    var margin = {top: 0, right: 20, bottom: 60, left: 60},
             w = 600 - margin.left - margin.right,
             h = 300 - margin.top - margin.bottom;
 
@@ -365,7 +364,7 @@
 
     labels.append("text")
             .attr("transform", "rotate(-90)")
-            .attr("y", -100)
+            .attr("y", -60)
             .attr("x", -30)
             .attr("style","font-size:20px;")
             .attr("dy", ".71em")
@@ -373,22 +372,20 @@
             .text("density known variants");
 
     labels.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", -60)
-            .attr("x", -70)
+            .attr("transform", "translate(0," + (h - 60) + ")")
+            .attr("x", 100)
             .attr("style","font-size:12px;")
-            .attr("dy", ".51em")
-            .style("text-anchor", "end")
+            .attr("dx", "-1.0em")
+            .attr("dy", "2.0em")
             .style("stroke", "red")
             .text("lypodistrophy");
 
     labels.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", -60)
-            .attr("x", -160)
+            .attr("transform", "translate(0," + (h - 60) + ")")
+            .attr("x", 340)
             .attr("style","font-size:12px;")
-            .attr("dy", ".51em")
-            .style("text-anchor", "end")
+            .attr("dx", "-1.0em")
+            .attr("dy", "2.0em")
             .style("stroke", "green")
             .text("benign");
 
