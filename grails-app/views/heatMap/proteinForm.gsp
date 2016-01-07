@@ -188,7 +188,6 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                    Variant
                                 </div>
                                 <div class="col-md-8">
 
@@ -256,7 +255,7 @@
 <g:if test="${proteinResult != null}">
 
 <script type="text/javascript">
-    var margin = {top: 0, right: 20, bottom: 30, left: 20},
+    var margin = {top: 0, right: 20, bottom: 60, left: 100},
             w = 600 - margin.left - margin.right,
             h = 300 - margin.top - margin.bottom;
 
@@ -352,6 +351,46 @@
             .style("font-size", "16px")
             .style("fill", "black")
             .text('${proteinResult.getScientificAlleleCode()}');
+
+    var labels = svg.append("g")
+            .attr("class", "labels");
+
+    labels.append("text")
+            .attr("transform", "translate(0," + (h + 10) + ")")
+            .attr("x", (w/3))
+            .attr("style","font-size:20px;")
+            .attr("dx", "-1.0em")
+            .attr("dy", "2.0em")
+            .text("integrated func score");
+
+    labels.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", -100)
+            .attr("x", -30)
+            .attr("style","font-size:20px;")
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("density known variants");
+
+    labels.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", -60)
+            .attr("x", -70)
+            .attr("style","font-size:12px;")
+            .attr("dy", ".51em")
+            .style("text-anchor", "end")
+            .style("stroke", "red")
+            .text("lypodistrophy");
+
+    labels.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", -60)
+            .attr("x", -160)
+            .attr("style","font-size:12px;")
+            .attr("dy", ".51em")
+            .style("text-anchor", "end")
+            .style("stroke", "green")
+            .text("benign");
 
 </script>
 </g:if>
