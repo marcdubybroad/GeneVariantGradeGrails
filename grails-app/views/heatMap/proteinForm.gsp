@@ -234,7 +234,6 @@
                                 </div>
                             </div>
                         </g:else>
-                        <p/>
                     </g:if>
 
                     <g:if test="${errorMessage}">
@@ -245,7 +244,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div id="lineDiv" class="lineDiv"/>
+                <div id="lineDiv" class="lineDiv"></div>
             </div>
         </div>
     </div>
@@ -360,7 +359,7 @@
             .attr("style","font-size:20px;")
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
-            .text("integrated func score");
+            .text("integrated functional score");
 
     labels.append("text")
             .attr("transform", "rotate(-90)")
