@@ -151,11 +151,12 @@
                                     <li>The modified codon <span class="cap">${proteinResult.getAlternateCodon()}</span> is a stop codon</li>
                                 </g:if>
                                 <li>The protein change is ${proteinResult.getScientificAlleleCode()}</li>
-                                <li>The integrated functional score is ${proteinResult.getHeatAmount()}</li>
-                                <li>The effect is ${proteinResult.getEffect()}</li>
-                                <li>The logp value ${proteinResult.getLogP()}</li>
+                                <li>The integrated functional score is <g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></li>
+                                <li>The clinical prediction is ${proteinResult.getEffect()}</li>
                                 <li>At prevalence of ${proteinResult.getInputPrevalence()}</li>
-                                <li>The pValue is ${proteinResult.getpValue()}</li>
+                                <ul>
+                                    <li>The pValue is ${proteinResult.getPValueClinicalScientificNotation()}</li>
+                                </ul>
                             </ul>
 
                         </g:if>
@@ -163,11 +164,12 @@
                             For protein change ${proteinResult.getScientificAlleleCode()}
                             <ul>
                                 <li>The reference codon is <span class="cap">${proteinResult.getReferenceCodon()}</span></li>
-                                <li>The integrated functional score is ${proteinResult.getHeatAmount()}</li>
-                                <li>The effect is ${proteinResult.getEffect()}</li>
-                                <li>The logp value ${proteinResult.getLogP()}</li>
+                                <li>The integrated functional score is <g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></li>
+                                <li>The clinical prediction is ${proteinResult.getEffect()}</li>
                                 <li>At prevalence of ${proteinResult.getInputPrevalence()}</li>
-                                <li>The pValue is ${proteinResult.getpValue()}</li>
+                                <ul>
+                                    <li>The pValue is ${proteinResult.getPValueClinicalScientificNotation()}</li>
+                                </ul>
                             </ul>
                         </g:else>
                         <p/>

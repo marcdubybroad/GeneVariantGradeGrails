@@ -2,6 +2,9 @@ package org.broadinstitute.variantgrade.result;
 
 import org.broadinstitute.variantgrade.bean.OddsRatioBean;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 /**
  * Created by mduby on 12/27/15.
  */
@@ -150,7 +153,7 @@ public class ProteinResult {
         // set according to logp value
         if (this.logP != null) {
             if (this.logP < 0.0) {
-                effect = "deleterious";
+                effect = "pathogenic";
             } else {
                 effect = "benign";
             }
@@ -185,5 +188,28 @@ public class ProteinResult {
 
     public void setInputPrevalence(Double inputPrevalence) {
         this.inputPrevalence = inputPrevalence;
+    }
+
+    public String getPValueClinicalScientificNotation() {
+        // local variables
+        String pValueScientific = "";
+        Double tempDouble = null;
+
+        // transform the p value
+        if (this.getpValue() != null) {
+            if (this.getEffect().equalsIgnoreCase("benign")) {
+                tempDouble = 1.0 - this.getpValue();
+
+            } else {
+                tempDouble = this.getpValue();
+            }
+
+            // transform
+            NumberFormat formatter = new DecimalFormat("0E0");
+            pValueScientific = formatter.format(tempDouble);
+        }
+
+        // return
+        return pValueScientific;
     }
 }
