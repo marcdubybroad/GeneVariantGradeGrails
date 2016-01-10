@@ -78,6 +78,28 @@ public class SearchInputTranslatorTest extends TestCase {
     }
 
     @Test
+    public void testTranslateGoodOneLetterProteinInput() {
+        // local variables
+        SearchInputBean bean = null;
+        SearchInputTranslator translator = new SearchInputTranslator("p.l299I");
+
+        // get the bean
+        try {
+            bean = translator.translate();
+
+        } catch (GradeException exception) {
+            fail("got protein translation error: " + exception.getMessage());
+        }
+
+        // test
+        assertNotNull(bean);
+        assertEquals("L", bean.getProteinReferenceAllele());
+        assertEquals(299, bean.getProteinPosition());
+        assertEquals("I", bean.getProteinInputAllele());
+        assertTrue(bean.isProteinInput());
+    }
+
+    @Test
     public void testTranslateGoodGenotypeInput3() {
         // local variables
         SearchInputBean bean = null;

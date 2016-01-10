@@ -629,6 +629,34 @@ public class MatrixParser {
     }
 
     /**
+     * returns the protein one letter code given either the one or three letter code
+     *
+     * @param code
+     * @return
+     * @throws GradeException
+     */
+    public String getOneLetterProteinCodeFromOneOrThreeLetterCode(String code) throws GradeException {
+        // local variables
+        AminoAcidBean protein = null;
+
+        // look for the code in the one letter map
+        protein = this.getProteinMapKeyedOnOneLetterCode().get(code);
+
+        // if null, look in the 3 letter map
+        if (protein == null) {
+            protein = this.getProteinMapKeyedOnThreeLetterCode().get(code);
+        }
+
+        // test if null
+        if (protein == null) {
+            throw new GradeException("Got incorrect one or three letter protein code for lookup: " + code);
+        }
+
+        // return
+        return protein.getCodeOneLetter();
+    }
+
+    /**
      * returns the protein three letter code given the one letter code
      *
      * @param code

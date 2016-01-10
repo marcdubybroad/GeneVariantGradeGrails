@@ -1,6 +1,7 @@
 package org.broadinstitute.variantgrade.bean;
 
 import junit.framework.TestCase;
+import org.broadinstitute.variantgrade.translator.SearchInputTranslator;
 import org.broadinstitute.variantgrade.util.GradeException;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class GeneTest extends TestCase {
     @Before
     public void setUp() throws Exception {
         // set the gene
-        this.gene = new Gene("test gene");
+        this.gene = new Gene("test gene", SearchInputTranslator.GENE_CHROMOSOME_OFFSET);
         this.gene.setGeneRegionLength(12);
         this.gene.addGeneRegion(new GeneRegion(1, 12, "aaabbbcccddd"));
         this.gene.addGeneRegion(new GeneRegion(13, 24, "eeefffggghhh"));

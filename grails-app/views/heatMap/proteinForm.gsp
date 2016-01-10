@@ -123,10 +123,12 @@
                         <p class="bold-text">Enter Missense Variant</p>
                         <input id="searchbox" value="${lastQuery}" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
                         <p class="text-muted small-text">
-                            Examples - Protein change: <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.Pro12Ala', prevalence: '1.0e-5']">p.Pro12Ala</g:link>,
-                            Variant: <g:link action="proteinSearch" controller="heatMap" params="[query: 'chr3-12393125-C-G', prevalence: '1.0e-5']">chr3-12393125-C-G</g:link>
+                            Examples - Protein change: <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.P12A', prevalence: '1.0e-5']">p.P12A</g:link> or
+                            <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.Pro12Ala', prevalence: '1.0e-5']">p.Pro12Ala</g:link>,
+                            Variant  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a>:
+                        <g:link action="proteinSearch" controller="heatMap" params="[query: 'chr3-12393125-C-G', prevalence: '1.0e-5']">chr3-12393125-C-G</g:link>
                         </p>
-                        <p class="bold-text">Enter Prevalence</p>
+                        <p class="bold-text">Enter Prevalence  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></p>
                         <input id="prevalencebox" name="prevalence" class="form-control input-lg awesomebar prevalencebox" type="text" placeholder="Enter prevalence" value="${lastPrevalence ? lastPrevalence : '1.0e-5'}"/>
                     </div>
                     <div class="formWrapper">
@@ -144,19 +146,19 @@
                                 <div class="col-md-4">
                                     <table class="table">
                                         <thead>
-                                        <tr>
-                                            <th>Variant</th>
-                                            <th>${proteinResult.getVariantDisplay()}</th>
-                                        </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>Reference codon</td>
+                                            <td>Variant</td>
+                                            <td>${proteinResult.getVariantDisplay()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reference codon  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
                                         </tr>
                                         <g:if test="${proteinResult.getAlternateCodon()}">
                                             <tr>
-                                                <td>Modified Codon</td>
+                                                <td>Modified Codon  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                                 <td><span class="cap">${proteinResult.getAlternateCodon()}</span></td>
                                             </tr>
                                         </g:if>
@@ -171,7 +173,7 @@
                                             <td>${proteinResult.getScientificAlleleCode()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Integrated functional score</td>
+                                            <td>Integrated functional score  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
                                         <tr>
@@ -179,11 +181,11 @@
                                             <td>${proteinResult.getInputPrevalence()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Clinical prediction</td>
+                                            <td>Clinical prediction  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getEffect()}</td>
                                         </tr>
                                         <tr>
-                                            <td>p value</td>
+                                            <td>p value  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getPValueClinicalScientificNotation()}</td>
                                         </tr>
                                         </tbody>
@@ -200,18 +202,18 @@
                                 <div class="col-md-4">
                                     <table class="table">
                                         <thead>
-                                        <tr>
-                                            <th>Protein change</th>
-                                            <th>${proteinResult.getScientificAlleleCode()}</th>
-                                        </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>Reference codon</td>
+                                            <td>Protein change</td>
+                                            <td>${proteinResult.getScientificAlleleCode()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reference codon  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
                                         </tr>
                                         <tr>
-                                            <td>Integrated functional score</td>
+                                            <td>Integrated functional score  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
                                         <tr>
@@ -219,11 +221,11 @@
                                             <td>${proteinResult.getInputPrevalence()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Clinical prediction</td>
+                                            <td>Clinical prediction  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getEffect()}</td>
                                         </tr>
                                         <tr>
-                                            <td>p value</td>
+                                            <td>p value  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getPValueClinicalScientificNotation()}</td>
                                         </tr>
                                         </tbody>
@@ -387,6 +389,12 @@
             .attr("dy", "2.0em")
             .style("stroke", "green")
             .text("benign");
+
+    $(function() {
+        $( document ).tooltip({
+            content: "descriptive text"
+        });
+    });
 
 </script>
 </g:if>

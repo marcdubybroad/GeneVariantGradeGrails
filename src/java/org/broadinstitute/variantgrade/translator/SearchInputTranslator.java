@@ -4,6 +4,11 @@ import org.broadinstitute.variantgrade.heatmap.MatrixParser;
 import org.broadinstitute.variantgrade.input.SearchInputBean;
 import org.broadinstitute.variantgrade.util.GradeException;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by mduby on 12/31/15.
  */
@@ -76,6 +81,7 @@ public class SearchInputTranslator {
         String referenceAllele;
         String alternateAllele;
         String[] splitString;
+        String chromosome = null;
 
         try {
             // parse the string
@@ -84,6 +90,12 @@ public class SearchInputTranslator {
             // make sure correct number of arguments
             if (splitString.length < 4) {
                 throw new GradeException("got improperly formatted search input string: " + this.inputString);
+            }
+
+            // check the chromosome
+            chromosome = splitString[0];
+            if (!"chr3".equalsIgnoreCase(chromosome)) {
+                throw new GradeException("got incorrect chromosome: " + chromosome, "got incorrect chromosome: " + chromosome);
             }
 
             // set the bean parameters
@@ -121,22 +133,38 @@ public class SearchInputTranslator {
         int position;
         String referenceAllele;
         String alternateAllele;
+        List<String> parsedStringList = null;
 
         try {
+            // lowercase the string
+            tempString = this.inputString.toLowerCase();
+
             // cut out the p.
-            tempString = this.inputString.substring(2);
+            tempString = tempString.substring(2);
+
+            // split the string
+            parsedStringList = this.parseProteinChangeString(tempString);
+
+            // make sure the parsed string has only 3 segments
+            if (parsedStringList.size() != 3) {
+                throw new GradeException("got incorrect protein change string");
+            }
 
             // get the reference allele
-            referenceAllele = tempString.substring(0, 3);
-            bean.setProteinReferenceAllele(this.matrixParser.getOneLetterProteinCodeFromThreeLetterCode(referenceAllele));
+//            referenceAllele = tempString.substring(0, 3);
+            referenceAllele = parsedStringList.get(0);
+            bean.setProteinReferenceAllele(this.matrixParser.getOneLetterProteinCodeFromOneOrThreeLetterCode(referenceAllele));
 
             // get the alternate allele
-            alternateAllele = tempString.substring(tempString.length() - 3);
-            bean.setProteinInputAllele(this.matrixParser.getOneLetterProteinCodeFromThreeLetterCode(alternateAllele));
+//            alternateAllele = tempString.substring(tempString.length() - 3);
+            alternateAllele = parsedStringList.get(2);
+            bean.setProteinInputAllele(this.matrixParser.getOneLetterProteinCodeFromOneOrThreeLetterCode(alternateAllele));
 
             // get the position
             try {
-                position = Integer.valueOf(tempString.substring(3, tempString.length() - 3));
+//                position = Integer.valueOf(tempString.substring(3, tempString.length() - 3));
+                String positionString = parsedStringList.get(1);
+                position = Integer.valueOf(positionString);
                 bean.setProteinPosition(position);
                 bean.setIsProteinInput(true);
 
@@ -150,6 +178,15 @@ public class SearchInputTranslator {
 
         // return
         return bean;
+    }
+
+    private List<String> parseProteinChangeString(String str) {
+        List<String> output = new ArrayList<String>();
+        Matcher match = Pattern.compile("[0-9]+|[a-z]+|[A-Z]+").matcher(str);
+        while (match.find()) {
+            output.add(match.group());
+        }
+        return output;
     }
 
 }
