@@ -125,10 +125,10 @@
                         <p class="text-muted small-text">
                             Examples - Protein change: <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.P12A', prevalence: '1.0e-5']">p.P12A</g:link> or
                             <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.Pro12Ala', prevalence: '1.0e-5']">p.Pro12Ala</g:link>,
-                            Variant  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a>:
+                            Genomic coordinates  <a href="#" title='chr3-<base position hg18>-<reference base>-<identified base change>'><g:img dir="images" file="question2.png" width="17" height="17"/></a>:
                         <g:link action="proteinSearch" controller="heatMap" params="[query: 'chr3-12393125-C-G', prevalence: '1.0e-5']">chr3-12393125-C-G</g:link>
                         </p>
-                        <p class="bold-text">Enter Prevalence  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></p>
+                        <p class="bold-text">Enter Prevalence  <a href="#" title="Prevalence of familial partial lipodystrophy 3 (FPLD3) in the general population is 1:100,000 (default) to 1:1,000,000. In specialist clinics this can be as high as 1:5 (0.20)."><g:img dir="images" file="question2.png" width="17" height="17"/></a></p>
                         <input id="prevalencebox" name="prevalence" class="form-control input-lg awesomebar prevalencebox" type="text" placeholder="Enter prevalence" value="${lastPrevalence ? lastPrevalence : '1.0e-5'}"/>
                     </div>
                     <div class="formWrapper">
@@ -153,12 +153,12 @@
                                             <td>${proteinResult.getVariantDisplay()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Reference codon  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Reference codon  <a href="#" title="The three nucleotide sequence specifying the reference amino acid."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
                                         </tr>
                                         <g:if test="${proteinResult.getAlternateCodon()}">
                                             <tr>
-                                                <td>Modified Codon  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                                <td>Modified Codon</td>
                                                 <td><span class="cap">${proteinResult.getAlternateCodon()}</span></td>
                                             </tr>
                                         </g:if>
@@ -173,7 +173,7 @@
                                             <td>${proteinResult.getScientificAlleleCode()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Integrated functional score  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Experimental functional score  <a href="#" title="Quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
                                         <tr>
@@ -181,11 +181,11 @@
                                             <td>${proteinResult.getInputPrevalence()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Clinical prediction  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Clinical prediction  <a href="#" title='An assessment to guide clinical decisions regarding whether the variant is likely to cause FPLD3 (“pathogenic”) of unlikely (“benign”). Calculated by combining experimental function score with prevalence entered.'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getEffect()}</td>
                                         </tr>
                                         <tr>
-                                            <td>p value  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>p value  <a href="#" title="The statistical significance of the clinical prediction. A very low p value indicates a very confident clinical prediction, while a high p value indicates a low confidence clinical prediction."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getPValueClinicalScientificNotation()}</td>
                                         </tr>
                                         </tbody>
@@ -209,11 +209,11 @@
                                             <td>${proteinResult.getScientificAlleleCode()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Reference codon  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Reference codon  <a href="#" title="The three nucleotide sequence specifying the reference amino acid."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
                                         </tr>
                                         <tr>
-                                            <td>Integrated functional score  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Experimental functional score  <a href="#" title="Quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
                                         <tr>
@@ -221,11 +221,11 @@
                                             <td>${proteinResult.getInputPrevalence()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Clinical prediction  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Clinical prediction  <a href="#" title='An assessment to guide clinical decisions regarding whether the variant is likely to cause FPLD3 (“pathogenic”) of unlikely (“benign”). Calculated by combining experimental function score with prevalence entered.'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getEffect()}</td>
                                         </tr>
                                         <tr>
-                                            <td>p value  <a href="#" title="Descriptive text"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>p value  <a href="#" title="The statistical significance of the clinical prediction. A very low p value indicates a very confident clinical prediction, while a high p value indicates a low confidence clinical prediction."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getPValueClinicalScientificNotation()}</td>
                                         </tr>
                                         </tbody>
@@ -361,7 +361,7 @@
             .attr("style","font-size:20px;")
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
-            .text("integrated functional score");
+            .text("experimental functional score");
 
     labels.append("text")
             .attr("transform", "rotate(-90)")
@@ -379,7 +379,7 @@
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
             .style("stroke", "red")
-            .text("lypodistrophy");
+            .text("lipodistrophy");
 
     labels.append("text")
             .attr("transform", "translate(0," + (h - 60) + ")")
@@ -392,7 +392,8 @@
 
     $(function() {
         $( document ).tooltip({
-            content: "descriptive text"
+            content: "descriptive text",
+            show: {effect:"none", delay:0}
         });
     });
 
