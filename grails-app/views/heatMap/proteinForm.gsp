@@ -128,8 +128,8 @@
                             Genomic coordinates  <a href="#" title='chr3-<base position hg18>-<reference base>-<identified base change>'><g:img dir="images" file="question2.png" width="17" height="17"/></a>:
                         <g:link action="proteinSearch" controller="heatMap" params="[query: 'chr3-12393125-C-G', prevalence: '1.0e-5']">chr3-12393125-C-G</g:link>
                         </p>
-                        <p class="bold-text">Enter Prevalence  <a href="#" title="Prevalence of familial partial lipodystrophy 3 (FPLD3) in the general population is 1:100,000 (default) to 1:1,000,000. In specialist clinics this can be as high as 1:5 (0.20)."><g:img dir="images" file="question2.png" width="17" height="17"/></a></p>
-                        <input id="prevalencebox" name="prevalence" class="form-control input-lg awesomebar prevalencebox" type="text" placeholder="Enter prevalence" value="${lastPrevalence ? lastPrevalence : '1.0e-5'}"/>
+                        <p class="bold-text">Enter Disease Prevalence  <a href="#" title="Disease prevalence of familial partial lipodystrophy 3 (FPLD3) in the general population is 1:100,000 (default) to 1:1,000,000. In specialist clinics this can be as high as 1:5 (0.20)."><g:img dir="images" file="question2.png" width="17" height="17"/></a></p>
+                        <input id="prevalencebox" name="prevalence" class="form-control input-lg awesomebar prevalencebox" type="text" placeholder="Enter disease prevalence" value="${lastPrevalence ? lastPrevalence : '1.0e-5'}"/>
                     </div>
                     <div class="formWrapper">
                         <input type="submit" name="submit">
@@ -173,20 +173,20 @@
                                             <td>${proteinResult.getScientificAlleleCode()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Experimental functional score  <a href="#" title="Quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Experimental function score  <a href="#" title="Quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
                                         <tr>
-                                            <td>At prevalence</td>
+                                            <td>At disease prevalence</td>
                                             <td>${proteinResult.getInputPrevalence()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Clinical prediction  <a href="#" title='An assessment to guide clinical decisions regarding whether the variant is likely to cause FPLD3 (“pathogenic”) of unlikely (“benign”). Calculated by combining experimental function score with prevalence entered.'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
-                                            <td>${proteinResult.getEffect()}</td>
+                                            <td>Probability of causing disease  <a href="#" title="The statistical significance of the clinical prediction. A very low probability of causing disease indicates a very confident clinical prediction, while a high probability of causing disease indicates a low confidence clinical prediction."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>${proteinResult.getPValueClinicalScientificNotation()}</td>
                                         </tr>
                                         <tr>
-                                            <td>p value  <a href="#" title="The statistical significance of the clinical prediction. A very low p value indicates a very confident clinical prediction, while a high p value indicates a low confidence clinical prediction."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
-                                            <td>${proteinResult.getPValueClinicalScientificNotation()}</td>
+                                            <td>Clinical prediction  <a href="#" title='An assessment to guide clinical decisions regarding whether the variant is likely to cause FPLD3 (“pathogenic”) of unlikely (“not pathogenic”). Calculated by combining experimental function score with disease prevalence entered.'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>${proteinResult.getEffect()}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -213,20 +213,20 @@
                                             <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
                                         </tr>
                                         <tr>
-                                            <td>Experimental functional score  <a href="#" title="Quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Experimental function score  <a href="#" title="Quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
                                         <tr>
-                                            <td>At prevalence</td>
+                                            <td>At disease prevalence</td>
                                             <td>${proteinResult.getInputPrevalence()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Clinical prediction  <a href="#" title='An assessment to guide clinical decisions regarding whether the variant is likely to cause FPLD3 (“pathogenic”) of unlikely (“benign”). Calculated by combining experimental function score with prevalence entered.'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
-                                            <td>${proteinResult.getEffect()}</td>
+                                            <td>Probability of causing disease  <a href="#" title="The statistical significance of the clinical prediction. A very low probability of causing disease indicates a very confident clinical prediction, while a high probability of causing disease indicates a low confidence clinical prediction."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>${proteinResult.getPValueClinicalScientificNotation()}</td>
                                         </tr>
                                         <tr>
-                                            <td>p value  <a href="#" title="The statistical significance of the clinical prediction. A very low p value indicates a very confident clinical prediction, while a high p value indicates a low confidence clinical prediction."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
-                                            <td>${proteinResult.getPValueClinicalScientificNotation()}</td>
+                                            <td>Clinical prediction  <a href="#" title='An assessment to guide clinical decisions regarding whether the variant is likely to cause FPLD3 (“pathogenic”) of unlikely (“not pathogenic”). Calculated by combining experimental function score with disease prevalence entered.'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>${proteinResult.getEffect()}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -361,7 +361,7 @@
             .attr("style","font-size:20px;")
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
-            .text("experimental functional score");
+            .text("experimental function score");
 
     labels.append("text")
             .attr("transform", "rotate(-90)")
@@ -379,7 +379,7 @@
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
             .style("stroke", "red")
-            .text("lipodistrophy");
+            .text("lipodystrophy");
 
     labels.append("text")
             .attr("transform", "translate(0," + (h - 60) + ")")

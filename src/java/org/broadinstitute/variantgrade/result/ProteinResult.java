@@ -155,7 +155,7 @@ public class ProteinResult {
             if (this.logP < 0.0) {
                 effect = "pathogenic";
             } else {
-                effect = "benign";
+                effect = "not pathogenic";
             }
         }
 
@@ -197,7 +197,7 @@ public class ProteinResult {
 
         // transform the p value
         if (this.getpValue() != null) {
-            if (this.getEffect().equalsIgnoreCase("benign")) {
+            if (this.getEffect().equalsIgnoreCase("not pathogenic")) {
                 tempDouble = 1.0 - this.getpValue();
 
             } else {
