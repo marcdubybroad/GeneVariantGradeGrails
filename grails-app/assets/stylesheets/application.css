@@ -9,6 +9,7 @@
 *
 *= require main
 *= require mobile
+*= require jquery-ui
 *= require_self
 */
 

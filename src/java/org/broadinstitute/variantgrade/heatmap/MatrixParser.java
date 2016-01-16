@@ -160,7 +160,7 @@ public class MatrixParser {
      * populates the instance heat map from the given file
      * @throws GradeException
      */
-    public void populate() throws GradeException {
+    public synchronized void populate() throws GradeException {
         if (!this.isInitialized) {
             // populate the heat matrix
             this.populateMatrix(MATRIX_TYPE_POSITION_HEAT);

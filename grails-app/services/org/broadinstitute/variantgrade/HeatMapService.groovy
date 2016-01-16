@@ -168,7 +168,7 @@ class HeatMapService {
      *
      * @return
      */
-    protected MatrixParser getMatrixParser() throws GradeException {
+    public MatrixParser getMatrixParser() throws GradeException {
         // initialize if not already
         if (this.matrixParser == null) {
             this.matrixParser = MatrixParser.getMatrixParser();

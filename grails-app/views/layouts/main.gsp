@@ -9,9 +9,6 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title><g:layoutTitle default="Missense Interpreter"/></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   		<asset:stylesheet src="application.css"/>
 		<asset:javascript src="application.js"/>
 		<g:layoutHead/>
@@ -19,6 +16,6 @@
 	<body>
 		<div id="grailsLogo" role="banner" class="apptitle"><span class="title-black">M</span>issense <span class="title-black">I</span>n<span class="title-black">T</span>erpretation by <span class="title-black">E</span>xperimental <span class="title-black">R</span>esponse (beta)</div>
 		<g:layoutBody/>
-		<div class="footer" role="contentinfo">Software version 0.19. Data version 1.0. Copyright Reserved 2016</div>
+		<div class="footer" role="contentinfo">Software version 0.23. Data version 1.0. Copyright Reserved 2016</div>
 	</body>
 </html>

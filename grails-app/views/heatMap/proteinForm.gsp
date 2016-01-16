@@ -153,7 +153,7 @@
                                             <td>${proteinResult.getVariantDisplay()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Reference codon  <a href="#" title="The three nucleotide sequence specifying the reference amino acid."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Reference codon  <a href="#" class="tool" title="The three nucleotide sequence specifying the reference amino acid."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
                                         </tr>
                                         <g:if test="${proteinResult.getAlternateCodon()}">
@@ -390,14 +390,17 @@
             .style("stroke", "green")
             .text("benign");
 
-    $(function() {
-        $( document ).tooltip({
-            content: "descriptive text",
-            show: {effect:"none", delay:0}
-        });
-    });
-
 </script>
 </g:if>
+
+<script>
+    $(function() {
+        $( document ).tooltip({
+            position: { my: "left+15 center", at: "right center" },
+            tooltipClass: "info-tooltip"
+        });
+
+    });
+</script>
 </body>
 </html>
