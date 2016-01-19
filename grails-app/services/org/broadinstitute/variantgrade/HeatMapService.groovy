@@ -147,6 +147,12 @@ class HeatMapService {
         // get the reference allele
         referenceAllele = this.getMatrixParser().getProteinReferenceLetterAtPosition(position);
 
+        // make sure modified protein allele is different from reference allele
+        if (allele.equalsIgnoreCase(referenceAllele)) {
+            String aminoAcidName = this.getMatrixParser().getProteinNameFromOneOrThreeLetterCode(allele);
+            throw new GradeException("Protein allele: " + allele + " is the same as the reference allele", "At protein position " + position + ", the reference amino acid " + aminoAcidName + " does not have an experimental function score.");
+        }
+
         // get the reference gene codon
         referenceCodon = this.getMatrixParser().getGene().getCodonAtProteinPosition(position);
 

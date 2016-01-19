@@ -1,0 +1,17 @@
+
+
+release 0.26:
+- fix issue with protein reference amino acid input
+- add to experimental function score tooltip
+
+
+release 0.25:
+- disease prevalence text change
+- hover box color (lighter share )
+- lipodystrophy (y) typo fix
+- change pvalue
+  - probability of causing disease
+- experimental function score (2 places) name change
+- put clinical prediction last in the list
+- change clinical classification
+  - pathogenic or not pathogenic

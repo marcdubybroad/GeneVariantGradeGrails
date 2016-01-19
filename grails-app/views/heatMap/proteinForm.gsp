@@ -173,7 +173,7 @@
                                             <td>${proteinResult.getScientificAlleleCode()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Experimental function score  <a href="#" title="Quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Experimental function score  <a href="#" title="Also referred to as integrated functional score (IFS) in Majithia et. al. 2016, quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
                                         <tr>
@@ -213,7 +213,7 @@
                                             <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
                                         </tr>
                                         <tr>
-                                            <td>Experimental function score  <a href="#" title="Quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Experimental function score  <a href="#" title="Also referred to as integrated functional score (IFS) in Majithia et. al. 2016, quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
                                         <tr>
