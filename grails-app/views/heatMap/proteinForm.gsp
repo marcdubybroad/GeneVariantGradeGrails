@@ -59,7 +59,8 @@
     }
 
     #page-body {
-        margin: 2em 1em 1.25em 18em;
+/*        margin: 2em 1em 1.25em 18em; */
+        margin: 1em 10em 1em 10em;
     }
 
     h2 {

@@ -139,7 +139,7 @@ class HeatMapService {
             // set the diabetes risk string
             diabetesRiskString = this.getMatrixParser().getType2DiabetesRiskAtPositionAndLetterAndType(position, allele);
             result.setDiabetesRiskString(diabetesRiskString);
-            
+
             // set the logp values
             tempDouble = this.getMatrixParser().getLogPForPositionLetterAndProbability(position, allele, prevalence);
             result.setLogP(tempDouble);
