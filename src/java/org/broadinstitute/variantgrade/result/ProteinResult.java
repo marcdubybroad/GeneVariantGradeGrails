@@ -1,5 +1,6 @@
 package org.broadinstitute.variantgrade.result;
 
+import org.broadinstitute.variantgrade.bean.DiseaseOddsRatio;
 import org.broadinstitute.variantgrade.bean.OddsRatioBean;
 
 import java.text.DecimalFormat;
@@ -25,6 +26,12 @@ public class ProteinResult {
     private Double logP;
     private Double pValue;
     private Double inputPrevalence;
+    private DiseaseOddsRatio diseaseOddsRatio;
+
+    // constants
+    public static final String EFFECT_BENIGN_STRING             = "not pathogenic";
+    public static final String EFFECT_DELETERIOUS_STRING        = "pathogenic";
+    public static final String EFFECT_NEUTRAL_STRING            = "neutral";
 
     public Integer getPosition() {
         return position;
@@ -148,14 +155,23 @@ public class ProteinResult {
 
     public String getEffect() {
         // local variables
-        String effect = "neutral";
+        String effect = ProteinResult.EFFECT_NEUTRAL_STRING;
+
+        if (this.getInputPrevalence() != null) {
+            if (this.getInputPrevalence() <= 0) {
+                effect = ProteinResult.EFFECT_DELETERIOUS_STRING;
+            } else if (this.getInputPrevalence() >= 1) {
+                effect = ProteinResult.EFFECT_BENIGN_STRING;
+            }
+        }
 
         // set according to logp value
-        if (this.logP != null) {
+        // only set if not already set as deleterious/benign
+        if ((ProteinResult.EFFECT_NEUTRAL_STRING.equalsIgnoreCase(effect)) && (this.logP != null)) {
             if (this.logP < 0.0) {
-                effect = "pathogenic";
+                effect = ProteinResult.EFFECT_DELETERIOUS_STRING;
             } else {
-                effect = "not pathogenic";
+                effect = ProteinResult.EFFECT_BENIGN_STRING;
             }
         }
 
@@ -190,14 +206,44 @@ public class ProteinResult {
         this.inputPrevalence = inputPrevalence;
     }
 
+    public void setDiseaseOddsRatio(DiseaseOddsRatio diseaseOddsRatio) {
+        this.diseaseOddsRatio = diseaseOddsRatio;
+    }
+
+    /**
+     * returns the odds disease ratio in string format
+     *
+     * @return
+     */
+    public String getOddsOfCausingDisease() {
+        // local variables
+        String diseaseOdds = "1:1";
+
+        // if not null odds, create string
+        if (this.diseaseOddsRatio != null) {
+            diseaseOdds = this.diseaseOddsRatio.getBenignOdds() + ":" + this.diseaseOddsRatio.getDeleteriousOdds();
+        }
+
+        // return
+        return diseaseOdds;
+    }
+
     public String getPValueClinicalScientificNotation() {
         // local variables
         String pValueScientific = "";
         Double tempDouble = null;
 
+        // check to make sure proper prevalence was entered
+        if (this.getInputPrevalence() != null) {
+            if ((this.getInputPrevalence() <= 0) || (this.getInputPrevalence() >= 1)) {
+                return "";
+            }
+        }
+
         // transform the p value
         if (this.getpValue() != null) {
-            if (this.getEffect().equalsIgnoreCase("not pathogenic")) {
+            // if benign, then return 1 - pValue
+            if (this.getEffect().equalsIgnoreCase(ProteinResult.EFFECT_BENIGN_STRING)) {
                 tempDouble = 1.0 - this.getpValue();
 
             } else {

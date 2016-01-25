@@ -3,6 +3,7 @@ package org.broadinstitute.variantgrade.heatmap;
 import org.broadinstitute.variantgrade.bean.AminoAcidBean;
 import org.broadinstitute.variantgrade.bean.CodingRegion;
 import org.broadinstitute.variantgrade.bean.CodingSegment;
+import org.broadinstitute.variantgrade.bean.DiseaseOddsRatio;
 import org.broadinstitute.variantgrade.bean.Gene;
 import org.broadinstitute.variantgrade.bean.GeneRegion;
 import org.broadinstitute.variantgrade.bean.OddsRatioBean;
@@ -321,8 +322,62 @@ public class MatrixParser {
         // calculate the logP value
         returnLog = logP + Math.log(oddsRatio);
 
+        // this is log (B : p)
+        // if > 0,,
         // return
         return returnLog;
+    }
+
+    /**
+     * get the odds of disease risk given a position, letter and prevalence
+     *
+     * @param position
+     * @param letter
+     * @param prevalence
+     * @return
+     * @throws GradeException
+     */
+    public DiseaseOddsRatio getOddOfDiseaseNumber(int position, String letter, Double prevalence) throws GradeException {
+        // local variables
+        DiseaseOddsRatio oddsRatio = new DiseaseOddsRatio();
+        Double logP;
+        Double expP;
+
+        // get the logp value
+        logP = this.getLogPForPositionLetterAndProbability(position, letter, prevalence);
+
+        // get the odds ratio
+        oddsRatio = this.getOddOfDiseaseNumber(logP);
+
+        // return
+        return oddsRatio;
+    }
+
+    /**
+     * get the odds of disease based on a log value
+     * 
+     * @param logP
+     * @return
+     * @throws GradeException
+     */
+    public DiseaseOddsRatio getOddOfDiseaseNumber(double logP) throws GradeException {
+        // local variables
+        DiseaseOddsRatio oddsRatio = new DiseaseOddsRatio();
+        Double expP;
+
+        // if positive, use exp() as benign odds value
+        if (logP > 0) {
+            expP = Math.exp(logP);
+            oddsRatio.setBenignOdds(expP.intValue());
+
+            // if not, use number as deleterious odds value
+        } else {
+            expP = Math.exp(logP);
+            oddsRatio.setDeleteriousOdds(expP.intValue());
+        }
+
+        // return
+        return oddsRatio;
     }
 
     /**
