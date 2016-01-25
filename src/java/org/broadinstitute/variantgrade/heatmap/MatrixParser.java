@@ -355,7 +355,7 @@ public class MatrixParser {
 
     /**
      * get the odds of disease based on a log value
-     * 
+     *
      * @param logP
      * @return
      * @throws GradeException
@@ -448,6 +448,40 @@ public class MatrixParser {
 
         // return
         return heatNumber;
+    }
+
+    /**
+     * returns the type 2 diabetes risk string
+     *
+     * @param position
+     * @param letter
+     * @return
+     * @throws GradeException
+     */
+    public String getType2DiabetesRiskAtPositionAndLetterAndType(int position, String letter) throws GradeException {
+        // local variables
+        Double heatNumber = null;
+        String diabetesRiskString = "";
+
+        // get the position heat
+        heatNumber = this.getMatrixValueAtPositionAndLetterAndType(position, letter, MatrixParser.MATRIX_TYPE_POSITION_HEAT);
+
+        // if null, error
+        if (heatNumber == null) {
+            throw new GradeException("Got null heat number heat for position: " + position + " and letter: " + letter);
+        }
+
+        // get the diabetes risk string
+        if (heatNumber < -0.252) {
+            diabetesRiskString = "6.5-fold increased risk";
+        } else if (heatNumber > 0.998) {
+            diabetesRiskString = "no increased risk";
+        } else {
+            diabetesRiskString = "2-fold increased risk";
+        }
+
+        // return
+        return diabetesRiskString;
     }
 
     /**

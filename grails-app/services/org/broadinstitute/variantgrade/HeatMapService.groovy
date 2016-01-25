@@ -122,6 +122,7 @@ class HeatMapService {
         String referenceCodon = null;
         Double tempDouble = null;
         OddsRatioBean oddsRatioBean = null;
+        String diabetesRiskString = null;
 
         // log
         log.info("got heat map reading call for protein position: " + position + " and allele: " + allele + " and stop codon: " + isStopCodon);
@@ -135,6 +136,10 @@ class HeatMapService {
             proteinGrade = this.getMatrixParser().getMatrixValueAtPositionAndLetterAndType(position, allele, MatrixParser.MATRIX_TYPE_POSITION_HEAT);
             result.setHeatAmount(proteinGrade);
 
+            // set the diabetes risk string
+            diabetesRiskString = this.getMatrixParser().getType2DiabetesRiskAtPositionAndLetterAndType(position, allele);
+            result.setDiabetesRiskString(diabetesRiskString);
+            
             // set the logp values
             tempDouble = this.getMatrixParser().getLogPForPositionLetterAndProbability(position, allele, prevalence);
             result.setLogP(tempDouble);

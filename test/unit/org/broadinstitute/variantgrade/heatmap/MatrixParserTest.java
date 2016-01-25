@@ -321,7 +321,30 @@ public class MatrixParserTest extends TestCase {
 
         // test
         assertNotNull(result);
-        assertEquals(18.493063199638296, result);
+//        assertEquals(18.493063199638296, result);
+        assertEquals(23.09823338562639, result);
+    }
+
+    @Test
+    public void testGetOddsRatio() {
+        // local variables
+        int position = 468;
+        String referenceLetter = "K";
+        Double result = null;
+        Double probablity = 0.5;
+
+        try {
+            // get the logp
+            result = this.matrixParser.getLogPForPositionLetterAndProbability(position, referenceLetter, probablity);
+
+        } catch (GradeException exception) {
+            fail("got error calculating logp value");
+        }
+
+        // test
+        assertNotNull(result);
+//        assertEquals(18.493063199638296, result);
+        assertEquals(-1.93942222762916, result);
     }
 
     @Test

@@ -188,6 +188,10 @@
                                             <td>Clinical prediction  <a href="#" title='An assessment to guide clinical decisions regarding whether the variant is likely to cause FPLD3 (“pathogenic”) of unlikely (“not pathogenic”). Calculated by combining experimental function score with disease prevalence entered.'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getEffect()}</td>
                                         </tr>
+                                        <tr>
+                                            <td>Risk for type 2 diabetes</td>
+                                            <td>${proteinResult.getDiabetesRiskString()}</td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -227,6 +231,10 @@
                                         <tr>
                                             <td>Clinical prediction  <a href="#" title='An assessment to guide clinical decisions regarding whether the variant is likely to cause FPLD3 (“pathogenic”) of unlikely (“not pathogenic”). Calculated by combining experimental function score with disease prevalence entered.'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getEffect()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Risk for type 2 diabetes</td>
+                                            <td>${proteinResult.getDiabetesRiskString()}</td>
                                         </tr>
                                         </tbody>
                                     </table>

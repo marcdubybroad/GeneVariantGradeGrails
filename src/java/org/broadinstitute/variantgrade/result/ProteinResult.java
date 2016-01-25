@@ -27,6 +27,7 @@ public class ProteinResult {
     private Double pValue;
     private Double inputPrevalence;
     private DiseaseOddsRatio diseaseOddsRatio;
+    private String diabetesRiskString;
 
     // constants
     public static final String EFFECT_BENIGN_STRING             = "not pathogenic";
@@ -119,6 +120,14 @@ public class ProteinResult {
         } else {
             return null;
         }
+    }
+
+    public String getDiabetesRiskString() {
+        return diabetesRiskString;
+    }
+
+    public void setDiabetesRiskString(String diabetesRiskString) {
+        this.diabetesRiskString = diabetesRiskString;
     }
 
     public String getAlternateCodon() {
@@ -217,7 +226,7 @@ public class ProteinResult {
      */
     public String getOddsOfCausingDisease() {
         // local variables
-        String diseaseOdds = "1:1";
+        String diseaseOdds = "";
 
         // if not null odds, create string
         if (this.diseaseOddsRatio != null) {
