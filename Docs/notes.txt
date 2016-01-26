@@ -22,5 +22,31 @@ questions:
 - what to show when person inputs reference allele p.Leu99Leu
 
 
+probability/p-value
+
+- steps
+  - get the log value from matrix (called log_matrix)
+  - get the prevalence (prev)
+  - prevalence odds ratio: odds_ratio = (1 - prev) / prev
+  - lopg = log_matrix + log(odds_ratio)
+  - get prob as (exp(logp) / (exp(logp) + 1))
+  
+- ex
+  - for 342p
+    - log_matrix = -19.01062
+    - prev = 0.00001
+    - odds_ratio = 99999
+    - logp = -19.010602 + 11.51 = -7.4977         -> probaility of beginity is exp()
+    - exp(lgp) -> probablity of beinogn
+    - 1 - exp(lgp) -> prob of pathogenicity
+    
+    - BAD -> prob = exp(-7.4977) / (exp(-7.4977) - 1) = 0.00056 / (1 - 0.00056) = 
+
+- if > .999 greater 99%
+- --.-% percent for in between
+- if < .001 less that 0.1%
+
+- clinival prediction for FPDL3
+- probabiltiy of causing FPDL3
 
 

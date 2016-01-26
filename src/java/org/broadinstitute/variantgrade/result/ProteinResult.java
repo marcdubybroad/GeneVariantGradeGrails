@@ -26,6 +26,7 @@ public class ProteinResult {
     private Double logP;
     private Double pValue;
     private Double inputPrevalence;
+    private Double oddsRatioOfDisease;
     private DiseaseOddsRatio diseaseOddsRatio;
     private String diabetesRiskString;
 
@@ -158,6 +159,34 @@ public class ProteinResult {
         return pValue;
     }
 
+    public Double getOddsRatioOfDisease() {
+        return oddsRatioOfDisease;
+    }
+
+    public void setOddsRatioOfDisease(Double oddsRatioOfDisease) {
+        this.oddsRatioOfDisease = oddsRatioOfDisease;
+    }
+
+    public String getOddsRatioOfDiseaseString() {
+        // local variables
+        String oddsRatioString = "";
+
+        // get the string
+        if (this.getOddsRatioOfDisease() != null) {
+            if (this.getOddsRatioOfDisease() < 0.01) {
+                oddsRatioString = "less than 1%";
+            } else if (this.getOddsRatioOfDisease() > 0.99) {
+                oddsRatioString = "more than 99%";
+            } else {
+                NumberFormat formatter = new DecimalFormat("##%");
+                oddsRatioString = formatter.format(this.getOddsRatioOfDisease());
+            }
+        }
+
+        // return
+        return oddsRatioString;
+    }
+
     public void setpValue(Double pValue) {
         this.pValue = pValue;
     }
@@ -251,6 +280,7 @@ public class ProteinResult {
 
         // transform the p value
         if (this.getpValue() != null) {
+            /*
             // if benign, then return 1 - pValue
             if (this.getEffect().equalsIgnoreCase(ProteinResult.EFFECT_BENIGN_STRING)) {
                 tempDouble = 1.0 - this.getpValue();
@@ -258,10 +288,14 @@ public class ProteinResult {
             } else {
                 tempDouble = this.getpValue();
             }
+            */
 
             // transform
-            NumberFormat formatter = new DecimalFormat("0E0");
+            tempDouble = this.getpValue();
+//            NumberFormat formatter = new DecimalFormat("0E0");
+            NumberFormat formatter = new DecimalFormat("#.######");
             pValueScientific = formatter.format(tempDouble);
+            pValueScientific = String.valueOf(tempDouble);
         }
 
         // return

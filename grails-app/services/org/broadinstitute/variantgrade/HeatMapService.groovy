@@ -1,7 +1,6 @@
 package org.broadinstitute.variantgrade
 import grails.transaction.Transactional
 import org.broadinstitute.variantgrade.bean.Gene
-import org.broadinstitute.variantgrade.bean.OddsRatioBean
 import org.broadinstitute.variantgrade.heatmap.MatrixParser
 import org.broadinstitute.variantgrade.input.SearchInputBean
 import org.broadinstitute.variantgrade.result.GeneResult
@@ -121,7 +120,7 @@ class HeatMapService {
         String referenceAllele = null;
         String referenceCodon = null;
         Double tempDouble = null;
-        OddsRatioBean oddsRatioBean = null;
+        Double diseaseOddsRatio;
         String diabetesRiskString = null;
 
         // log
@@ -147,6 +146,10 @@ class HeatMapService {
             // set the pValue
             tempDouble = this.getMatrixParser().getResultPValueForPositionLetterAndProbability(position, allele, prevalence);
             result.setpValue(tempDouble);
+
+            // set the odds ratio
+            diseaseOddsRatio = this.getMatrixParser().getDiseaseOddsForPositionLetterAndPrevalence(position, allele, prevalence);
+            result.setOddsRatioOfDisease(diseaseOddsRatio)
         }
 
         // get the reference allele

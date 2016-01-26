@@ -182,11 +182,11 @@
                                             <td>${proteinResult.getInputPrevalence()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Probability of causing disease  <a href="#" title="The statistical significance of the clinical prediction. A very low probability of causing disease indicates a very confident clinical prediction, while a high probability of causing disease indicates a low confidence clinical prediction."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
-                                            <td>${proteinResult.getPValueClinicalScientificNotation()}</td>
+                                            <td>Probability of causing FPLD3  <a href="#" title="The statistical significance of the clinical prediction. A very low probability of causing disease indicates a very confident clinical prediction, while a high probability of causing disease indicates a low confidence clinical prediction. Calculated by combining experimental function score with disease prevalence entered."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>${proteinResult.getOddsRatioOfDiseaseString()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Clinical prediction  <a href="#" title='An assessment to guide clinical decisions regarding whether the variant is likely to cause FPLD3 (“pathogenic”) of unlikely (“not pathogenic”). Calculated by combining experimental function score with disease prevalence entered.'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Clinical prediction for FPLD3  <a href="#" title='An assessment to guide clinical decisions regarding whether the variant is likely to cause FPLD3 (“pathogenic”) or unlikely (“not pathogenic”).'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getEffect()}</td>
                                         </tr>
                                         <tr>
@@ -226,11 +226,11 @@
                                             <td>${proteinResult.getInputPrevalence()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Probability of causing disease  <a href="#" title="The statistical significance of the clinical prediction. A very low probability of causing disease indicates a very confident clinical prediction, while a high probability of causing disease indicates a low confidence clinical prediction."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
-                                            <td>${proteinResult.getPValueClinicalScientificNotation()}</td>
+                                            <td>Probability of causing FPLD3  <a href="#" title="The statistical significance of the clinical prediction. A very low probability of causing disease indicates a very confident clinical prediction, while a high probability of causing disease indicates a low confidence clinical prediction. Calculated by combining experimental function score with disease prevalence entered."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>${proteinResult.getOddsRatioOfDiseaseString()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Clinical prediction  <a href="#" title='An assessment to guide clinical decisions regarding whether the variant is likely to cause FPLD3 (“pathogenic”) of unlikely (“not pathogenic”). Calculated by combining experimental function score with disease prevalence entered.'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Clinical prediction for FPLD3  <a href="#" title='An assessment to guide clinical decisions regarding whether the variant is likely to cause FPLD3 (“pathogenic”) or unlikely (“not pathogenic”).'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getEffect()}</td>
                                         </tr>
                                         <tr>

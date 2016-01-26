@@ -328,6 +328,22 @@ public class MatrixParser {
         return returnLog;
     }
 
+    public Double getDiseaseOddsForPositionLetterAndPrevalence(int position, String letter, Double prevalance) throws GradeException {
+        // local variables
+        Double logp = null;
+        Double odds = null;
+
+        // get the logp with the prevalence included
+        logp = this.getLogPForPositionLetterAndProbability(position, letter, prevalance);
+
+        // exponentiate and subtract from 1
+        odds = Math.exp(logp);
+        odds = 1 - odds;
+
+        //return
+        return odds;
+    }
+
     /**
      * get the odds of disease risk given a position, letter and prevalence
      *
