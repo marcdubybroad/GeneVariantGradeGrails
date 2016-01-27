@@ -173,12 +173,12 @@ public class ProteinResult {
 
         // get the string
         if (this.getOddsRatioOfDisease() != null) {
-            if (this.getOddsRatioOfDisease() < 0.01) {
-                oddsRatioString = "less than 1%";
-            } else if (this.getOddsRatioOfDisease() > 0.99) {
-                oddsRatioString = "more than 99%";
+            if (this.getOddsRatioOfDisease() < 0.001) {
+                oddsRatioString = "less than 0.1%";
+            } else if (this.getOddsRatioOfDisease() > 0.999) {
+                oddsRatioString = "more than 99.9%";
             } else {
-                NumberFormat formatter = new DecimalFormat("##%");
+                NumberFormat formatter = new DecimalFormat("##.#%");
                 oddsRatioString = formatter.format(this.getOddsRatioOfDisease());
             }
         }

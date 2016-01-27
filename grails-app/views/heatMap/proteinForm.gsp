@@ -182,7 +182,7 @@
                                             <td>${proteinResult.getInputPrevalence()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Probability of causing FPLD3  <a href="#" title="The statistical significance of the clinical prediction. A very low probability of causing disease indicates a very confident clinical prediction, while a high probability of causing disease indicates a low confidence clinical prediction. Calculated by combining experimental function score with disease prevalence entered."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Probability of causing FPLD3  <a href="#" title="The likelihood that the variant queried causes FPLD3. Calculated by combining experimental function score with disease prevalence inputted."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getOddsRatioOfDiseaseString()}</td>
                                         </tr>
                                         <tr>
@@ -190,7 +190,7 @@
                                             <td>${proteinResult.getEffect()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Risk for type 2 diabetes</td>
+                                            <td>Clinical prediction for type 2 diabetes <a href="#" title='The risk for type 2 diabetes conferred by the variant as estimated from PPARG variant carriers identified in 21,000 case/controls.'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getDiabetesRiskString()}</td>
                                         </tr>
                                         </tbody>
@@ -226,7 +226,7 @@
                                             <td>${proteinResult.getInputPrevalence()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Probability of causing FPLD3  <a href="#" title="The statistical significance of the clinical prediction. A very low probability of causing disease indicates a very confident clinical prediction, while a high probability of causing disease indicates a low confidence clinical prediction. Calculated by combining experimental function score with disease prevalence entered."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Probability of causing FPLD3  <a href="#" title="The likelihood that the variant queried causes FPLD3. Calculated by combining experimental function score with disease prevalence inputted."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getOddsRatioOfDiseaseString()}</td>
                                         </tr>
                                         <tr>
@@ -234,7 +234,7 @@
                                             <td>${proteinResult.getEffect()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Risk for type 2 diabetes</td>
+                                            <td>Clinical prediction for type 2 diabetes <a href="#" title='The risk for type 2 diabetes conferred by the variant as estimated from PPARG variant carriers identified in 21,000 case/controls.'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getDiabetesRiskString()}</td>
                                         </tr>
                                         </tbody>
