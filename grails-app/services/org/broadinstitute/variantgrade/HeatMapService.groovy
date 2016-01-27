@@ -124,7 +124,12 @@ class HeatMapService {
         String diabetesRiskString = null;
 
         // log
-        log.info("got heat map reading call for protein position: " + position + " and allele: " + allele + " and stop codon: " + isStopCodon);
+        log.info("got heat map reading call for protein position: " + position + " and allele: " + allele + "and prevalence: " + prevalence + " and stop codon: " + isStopCodon);
+
+        // first make sure prevalence is between 0 and 1
+        if ((prevalence <= 0) || (prevalence >= 1)) {
+            throw new GradeException("Got incorrect prevalence number: " + prevalence, "The prevalence inputted should be greater than 0 and less than 1");
+        }
 
         // if not a stop codon
         if (!isStopCodon) {

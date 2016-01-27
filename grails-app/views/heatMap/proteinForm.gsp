@@ -120,7 +120,8 @@
             <div class="col-md-12">
                 <g:form name="myForm" action="proteinSearch" id="1">
                     <div class="formWrapper">
-                        <div class="apptitle-black">PPARG</div>
+                        <div class="description">The MITER classifier provides functional classification and supports quantitative predictions of pathogenicity for any missense variant using comprehensive experimental data. It currently supports functional classification for missense variants in the gene <span class="miterItalic">PPARG</span> and quantitative predictions for familial partial lipodystrophy 3 (FPLD3) and Type 2 Diabetes. See Majithia et. al. 2016 for details.</div>
+                        <div class="apptitle-black description">PPARG</div>
                         <p class="bold-text">Enter Missense Variant</p>
                         <input id="searchbox" value="${lastQuery}" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
                         <p class="text-muted small-text">
@@ -383,21 +384,21 @@
 
     labels.append("text")
             .attr("transform", "translate(0," + (h - 60) + ")")
-            .attr("x", 100)
+            .attr("x", 80)
             .attr("style","font-size:12px;")
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
             .style("stroke", "red")
-            .text("lipodystrophy");
+            .text("causal for lipodystrophy");
 
     labels.append("text")
             .attr("transform", "translate(0," + (h - 60) + ")")
-            .attr("x", 340)
+            .attr("x", 280)
             .attr("style","font-size:12px;")
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
             .style("stroke", "green")
-            .text("benign");
+            .text("not causal for lipodystrophy");
 
 </script>
 </g:if>

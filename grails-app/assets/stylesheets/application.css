@@ -69,3 +69,10 @@ div.title-grey {
     font-weight: bold;
 }
 
+div.description {
+    text-align: center;
+}
+
+span.miterItalic {
+    font-style: italic;
+}
