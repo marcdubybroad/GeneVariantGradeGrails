@@ -110,6 +110,7 @@
             font-weight: bold;
         }
     </style>
+    <g:render template="googleAnalytics"/>
     <g:render template="d3"/>
 </head>
 <body>

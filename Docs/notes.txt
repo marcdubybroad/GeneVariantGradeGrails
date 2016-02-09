@@ -1,7 +1,5 @@
 
 
-
-
 step 1:
 - given: protein position and letter
   - get: number from matrix

@@ -17,7 +17,7 @@
 		<div id="grailsLogo" role="banner" class="apptitle"><span class="title-black">M</span>issense <span class="title-black">I</span>n<span class="title-black">T</span>erpretation by <span class="title-black">E</span>xperimental <span class="title-black">R</span>esponse (beta)</div>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo">
-        <div>Software version 0.35. Data version 1.0.</div>
+        <div>Software version 0.36. Data version 1.0.</div>
         <div>Copyright Reserved 2016. All rights reserved.</div>
         <div>This software is supplied without warranty or guaranteed support. No responsibility is assumed by the authors for its use, misuse, or functionality.</div>
         </div>
