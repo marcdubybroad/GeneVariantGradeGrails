@@ -144,7 +144,7 @@
             <div class="col-md-12">
                 <div class="formWrapper bold">
                     <g:if test="${proteinResult != null}">
-                        <g:if test="${proteinResult.getVariantDisplay()}">
+                        <g:if test="${false}">
                             <div class="row reduced-width">
                                 <div class="col-md-4">
                                     <table class="table">
@@ -154,6 +154,10 @@
                                         <tr>
                                             <td>Variant</td>
                                             <td>${proteinResult.getVariantDisplay()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reference codon  <a href="#" class="tool" title="The three nucleotide sequence specifying the reference amino acid."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
                                         </tr>
                                         <tr>
                                             <td>Reference codon  <a href="#" class="tool" title="The three nucleotide sequence specifying the reference amino acid."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
@@ -214,6 +218,10 @@
                                         <tr>
                                             <td>Protein change</td>
                                             <td>${proteinResult.getScientificAlleleCode()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reference codon  <a href="#" title="The three nucleotide sequence specifying the reference amino acid."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
                                         </tr>
                                         <tr>
                                             <td>Reference codon  <a href="#" title="The three nucleotide sequence specifying the reference amino acid."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
@@ -343,7 +351,7 @@
 
         svg.append("g").append("svg:path").attr("d", line(data)).attr("class", "green");
 
-        svg.selectAll('path.green').attr("stroke", "green");
+        svg.selectAll('path.green').attr("stroke", "blue");
     });
 
     var scoreData = [{xdata: ${proteinResult.getHeatAmount()}, ydata:0}, {xdata: ${proteinResult.getHeatAmount()}, ydata: 0.5}];
