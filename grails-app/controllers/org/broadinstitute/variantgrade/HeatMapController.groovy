@@ -11,7 +11,7 @@ class HeatMapController {
 
     def index() { }
 
-    def login() {
+    def loginOld() {
         String username = params.username;
         String password = params.password;
         Boolean loggedIn = false;
@@ -52,7 +52,7 @@ class HeatMapController {
         }
     }
 
-    def newlogin() {
+    def login() {
         // get the protein reference letter list
         List<String> referenceLetterList = this.heatMapService.getProteinReferenceLetterList();
 
@@ -68,9 +68,9 @@ class HeatMapController {
 
     def proteinSearch() {
         // check that logged in
-        if (!session.user) {
-            redirect(action: 'login')
-        }
+//        if (!session.user) {
+//            redirect(action: 'login')
+//        }
 
         // log
         log.info("in protein search, got params: " + params)
