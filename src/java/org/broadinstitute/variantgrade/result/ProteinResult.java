@@ -29,6 +29,8 @@ public class ProteinResult {
     private Double oddsRatioOfDisease;
     private DiseaseOddsRatio diseaseOddsRatio;
     private String diabetesRiskString;
+    private String aminoAcidReference;
+    private String aminoAcidAlllele;
 
     // constants
     public static final String EFFECT_BENIGN_STRING             = "not pathogenic";
@@ -165,6 +167,22 @@ public class ProteinResult {
 
     public void setOddsRatioOfDisease(Double oddsRatioOfDisease) {
         this.oddsRatioOfDisease = oddsRatioOfDisease;
+    }
+
+    public String getAminoAcidReference() {
+        return aminoAcidReference;
+    }
+
+    public void setAminoAcidReference(String aminoAcidReference) {
+        this.aminoAcidReference = aminoAcidReference;
+    }
+
+    public String getAminoAcidAlllele() {
+        return aminoAcidAlllele;
+    }
+
+    public void setAminoAcidAlllele(String aminoAcidAlllele) {
+        this.aminoAcidAlllele = aminoAcidAlllele;
     }
 
     public String getOddsRatioOfDiseaseString() {

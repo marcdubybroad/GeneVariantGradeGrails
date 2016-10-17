@@ -126,7 +126,7 @@
                         <p class="bold-text">Enter Missense Variant</p>
                         <input id="searchbox" value="${lastQuery}" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
                         <p class="text-muted small-text">
-                            Examples - Protein change <a href="#" title='numbering with respect to PPAR&#611; isoform 2 (to convert isoform 1 to 2 add 28)'><g:img dir="images" file="question2.png" width="17" height="17"/></a>:
+                            Examples - Protein change <a href="#" title='Numbering with respect to PPAR&#611; isoform 2 (to convert isoform 1 to 2 add 28)'><g:img dir="images" file="question2.png" width="17" height="17"/></a>:
                             <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.P12A', prevalence: '1.0e-5']">p.P12A</g:link> or
                             <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.Pro12Ala', prevalence: '1.0e-5']">p.Pro12Ala</g:link>,
                             Genomic coordinates  <a href="#" title='chr3-<base position hg18>-<reference base>-<identified base change>'><g:img dir="images" file="question2.png" width="17" height="17"/></a>:
@@ -145,7 +145,7 @@
             <div class="col-md-12">
                 <div class="formWrapper bold">
                     <g:if test="${proteinResult != null}">
-                        <g:if test="${false}">
+                        <g:if test="${proteinResult.getVariantDisplay()}">
                             <div class="row reduced-width">
                                 <div class="col-md-4">
                                     <table class="table">
@@ -172,6 +172,10 @@
                                                 <td>is a stop codon</td>
                                             </tr>
                                         </g:if>
+                                        <tr>
+                                            <td>Reference amino acid</td>
+                                            <td>${proteinResult.getAminoAcidReference()}</td>
+                                        </tr>
                                         <tr>
                                             <td>Protein change</td>
                                             <td>${proteinResult.getScientificAlleleCode()}</td>
@@ -213,12 +217,16 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>Protein change</td>
-                                            <td>${proteinResult.getScientificAlleleCode()}</td>
+                                            <td>Reference amino acid</td>
+                                            <td>${proteinResult.getAminoAcidReference()}</td>
                                         </tr>
                                         <tr>
                                             <td>Reference codon  <a href="#" title="The three nucleotide sequence specifying the reference amino acid."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Protein change</td>
+                                            <td>${proteinResult.getScientificAlleleCode()}</td>
                                         </tr>
                                         <tr>
                                             <td>Experimental function score  <a href="#" title="Also referred to as integrated functional score (IFS) in Majithia et. al. 2016, quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>

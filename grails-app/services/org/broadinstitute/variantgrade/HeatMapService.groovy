@@ -176,6 +176,8 @@ class HeatMapService {
         result.setReferenceCodon(referenceCodon);
 
         // set the scientific code
+        result.setAminoAcidReference(this.matrixParser.getThreeLetterProteinCodeFromOneLetterCode(result.getReferenceAllele()));
+        result.setAminoAcidAlllele(this.matrixParser.getThreeLetterProteinCodeFromOneLetterCode(result.getInputAllele()));
         result.setScientificAlleleCode("p." + this.matrixParser.getThreeLetterProteinCodeFromOneLetterCode(result.getReferenceAllele()) + result.getPosition() + this.matrixParser.getThreeLetterProteinCodeFromOneLetterCode(result.getInputAllele()));
 
         // return
