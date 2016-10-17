@@ -121,7 +121,8 @@
             <div class="col-md-12">
                 <g:form name="myForm" action="proteinSearch" id="1">
                     <div class="formWrapper">
-                        <div class="description">The MITER classifier provides functional classification and supports quantitative predictions of pathogenicity for any missense variant using comprehensive experimental data. It currently supports functional classification for missense variants in the gene <span class="miterItalic">PPARG</span> and quantitative predictions for familial partial lipodystrophy 3 (FPLD3) and Type 2 Diabetes. See Majithia et. al. 2016 for details.</div>
+                        <div class="description">The MITER classifier provides functional classification and supports quantitative predictions of pathogenicity for any missense variant using comprehensive experimental data. It currently supports functional classification for missense variants in the gene <span class="miterItalic">PPARG</span> and quantitative predictions for familial partial lipodystrophy 3 (FPLD3) and Type 2 Diabetes.
+                        <br/>See <a href="http://dx.doi.org/10.1038/ng.3700" target="newWindow">Majithia AR, et al. Prospective functional classification of all possible missense variants in PPARG. Nature Genetics. 2016 doi:10.1038/ng.3700</a> for details.</div>
                         <div class="apptitle-black description">PPARG</div>
                         <p class="bold-text">Enter Missense Variant</p>
                         <input id="searchbox" value="${lastQuery}" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
