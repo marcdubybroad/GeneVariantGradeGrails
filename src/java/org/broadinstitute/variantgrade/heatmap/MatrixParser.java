@@ -332,12 +332,14 @@ public class MatrixParser {
         // local variables
         Double logp = null;
         Double odds = null;
+        Double exponentinalTemp = null;
 
         // get the logp with the prevalence included
         logp = this.getLogPForPositionLetterAndProbability(position, letter, prevalance);
 
         // exponentiate and subtract from 1
-        odds = Math.exp(logp);
+        exponentinalTemp = Math.exp(logp);
+        odds = exponentinalTemp / (exponentinalTemp + 1);
         odds = 1 - odds;
 
         //return

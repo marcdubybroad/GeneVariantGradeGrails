@@ -126,7 +126,8 @@
                         <p class="bold-text">Enter Missense Variant</p>
                         <input id="searchbox" value="${lastQuery}" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
                         <p class="text-muted small-text">
-                            Examples - Protein change: <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.P12A', prevalence: '1.0e-5']">p.P12A</g:link> or
+                            Examples - Protein change <a href="#" title='numbering with respect to PPAR&#611; isoform 2 (to convert isoform 1 to 2 add 28)'><g:img dir="images" file="question2.png" width="17" height="17"/></a>:
+                            <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.P12A', prevalence: '1.0e-5']">p.P12A</g:link> or
                             <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.Pro12Ala', prevalence: '1.0e-5']">p.Pro12Ala</g:link>,
                             Genomic coordinates  <a href="#" title='chr3-<base position hg18>-<reference base>-<identified base change>'><g:img dir="images" file="question2.png" width="17" height="17"/></a>:
                         <g:link action="proteinSearch" controller="heatMap" params="[query: 'chr3-12393125-C-G', prevalence: '1.0e-5']">chr3-12393125-C-G</g:link>
@@ -154,10 +155,6 @@
                                         <tr>
                                             <td>Variant</td>
                                             <td>${proteinResult.getVariantDisplay()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Reference codon  <a href="#" class="tool" title="The three nucleotide sequence specifying the reference amino acid."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
-                                            <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
                                         </tr>
                                         <tr>
                                             <td>Reference codon  <a href="#" class="tool" title="The three nucleotide sequence specifying the reference amino acid."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
@@ -218,10 +215,6 @@
                                         <tr>
                                             <td>Protein change</td>
                                             <td>${proteinResult.getScientificAlleleCode()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Reference codon  <a href="#" title="The three nucleotide sequence specifying the reference amino acid."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
-                                            <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
                                         </tr>
                                         <tr>
                                             <td>Reference codon  <a href="#" title="The three nucleotide sequence specifying the reference amino acid."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
@@ -351,7 +344,7 @@
 
         svg.append("g").append("svg:path").attr("d", line(data)).attr("class", "green");
 
-        svg.selectAll('path.green').attr("stroke", "blue");
+        svg.selectAll('path.green').attr("stroke", "green");
     });
 
     var scoreData = [{xdata: ${proteinResult.getHeatAmount()}, ydata:0}, {xdata: ${proteinResult.getHeatAmount()}, ydata: 0.5}];
