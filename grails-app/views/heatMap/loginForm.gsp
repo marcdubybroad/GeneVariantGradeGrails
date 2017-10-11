@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Missense Interpreter</title>
+    <title>Cancer Missense Interpreter</title>
     <style type="text/css" media="screen">
     #status {
         background-color: #eee;

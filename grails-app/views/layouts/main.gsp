@@ -14,7 +14,7 @@
 		<g:layoutHead/>
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner" class="apptitle"><span class="title-black">M</span>issense <span class="title-black">I</span>n<span class="title-black">T</span>erpretation by <span class="title-black">E</span>xperimental <span class="title-black">R</span>esponse (beta)</div>
+		<div id="grailsLogo" role="banner" class="apptitle"><span class="title-black">C</span>ancer <span class="title-black">M</span>issense <span class="title-black">I</span>n<span class="title-black">T</span>erpretation by <span class="title-black">E</span>xperimental <span class="title-black">R</span>esponse (beta)</div>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo">
         <div>Software version 0.36. Data version 1.0.</div>
