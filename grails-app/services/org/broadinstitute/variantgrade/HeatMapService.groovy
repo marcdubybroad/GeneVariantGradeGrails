@@ -137,7 +137,7 @@ class HeatMapService {
             log.info("got non stop codon");
 
             // get the map amount
-            proteinGrade = this.getMatrixParser().getMatrixValueAtPositionAndLetterAndType(position, allele, MatrixParser.MATRIX_TYPE_POSITION_HEAT);
+            proteinGrade = this.getMatrixParser().getFunctionalScoreAtPositionAndLetter(position, allele);
             result.setHeatAmount(proteinGrade);
 
             // set the diabetes risk string
@@ -195,12 +195,18 @@ class HeatMapService {
             this.matrixParser = MatrixParser.getMatrixParser();
 
             // get the file stream and load it to the parser
-            InputStream heatMapStream = this.class.classLoader.getResourceAsStream('matrixHeat.csv');
-            this.matrixParser.setHeatMapStream(heatMapStream);
+            InputStream heatMapStreamA = this.class.classLoader.getResourceAsStream('matrixHeatWT_Nutlin.csv');
+            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_POSITION_HEAT_A, heatMapStreamA);
+
+            InputStream heatMapStreamB = this.class.classLoader.getResourceAsStream('matrixHeatNULL_Nutlin.csv');
+            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_POSITION_HEAT_B, heatMapStreamB);
+
+            InputStream heatMapStreamC = this.class.classLoader.getResourceAsStream('matrixHeatNULL_Etoposide.csv');
+            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_POSITION_HEAT_C, heatMapStreamC);
 
             // set the logp stream
-            InputStream logpStream = this.class.classLoader.getResourceAsStream('matrixLogp.csv');
-            this.matrixParser.setLogpMapStream(logpStream);
+            InputStream logpStream = this.class.classLoader.getResourceAsStream('matrixHeatNULL_Etoposide.csv');
+            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_POSITION_LOGP, logpStream);
             this.matrixParser.populate();
 
             // set the gene file stream

@@ -156,6 +156,16 @@
                                             <td>Variant</td>
                                             <td>${proteinResult.getVariantDisplay()}</td>
                                         </tr>
+                                        <tr>
+                                            <td>Reference codon  <a href="#" class="tool" title="The three nucleotide sequence specifying the reference amino acid."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
+                                        </tr>
+                                        <g:if test="${proteinResult.getAlternateCodon()}">
+                                            <tr>
+                                                <td>Modified Codon</td>
+                                                <td><span class="cap">${proteinResult.getAlternateCodon()}</span></td>
+                                            </tr>
+                                        </g:if>
                                         <g:if test="${proteinResult.isResultStopCodon()}">
                                             <tr>
                                                 <td>Modified codon</td>
@@ -174,8 +184,6 @@
                                             <td>Experimental function score  <a href="#" title="Also referred to as integrated functional score (IFS) in Majithia et. al. 2016, quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
-
-                            <g:if test="${false}">
                                         <tr>
                                             <td>At disease prevalence</td>
                                             <td>${proteinResult.getInputPrevalence()}</td>
@@ -192,8 +200,6 @@
                                             <td>Clinical prediction for type 2 diabetes <a href="#" title='The risk for type 2 diabetes conferred by the variant as estimated from PPARG variant carriers identified in 21,000 case/controls.'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getDiabetesRiskString()}</td>
                                         </tr>
-                            </g:if>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -214,13 +220,10 @@
                                             <td>Reference amino acid</td>
                                             <td>${proteinResult.getAminoAcidReference()}</td>
                                         </tr>
-
-                                <g:if test="${false}">
                                         <tr>
                                             <td>Reference codon  <a href="#" title="The three nucleotide sequence specifying the reference amino acid."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
                                         </tr>
-                                </g:if>
                                         <tr>
                                             <td>Protein change</td>
                                             <td>${proteinResult.getScientificAlleleCode()}</td>
@@ -229,8 +232,6 @@
                                             <td>Experimental function score  <a href="#" title="Also referred to as integrated functional score (IFS) in Majithia et. al. 2016, quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
-
-                                <g:if test="${false}">
                                         <tr>
                                             <td>At disease prevalence</td>
                                             <td>${proteinResult.getInputPrevalence()}</td>
@@ -247,8 +248,6 @@
                                             <td>Clinical prediction for type 2 diabetes <a href="#" title='The risk for type 2 diabetes conferred by the variant as estimated from PPARG variant carriers identified in 21,000 case/controls.'><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getDiabetesRiskString()}</td>
                                         </tr>
-                                </g:if>
-
                                         </tbody>
                                     </table>
                                 </div>
