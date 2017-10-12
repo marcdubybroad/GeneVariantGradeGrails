@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Cancer Missense Interpreter</title>
+    <title>Interpretation of Mutant P53 Activity</title>
     <style type="text/css" media="screen">
     .axis path,
     .axis line {
@@ -121,7 +121,7 @@
             <div class="col-md-12">
                 <g:form name="myForm" action="proteinSearch" id="1">
                     <div class="formWrapper">
-                        <div class="description">The CMITER classifier provides functional classification and supports quantitative predictions of pathogenicity for any missense variant using comprehensive experimental data. It currently supports functional classification for missense variants in the gene <span class="miterItalic">p53</span>.
+                        <div class="description">The IMPACT classifier provides functional classification and supports quantitative predictions of pathogenicity for any missense variant using comprehensive experimental data. It currently supports functional classification for missense variants in the gene <span class="miterItalic">p53</span>.
                         <br/>See <a href="http://dx.doi.org/10.1038/ng.3700" target="newWindow">paper link</a> for details.</div>
                         <div class="apptitle-black description">p53</div>
                         <p class="bold-text">Enter Missense Variant</p>

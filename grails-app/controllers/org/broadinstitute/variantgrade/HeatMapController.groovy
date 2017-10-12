@@ -77,7 +77,6 @@ class HeatMapController {
 
         // keep last search parameters
         String lastQuery = params.query?.trim();
-        String lastPrevalence = params.prevalence?.trim();
 
         // if logged in, protein form
         String referenceLetter = params.referenceLetter
@@ -88,8 +87,14 @@ class HeatMapController {
         // get the protein reference letter list
         List<String> referenceLetterList = this.heatMapService.getProteinReferenceLetterList();
 
+        // prevalence setting
+        String lastPrevalence = params.prevalence?.trim();
+        if (!lastPrevalence) {
+            lastPrevalence = "1.0e-5";
+        }
+
         // if params came from query search input
-        if (params.query && params.prevalence) {
+        if (params.query && lastPrevalence) {
             try {
                 // get the result
                 proteinResult = this.heatMapService.getHeatMapReadingFromSearchString(lastQuery, lastPrevalence)
