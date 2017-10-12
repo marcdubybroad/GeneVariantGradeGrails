@@ -132,8 +132,11 @@
                             <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.Pro12Ala', prevalence: '1.0e-5']">p.Pro12Ala</g:link>,
 
                         </p>
+
+                    <g:if test="${false}">
                         <p class="bold-text">Enter Disease Prevalence  <a href="#" title="Disease prevalence of familial partial lipodystrophy 3 (FPLD3) in the general population is 1:100,000 (default) to 1:1,000,000. In specialist clinics this can be as high as 1:5 (0.20)."><g:img dir="images" file="question2.png" width="17" height="17"/></a></p>
                         <input id="prevalencebox" name="prevalence" class="form-control input-lg awesomebar prevalencebox" type="text" placeholder="Enter disease prevalence" value="${lastPrevalence ? lastPrevalence : '1.0e-5'}"/>
+                    </g:if>
                     </div>
                     <div class="formWrapper">
                         <input type="submit" name="submit">
@@ -286,7 +289,7 @@
     var x = d3.scale.linear().range([0, w]);
     var y = d3.scale.linear().range([h, 0]);
 
-    x.domain([-8, 5]);
+    x.domain([-6, 7]);
     y.domain([0, 0.6]);
 
     var xAxis = d3.svg.axis()
@@ -316,7 +319,7 @@
 
 
     //    d3.csv("${g.resource(file:'data_01.csv')}", function(error, data) {
-    d3.csv("${g.resource(file:'deleterious.csv')}", function(error, data) {
+    d3.csv("${g.resource(file:'nonsenseCancer.csv')}", function(error, data) {
         // Here we will put all the SVG elements affected by the data
         // on the file!!!
         data.forEach(function(d) {
@@ -336,7 +339,7 @@
         svg.select('path.red').attr("stroke", "red");
     });
 
-    d3.csv("${g.resource(file:'benign.csv')}", function(error, data) {
+    d3.csv("${g.resource(file:'silentCancer.csv')}", function(error, data) {
         // Here we will put all the SVG elements affected by the data
         // on the file!!!
         data.forEach(function(d) {
@@ -395,21 +398,21 @@
 
     labels.append("text")
             .attr("transform", "translate(0," + (h - 60) + ")")
-            .attr("x", 80)
+            .attr("x", 340)
             .attr("style","font-size:12px;")
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
             .style("stroke", "red")
-            .text("causal for lipodystrophy");
+            .text("nonsense");
 
     labels.append("text")
             .attr("transform", "translate(0," + (h - 60) + ")")
-            .attr("x", 280)
+            .attr("x", 230)
             .attr("style","font-size:12px;")
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
             .style("stroke", "green")
-            .text("not causal for lipodystrophy");
+            .text("silent");
 
 </script>
 </g:if>
