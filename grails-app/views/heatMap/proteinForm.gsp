@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Interpretation of Mutant P53 Activity</title>
+    <title>Interpretation of Mutant TP53 Activity</title>
     <style type="text/css" media="screen">
     .axis path,
     .axis line {
