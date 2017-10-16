@@ -121,15 +121,15 @@
             <div class="col-md-12">
                 <g:form name="myForm" action="proteinSearch" id="1">
                     <div class="formWrapper">
-                        <div class="description">The IMPACT classifier provides functional classification and supports quantitative predictions of pathogenicity for any missense variant using comprehensive experimental data. It currently supports functional classification for missense variants in the gene <span class="miterItalic">p53</span>.
+                        <div class="description">The IMPACT classifier provides functional classification and supports quantitative predictions of pathogenicity for any missense and nonsense variant using comprehensive experimental data. It currently supports functional classification for missense and nonsense variants in the gene <span class="miterItalic">TP53</span>.
                         <br/>See <a href="http://dx.doi.org/10.1038/ng.3700" target="newWindow">paper link</a> for details.</div>
-                        <div class="apptitle-black description">p53</div>
+                        <div class="apptitle-black description">TP53</div>
                         <p class="bold-text">Enter Missense Variant</p>
                         <input id="searchbox" value="${lastQuery}" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
                         <p class="text-muted small-text">
                             Examples - Protein change <a href="#" title='Numbering with respect to PPAR&#611; isoform 2 (to convert isoform 1 to 2 add 28)'><g:img dir="images" file="question2.png" width="17" height="17"/></a>:
-                            <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.P12A', prevalence: '1.0e-5']">p.P12A</g:link> or
-                            <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.Pro12Ala', prevalence: '1.0e-5']">p.Pro12Ala</g:link>,
+                            <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.R273H', prevalence: '1.0e-5']">p.R273H</g:link> or
+                            <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.Arg273His', prevalence: '1.0e-5']">p.Arg273His</g:link>,
 
                         </p>
 
@@ -369,7 +369,7 @@
     svg.selectAll('path.black').attr("stroke", "black");
 
     svg.append("g").append("svg:text")
-            .attr("x", w * ((${proteinResult.getHeatAmount()} + 8)/12))
+            .attr("x", w * ((${proteinResult.getHeatAmount()} + 6)/12))
             .attr("y", 30)
             .attr("text-anchor", "middle")
             .style("font-size", "16px")
@@ -398,7 +398,7 @@
 
     labels.append("text")
             .attr("transform", "translate(0," + (h - 60) + ")")
-            .attr("x", 340)
+            .attr("x", 346)
             .attr("style","font-size:12px;")
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
@@ -407,7 +407,7 @@
 
     labels.append("text")
             .attr("transform", "translate(0," + (h - 60) + ")")
-            .attr("x", 230)
+            .attr("x", 215)
             .attr("style","font-size:12px;")
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
