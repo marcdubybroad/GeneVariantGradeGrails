@@ -397,22 +397,22 @@
             .text("density known variants");
 
     labels.append("text")
-            .attr("transform", "translate(0," + (h - 60) + ")")
-            .attr("x", 346)
+            .attr("transform", "translate(0," + (h - 40) + ")")
+            .attr("x", 330)
             .attr("style","font-size:12px;")
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
             .style("stroke", "red")
-            .text("nonsense");
+            .text("LOF (nonsense)");
 
     labels.append("text")
-            .attr("transform", "translate(0," + (h - 60) + ")")
-            .attr("x", 215)
+            .attr("transform", "translate(0," + (h - 40) + ")")
+            .attr("x", 205)
             .attr("style","font-size:12px;")
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
             .style("stroke", "green")
-            .text("silent");
+            .text("WT (silent)");
 
 </script>
 </g:if>
