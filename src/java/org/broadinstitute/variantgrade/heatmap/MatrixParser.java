@@ -153,6 +153,9 @@ public class MatrixParser {
             this.proteinList.add(new AminoAcidBean("V", "Val", "Valine"));
             this.proteinList.add(new AminoAcidBean("Y", "Tyr", "Tyrosine"));
             this.proteinList.add(new AminoAcidBean("W", "Trp", "Tryptophan"));
+
+            // add stop codon for cmiter
+            this.proteinList.add(new AminoAcidBean("Z", "Ter", "StopCodon"));
         }
 
         // return

@@ -182,10 +182,24 @@ public class SearchInputTranslator {
 
     private List<String> parseProteinChangeString(String str) {
         List<String> output = new ArrayList<String>();
-        Matcher match = Pattern.compile("[0-9]+|[a-z]+|[A-Z]+").matcher(str);
+        Matcher match = Pattern.compile("[0-9]+|[a-z]+|[A-Z\\*]+").matcher(str);
         while (match.find()) {
             output.add(match.group());
         }
+
+        // cmiter: replace * with Z
+        if (output.get(0) != null) {
+            if (output.get(0).equals("*")) {
+                output.set(0, "Z");
+            }
+        }
+        if (output.get(2) != null) {
+            if (output.get(2).equals("*")) {
+                output.set(2, "Z");
+            }
+        }
+
+        // return
         return output;
     }
 
