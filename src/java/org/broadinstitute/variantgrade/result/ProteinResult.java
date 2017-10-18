@@ -32,10 +32,14 @@ public class ProteinResult {
     private String aminoAcidReference;
     private String aminoAcidAlllele;
 
+    // cmiter specific properties
+    private String somaticIarcMutationCount;
+
     // constants
     public static final String EFFECT_BENIGN_STRING             = "not pathogenic";
     public static final String EFFECT_DELETERIOUS_STRING        = "pathogenic";
     public static final String EFFECT_NEUTRAL_STRING            = "neutral";
+    public static final String NOT_AVAILABLE                    = "NA";
 
     public Integer getPosition() {
         return position;
@@ -183,6 +187,19 @@ public class ProteinResult {
 
     public void setAminoAcidAlllele(String aminoAcidAlllele) {
         this.aminoAcidAlllele = aminoAcidAlllele;
+    }
+
+    public String getSomaticIarcMutationCount() {
+        return somaticIarcMutationCount;
+    }
+
+    public void setSomaticIarcMutationCount(Double somaticIarcMutationCount) {
+        if (somaticIarcMutationCount == null) {
+            this.somaticIarcMutationCount = NOT_AVAILABLE;
+
+        } else {
+            this.somaticIarcMutationCount = String.valueOf(somaticIarcMutationCount.intValue());
+        }
     }
 
     public String getOddsRatioOfDiseaseString() {

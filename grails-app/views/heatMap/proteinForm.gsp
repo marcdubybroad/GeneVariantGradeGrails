@@ -178,6 +178,11 @@
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
 
+                                        <tr>
+                                            <td># of IARC somatic mutations (human tumors)</td>
+                                            <td>${proteinResult.getSomaticIarcMutationCount()}</td>
+                                        </tr>
+
                             <g:if test="${false}">
                                         <tr>
                                             <td>At disease prevalence</td>
@@ -233,6 +238,11 @@
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
 
+
+                                        <tr>
+                                            <td># of IARC somatic mutations (human tumors)</td>
+                                            <td>${proteinResult.getSomaticIarcMutationCount()}</td>
+                                        </tr>
                                 <g:if test="${false}">
                                         <tr>
                                             <td>At disease prevalence</td>

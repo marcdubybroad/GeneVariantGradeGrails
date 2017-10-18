@@ -1,5 +1,6 @@
 package org.broadinstitute.variantgrade.heatmap;
 
+import org.apache.log4j.Logger;
 import org.broadinstitute.variantgrade.bean.AminoAcidBean;
 import org.broadinstitute.variantgrade.bean.CodingRegion;
 import org.broadinstitute.variantgrade.bean.CodingSegment;
@@ -20,6 +21,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +30,7 @@ import java.util.Map;
  */
 public class MatrixParser {
     // instance variables
+    Logger matrixLogger = Logger.getLogger(this.getClass().getName());
     private Map<Integer, HeatMapBean> heatMapBeanMap = new HashMap<Integer, HeatMapBean>();
     private Map<Integer, PositionMatrixBean> heatMap = new HashMap<Integer, PositionMatrixBean>();
     private Map<Integer, PositionMatrixBean> logpMap = new HashMap<Integer, PositionMatrixBean>();
@@ -52,6 +55,7 @@ public class MatrixParser {
     public static final int MATRIX_TYPE_POSITION_HEAT_B         = 2;
     public static final int MATRIX_TYPE_POSITION_HEAT_C         = 3;
     public static final int MATRIX_TYPE_POSITION_LOGP           = 4;
+    public static final int MATRIX_TYPE_IARC_SOMATIC_COUNT      = 5;
 
     /**
      * singleton method to return parser
@@ -169,12 +173,20 @@ public class MatrixParser {
     public synchronized void populate() throws GradeException {
         if (!this.isInitialized) {
             // populate the heat matrix
-            this.populateMatrix(MATRIX_TYPE_POSITION_HEAT_A);
-            this.populateMatrix(MATRIX_TYPE_POSITION_HEAT_B);
-            this.populateMatrix(MATRIX_TYPE_POSITION_HEAT_C);
+            Iterator<Integer> matrixTypeIterator = this.heatMapBeanMap.keySet().iterator();
+            while (matrixTypeIterator.hasNext()) {
+                Integer matrixType = matrixTypeIterator.next();
+
+                this.matrixLogger.info("populating matrix of type: " + matrixType);
+
+                this.populateMatrix(matrixType);
+            }
+//            this.populateMatrix(MATRIX_TYPE_POSITION_HEAT_A);
+//            this.populateMatrix(MATRIX_TYPE_POSITION_HEAT_B);
+//            this.populateMatrix(MATRIX_TYPE_POSITION_HEAT_C);
 
             // populate the logp matrix
-            this.populateMatrix(MATRIX_TYPE_POSITION_LOGP);
+//            this.populateMatrix(MATRIX_TYPE_POSITION_LOGP);
 
             // set initialization
             this.isInitialized = true;
@@ -292,7 +304,12 @@ public class MatrixParser {
                             positionMatrixBean.addHeatEntry(headerLine[i], new Double(0));
 
                         } else {
-                            positionMatrixBean.addHeatEntry(headerLine[i], new Double(tempLine[i]));
+                            try {
+                                positionMatrixBean.addHeatEntry(headerLine[i], new Double(tempLine[i]));
+
+                            } catch (NumberFormatException exception) {
+                                positionMatrixBean.addHeatEntry(headerLine[i], null);
+                            }
                         }
                     }
 
@@ -319,6 +336,11 @@ public class MatrixParser {
                     throw new GradeException("Got reader close exception reading heat map file: " + exception.getMessage());
                 }
             }
+
+            // null out heatmap stream for space
+            if (heatMapBean != null) {
+                heatMapBean.setHeatMapStream(null);
+            }
         }
     }
 
@@ -338,7 +360,7 @@ public class MatrixParser {
         Double oddsRatio;
 
         // get the logp value
-        logP = this.getMatrixValueAtPositionAndLetterAndType(position, letter, MATRIX_TYPE_POSITION_LOGP);
+        logP = this.getMatrixValueAtPositionAndLetterAndType(position, letter, MATRIX_TYPE_POSITION_LOGP, false);
 
         // calculate the odds ration
         oddsRatio = (1 - prevalance) / prevalance;
@@ -472,7 +494,7 @@ public class MatrixParser {
      * @return
      * @throws GradeException
      */
-    public Double getMatrixValueAtPositionAndLetterAndType(int position, String letter, int matrixType) throws GradeException {
+    public Double getMatrixValueAtPositionAndLetterAndType(int position, String letter, int matrixType, boolean isNullOk) throws GradeException {
         // local variables
         PositionMatrixBean positionMatrixBean;
         Double heatNumber = null;
@@ -484,7 +506,7 @@ public class MatrixParser {
         heatNumber = positionMatrixBean.getHeatNumber(letter);
 
         // if null, error
-        if (heatNumber == null) {
+        if (!isNullOk && (heatNumber == null)) {
             throw new GradeException("Got null heat number heat for position: " + position + " and letter: " + letter);
         }
 
@@ -545,9 +567,9 @@ public class MatrixParser {
         Double thirdDouble = null;
 
         // get the numbers
-        firstDouble = this.getMatrixValueAtPositionAndLetterAndType(position, letter, MatrixParser.MATRIX_TYPE_POSITION_HEAT_A);
-        secondDouble = this.getMatrixValueAtPositionAndLetterAndType(position, letter, MatrixParser.MATRIX_TYPE_POSITION_HEAT_B);
-        thirdDouble = this.getMatrixValueAtPositionAndLetterAndType(position, letter, MatrixParser.MATRIX_TYPE_POSITION_HEAT_C);
+        firstDouble = this.getMatrixValueAtPositionAndLetterAndType(position, letter, MatrixParser.MATRIX_TYPE_POSITION_HEAT_A, false);
+        secondDouble = this.getMatrixValueAtPositionAndLetterAndType(position, letter, MatrixParser.MATRIX_TYPE_POSITION_HEAT_B, false);
+        thirdDouble = this.getMatrixValueAtPositionAndLetterAndType(position, letter, MatrixParser.MATRIX_TYPE_POSITION_HEAT_C, false);
 
         // get the position heat
         heatNumber = firstDouble + secondDouble - thirdDouble;

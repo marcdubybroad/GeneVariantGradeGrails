@@ -74,7 +74,7 @@ public class MatrixParserTest extends TestCase {
 
         // get heat amount and test
         try {
-            result = this.matrixParser.getMatrixValueAtPositionAndLetterAndType(position, referenceLetter, MatrixParser.MATRIX_TYPE_POSITION_HEAT);
+            result = this.matrixParser.getMatrixValueAtPositionAndLetterAndType(position, referenceLetter, MatrixParser.MATRIX_TYPE_POSITION_HEAT_A, false);
 
         } catch (GradeException exception) {
             fail("got heat exception: " + exception.getMessage());
@@ -94,7 +94,7 @@ public class MatrixParserTest extends TestCase {
 
         // get heat amount and test
         try {
-            result = this.matrixParser.getMatrixValueAtPositionAndLetterAndType(position, referenceLetter, MatrixParser.MATRIX_TYPE_POSITION_LOGP);
+            result = this.matrixParser.getMatrixValueAtPositionAndLetterAndType(position, referenceLetter, MatrixParser.MATRIX_TYPE_POSITION_LOGP, false);
 
         } catch (GradeException exception) {
             fail("got heat exception: " + exception.getMessage());

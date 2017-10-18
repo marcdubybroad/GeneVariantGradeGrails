@@ -1,4 +1,5 @@
 package org.broadinstitute.variantgrade
+
 import grails.transaction.Transactional
 import org.broadinstitute.variantgrade.bean.Gene
 import org.broadinstitute.variantgrade.heatmap.MatrixParser
@@ -140,6 +141,10 @@ class HeatMapService {
             proteinGrade = this.getMatrixParser().getFunctionalScoreAtPositionAndLetter(position, allele);
             result.setHeatAmount(proteinGrade);
 
+            // set the somatic mutation count (IARC)
+            Double iarcSomaticMutationCount = this.getMatrixParser().getMatrixValueAtPositionAndLetterAndType(position, allele, MatrixParser.MATRIX_TYPE_IARC_SOMATIC_COUNT, true);
+            result.setSomaticIarcMutationCount(iarcSomaticMutationCount);
+
             // set the diabetes risk string
             diabetesRiskString = this.getMatrixParser().getType2DiabetesRiskAtPositionAndLetterAndType(position, allele);
             result.setDiabetesRiskString(diabetesRiskString);
@@ -161,10 +166,11 @@ class HeatMapService {
         referenceAllele = this.getMatrixParser().getProteinReferenceLetterAtPosition(position);
 
         // make sure modified protein allele is different from reference allele
-        if (allele.equalsIgnoreCase(referenceAllele)) {
-            String aminoAcidName = this.getMatrixParser().getProteinNameFromOneOrThreeLetterCode(allele);
-            throw new GradeException("Protein allele: " + allele + " is the same as the reference allele", "At protein position " + position + ", the reference amino acid " + aminoAcidName + " does not have an experimental function score.");
-        }
+        // cmiter - comment this section out since we have information on reference alleles
+//        if (allele.equalsIgnoreCase(referenceAllele)) {
+//            String aminoAcidName = this.getMatrixParser().getProteinNameFromOneOrThreeLetterCode(allele);
+//            throw new GradeException("Protein allele: " + allele + " is the same as the reference allele", "At protein position " + position + ", the reference amino acid " + aminoAcidName + " does not have an experimental function score.");
+//        }
 
         // get the reference gene codon
         referenceCodon = this.getMatrixParser().getGene().getCodonAtProteinPosition(position);
@@ -193,20 +199,27 @@ class HeatMapService {
         // initialize if not already
         if (this.matrixParser == null) {
             this.matrixParser = MatrixParser.getMatrixParser();
+            InputStream inputStream = null;
 
             // get the file stream and load it to the parser
-            InputStream heatMapStreamA = this.class.classLoader.getResourceAsStream('matrixHeatWT_Nutlin.csv');
-            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_POSITION_HEAT_A, heatMapStreamA);
+            inputStream = this.class.classLoader.getResourceAsStream('matrixHeatWT_Nutlin.csv');
+            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_POSITION_HEAT_A, inputStream);
 
-            InputStream heatMapStreamB = this.class.classLoader.getResourceAsStream('matrixHeatNULL_Nutlin.csv');
-            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_POSITION_HEAT_B, heatMapStreamB);
+            inputStream = this.class.classLoader.getResourceAsStream('matrixHeatNULL_Nutlin.csv');
+            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_POSITION_HEAT_B, inputStream);
 
-            InputStream heatMapStreamC = this.class.classLoader.getResourceAsStream('matrixHeatNULL_Etoposide.csv');
-            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_POSITION_HEAT_C, heatMapStreamC);
+            inputStream = this.class.classLoader.getResourceAsStream('matrixHeatNULL_Etoposide.csv');
+            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_POSITION_HEAT_C, inputStream);
 
             // set the logp stream
-            InputStream logpStream = this.class.classLoader.getResourceAsStream('matrixHeatNULL_Etoposide.csv');
-            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_POSITION_LOGP, logpStream);
+            inputStream = this.class.classLoader.getResourceAsStream('matrixHeatNULL_Etoposide.csv');
+            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_POSITION_LOGP, inputStream);
+
+            // set the IARC somatic matrix
+            inputStream = this.class.classLoader.getResourceAsStream('newIARC_Somatic.csv');
+            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_IARC_SOMATIC_COUNT, inputStream);
+
+            // populate
             this.matrixParser.populate();
 
             // set the gene file stream

@@ -39,7 +39,7 @@ public class PositionMatrixBean {
         }
 
         // if not, enter new entry
-        this.heatMap.put(referenceLetter, new Double(heatAmount));
+        this.heatMap.put(referenceLetter, heatAmount);
     }
 
     /**
