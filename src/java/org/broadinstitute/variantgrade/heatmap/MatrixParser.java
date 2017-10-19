@@ -59,6 +59,7 @@ public class MatrixParser {
     public static final int MATRIX_TYPE_IARC_GERMLINE_COUNT     = 6;
     public static final int MATRIX_TYPE_EXAC_GERMLINE_COUNT     = 7;
     public static final int MATRIX_TYPE_TRANSC_ACTIVITY_YEAST   = 8;
+    public static final int MATRIX_TYPE_MUTATION_PROBABILITY    = 9;
 
     /**
      * singleton method to return parser

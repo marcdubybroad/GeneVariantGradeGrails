@@ -157,6 +157,10 @@ class HeatMapService {
             Double transcriptonalActivityInYeast = this.getMatrixParser().getMatrixValueAtPositionAndLetterAndType(position, allele, MatrixParser.MATRIX_TYPE_TRANSC_ACTIVITY_YEAST, true);
             result.setTranscriptionalActivityYeastPercent(transcriptonalActivityInYeast);
 
+            // set the mutation probability percent
+            Double mutationProbability = this.getMatrixParser().getMatrixValueAtPositionAndLetterAndType(position, allele, MatrixParser.MATRIX_TYPE_MUTATION_PROBABILITY, true);
+            result.setMutationProbability(mutationProbability);
+
             // set the diabetes risk string
             diabetesRiskString = this.getMatrixParser().getType2DiabetesRiskAtPositionAndLetterAndType(position, allele);
             result.setDiabetesRiskString(diabetesRiskString);
@@ -242,6 +246,10 @@ class HeatMapService {
             // set the transcriptional activity in yeast matrix
             inputStream = this.class.classLoader.getResourceAsStream('newYeastPerc_Activity.csv');
             this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_TRANSC_ACTIVITY_YEAST, inputStream);
+
+            // set the mutation probability percentile
+            inputStream = this.class.classLoader.getResourceAsStream('newMutationProb_Perc.csv');
+            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_MUTATION_PROBABILITY, inputStream);
 
             // populate
             this.matrixParser.populate();

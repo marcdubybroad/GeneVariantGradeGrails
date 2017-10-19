@@ -219,7 +219,7 @@
                                         <thead>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                        <tr class="tightrow">
                                             <td>Reference amino acid</td>
                                             <td>${proteinResult.getAminoAcidReference()}</td>
                                         </tr>
@@ -257,6 +257,11 @@
                                         <tr>
                                             <td>Transcriptional activity in yeast (% of wild-type)</td>
                                             <td>${proteinResult.getTranscriptionalActivityYeastPercent()}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Mutation probability (COSMIC Signature 1 percentile)</td>
+                                            <td>${proteinResult.getMutationProbability()}</td>
                                         </tr>
 
 

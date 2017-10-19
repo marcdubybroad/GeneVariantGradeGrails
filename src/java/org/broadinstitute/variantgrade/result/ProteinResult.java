@@ -37,6 +37,7 @@ public class ProteinResult {
     private String germlineIarcMutationCount;
     private String germlineExacMutationCount;
     private String transcriptionalActivityYeastPercent;
+    private String mutationProbability;
 
     // constants
     public static final String EFFECT_BENIGN_STRING             = "not pathogenic";
@@ -241,6 +242,19 @@ public class ProteinResult {
 
         } else {
             this.transcriptionalActivityYeastPercent = String.valueOf(transcripActivityYeastPercent) + "%";
+        }
+    }
+
+    public String getMutationProbability() {
+        return mutationProbability;
+    }
+
+    public void setMutationProbability(Double mutationProbabilityPercent) {
+        if (mutationProbabilityPercent == null) {
+            this.mutationProbability = NOT_AVAILABLE;
+
+        } else {
+            this.mutationProbability = String.valueOf(mutationProbabilityPercent) + "%";
         }
     }
 

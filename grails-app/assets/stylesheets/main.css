@@ -407,6 +407,11 @@ table {
 	margin-bottom: 1em;
 }
 
+tr.tightrow {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
 tr {
 	border: 0;
 }
