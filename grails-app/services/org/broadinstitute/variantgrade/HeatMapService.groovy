@@ -153,6 +153,10 @@ class HeatMapService {
             Double exacGermlineMutationCount = this.getMatrixParser().getMatrixValueAtPositionAndLetterAndType(position, allele, MatrixParser.MATRIX_TYPE_EXAC_GERMLINE_COUNT, true);
             result.setGermlineExacMutationCount(exacGermlineMutationCount);
 
+            // set the transcriptional activity in yeast
+            Double transcriptonalActivityInYeast = this.getMatrixParser().getMatrixValueAtPositionAndLetterAndType(position, allele, MatrixParser.MATRIX_TYPE_TRANSC_ACTIVITY_YEAST, true);
+            result.setTranscriptionalActivityYeastPercent(transcriptonalActivityInYeast);
+
             // set the diabetes risk string
             diabetesRiskString = this.getMatrixParser().getType2DiabetesRiskAtPositionAndLetterAndType(position, allele);
             result.setDiabetesRiskString(diabetesRiskString);
@@ -234,6 +238,10 @@ class HeatMapService {
             // set the IARC germline matrix
             inputStream = this.class.classLoader.getResourceAsStream('newExAC_Germline.csv');
             this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_EXAC_GERMLINE_COUNT, inputStream);
+
+            // set the transcriptional activity in yeast matrix
+            inputStream = this.class.classLoader.getResourceAsStream('newYeastPerc_Activity.csv');
+            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_TRANSC_ACTIVITY_YEAST, inputStream);
 
             // populate
             this.matrixParser.populate();

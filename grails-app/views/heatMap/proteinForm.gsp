@@ -254,6 +254,11 @@
                                             <td>${proteinResult.getGermlineExacMutationCount()}</td>
                                         </tr>
 
+                                        <tr>
+                                            <td>Transcriptional activity in yeast (% of wild-type)</td>
+                                            <td>${proteinResult.getTranscriptionalActivityYeastPercent()}</td>
+                                        </tr>
+
 
                                 <g:if test="${false}">
                                         <tr>
