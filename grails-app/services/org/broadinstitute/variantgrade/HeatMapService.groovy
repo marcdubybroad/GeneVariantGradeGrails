@@ -145,9 +145,13 @@ class HeatMapService {
             Double iarcSomaticMutationCount = this.getMatrixParser().getMatrixValueAtPositionAndLetterAndType(position, allele, MatrixParser.MATRIX_TYPE_IARC_SOMATIC_COUNT, true);
             result.setSomaticIarcMutationCount(iarcSomaticMutationCount);
 
-            // set the somatic mutation count (IARC)
+            // set the germline mutation count (IARC)
             Double iarcGermlineMutationCount = this.getMatrixParser().getMatrixValueAtPositionAndLetterAndType(position, allele, MatrixParser.MATRIX_TYPE_IARC_GERMLINE_COUNT, true);
             result.setGermlineIarcMutationCount(iarcGermlineMutationCount);
+
+            // set the germline mutation count (EXAC)
+            Double exacGermlineMutationCount = this.getMatrixParser().getMatrixValueAtPositionAndLetterAndType(position, allele, MatrixParser.MATRIX_TYPE_EXAC_GERMLINE_COUNT, true);
+            result.setGermlineExacMutationCount(exacGermlineMutationCount);
 
             // set the diabetes risk string
             diabetesRiskString = this.getMatrixParser().getType2DiabetesRiskAtPositionAndLetterAndType(position, allele);
@@ -223,9 +227,13 @@ class HeatMapService {
             inputStream = this.class.classLoader.getResourceAsStream('newIARC_Somatic.csv');
             this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_IARC_SOMATIC_COUNT, inputStream);
 
-            // set the IARC somatic matrix
+            // set the IARC germline matrix
             inputStream = this.class.classLoader.getResourceAsStream('newIARC_Germline.csv');
             this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_IARC_GERMLINE_COUNT, inputStream);
+
+            // set the IARC germline matrix
+            inputStream = this.class.classLoader.getResourceAsStream('newExAC_Germline.csv');
+            this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_EXAC_GERMLINE_COUNT, inputStream);
 
             // populate
             this.matrixParser.populate();

@@ -249,6 +249,11 @@
                                             <td>${proteinResult.getGermlineIarcMutationCount()}</td>
                                         </tr>
 
+                                        <tr>
+                                            <td># of ExAC germline mutations (unselected individuals)</td>
+                                            <td>${proteinResult.getGermlineExacMutationCount()}</td>
+                                        </tr>
+
 
                                 <g:if test="${false}">
                                         <tr>

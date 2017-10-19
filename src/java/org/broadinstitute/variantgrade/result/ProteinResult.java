@@ -35,6 +35,7 @@ public class ProteinResult {
     // cmiter specific properties
     private String somaticIarcMutationCount;
     private String germlineIarcMutationCount;
+    private String germlineExacMutationCount;
 
     // constants
     public static final String EFFECT_BENIGN_STRING             = "not pathogenic";
@@ -213,6 +214,19 @@ public class ProteinResult {
 
         } else {
             this.germlineIarcMutationCount = String.valueOf(germIarcMutationCount.intValue());
+        }
+    }
+
+    public String getGermlineExacMutationCount() {
+        return this.germlineExacMutationCount;
+    }
+
+    public void setGermlineExacMutationCount(Double germExacMutationCount) {
+        if (germExacMutationCount == null) {
+            this.germlineExacMutationCount = NOT_AVAILABLE;
+
+        } else {
+            this.germlineExacMutationCount = String.valueOf(germExacMutationCount.intValue());
         }
     }
 
