@@ -230,36 +230,38 @@
                                             <td><span class="cap">${proteinResult.getReferenceCodon()}</span></td>
                                         </tr>
                                 </g:if>
-                                        <tr>
+
+                                        <tr class="tightrow">
                                             <td>Protein change</td>
                                             <td>${proteinResult.getScientificAlleleCode()}</td>
                                         </tr>
-                                        <tr>
+
+                                        <tr class="tightrow">
                                             <td>Experimental function score  <a href="#" title="Also referred to as integrated functional score (IFS) in Majithia et. al. 2016, quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
 
-                                        <tr>
+                                        <tr class="tightrow">
                                             <td># of IARC somatic mutations (human tumors)</td>
                                             <td>${proteinResult.getSomaticIarcMutationCount()}</td>
                                         </tr>
 
-                                        <tr>
+                                        <tr class="tightrow">
                                             <td># of IARC germline mutations (LFL/LFS individuals)</td>
                                             <td>${proteinResult.getGermlineIarcMutationCount()}</td>
                                         </tr>
 
-                                        <tr>
+                                        <tr class="tightrow">
                                             <td># of ExAC germline mutations (unselected individuals)</td>
                                             <td>${proteinResult.getGermlineExacMutationCount()}</td>
                                         </tr>
 
-                                        <tr>
+                                        <tr class="tightrow">
                                             <td>Transcriptional activity in yeast (% of wild-type)</td>
                                             <td>${proteinResult.getTranscriptionalActivityYeastPercent()}</td>
                                         </tr>
 
-                                        <tr>
+                                        <tr class="tightrow">
                                             <td>Mutation probability (COSMIC Signature 1 percentile)</td>
                                             <td>${proteinResult.getMutationProbability()}</td>
                                         </tr>
