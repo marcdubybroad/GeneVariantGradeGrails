@@ -56,6 +56,7 @@ public class MatrixParser {
     public static final int MATRIX_TYPE_POSITION_HEAT_C         = 3;
     public static final int MATRIX_TYPE_POSITION_LOGP           = 4;
     public static final int MATRIX_TYPE_IARC_SOMATIC_COUNT      = 5;
+    public static final int MATRIX_TYPE_IARC_GERMLINE_COUNT     = 6;
 
     /**
      * singleton method to return parser

@@ -51,6 +51,12 @@ div.reduced-width {
     width: 80%;
 }
 
+div.some-reduced-width {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 90%;
+}
+
 p.small-text {
     font-size: 14px;
 }

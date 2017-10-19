@@ -212,8 +212,9 @@
 
                         </g:if>
                         <g:else>
-                            <div class="row reduced-width">
-                                <div class="col-md-4">
+<!--                            <div class="row reduced-width"> -->
+                            <div class="row some-reduced-width">
+                                <div class="col-md-11">
                                     <table class="table">
                                         <thead>
                                         </thead>
@@ -238,11 +239,17 @@
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
 
-
                                         <tr>
                                             <td># of IARC somatic mutations (human tumors)</td>
                                             <td>${proteinResult.getSomaticIarcMutationCount()}</td>
                                         </tr>
+
+                                        <tr>
+                                            <td># of IARC germline mutations (LFL/LFS individuals)</td>
+                                            <td>${proteinResult.getGermlineIarcMutationCount()}</td>
+                                        </tr>
+
+
                                 <g:if test="${false}">
                                         <tr>
                                             <td>At disease prevalence</td>
@@ -265,7 +272,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-1">
 
                                 </div>
                             </div>

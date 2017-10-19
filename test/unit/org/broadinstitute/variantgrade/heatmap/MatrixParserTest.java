@@ -24,9 +24,9 @@ public class MatrixParserTest extends TestCase {
         // set the json builder
         this.matrixParser = MatrixParser.getMatrixParser();
         InputStream matrixStream = this.getClass().getResourceAsStream("./matrixHeat.csv");
-        this.matrixParser.setHeatMapStream(matrixStream);
+        this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_POSITION_HEAT_A, matrixStream);
         matrixStream = this.getClass().getResourceAsStream("./matrixLogp.csv");
-        this.matrixParser.setLogpMapStream(matrixStream);
+        this.matrixParser.setHeatMapStream(MatrixParser.MATRIX_TYPE_POSITION_LOGP, matrixStream);
         try {
             this.matrixParser.populate();
         } catch (GradeException exception) {
@@ -54,7 +54,7 @@ public class MatrixParserTest extends TestCase {
 
         // get heat amount and test
         try {
-            resultHeat = this.matrixParser.getPositionMatrixAtPositionAndType(position, MatrixParser.MATRIX_TYPE_POSITION_HEAT);
+            resultHeat = this.matrixParser.getPositionMatrixAtPositionAndType(position, MatrixParser.MATRIX_TYPE_POSITION_HEAT_A);
 
         } catch (GradeException exception) {
             fail("got heat exception: " + exception.getMessage());
