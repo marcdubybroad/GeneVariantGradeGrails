@@ -18,7 +18,7 @@
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo">
         <div>Software version 0.36. Data version 1.0.</div>
-        <div>Copyright Reserved 2016. All rights reserved.</div>
+        <div>Copyright Reserved 2017. All rights reserved.</div>
         <div>This software is supplied without warranty or guaranteed support. No responsibility is assumed by the authors for its use, misuse, or functionality.</div>
         </div>
 	</body>

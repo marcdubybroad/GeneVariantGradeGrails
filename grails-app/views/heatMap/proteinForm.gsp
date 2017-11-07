@@ -121,10 +121,10 @@
             <div class="col-md-12">
                 <g:form name="myForm" action="proteinSearch" id="1">
                     <div class="formWrapper">
-                        <div class="description">The IMPACT classifier provides functional classification and supports quantitative predictions of pathogenicity for any missense and nonsense variant using comprehensive experimental data. It currently supports functional classification for missense and nonsense variants in the gene <span class="miterItalic">TP53</span>.
+                        <div class="description">The IMPACT classifier provides functional classification for any missense and nonsense variant using comprehensive experimental data. It currently supports functional classification for missense and nonsense variants in the gene <span class="miterItalic">TP53</span>.
                         <br/>See <a href="http://dx.doi.org/10.1038/ng.3700" target="newWindow">paper link</a> for details.</div>
                         <div class="apptitle-black description">TP53</div>
-                        <p class="bold-text">Enter Missense Variant</p>
+                        <p class="bold-text">Enter Variant</p>
                         <input id="searchbox" value="${lastQuery}" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
                         <p class="text-muted small-text">
                             Examples - Protein change <a href="#" title='Numbering with respect to PPAR&#611; isoform 2 (to convert isoform 1 to 2 add 28)'><g:img dir="images" file="question2.png" width="17" height="17"/></a>:
@@ -179,7 +179,7 @@
                                         </tr>
 
                                         <tr>
-                                            <td># of IARC somatic mutations (human tumors)</td>
+                                            <td># of IARC somatic mutations (human tumors)  <a href="#" title="Add # IARC somatic mutations text here"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getSomaticIarcMutationCount()}</td>
                                         </tr>
 
@@ -237,32 +237,32 @@
                                         </tr>
 
                                         <tr class="tightrow">
-                                            <td>Experimental function score  <a href="#" title="Also referred to as integrated functional score (IFS) in Majithia et. al. 2016, quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Experimental function score  <a href="#" title="Also referred to as integrated functional score (IFS) in Giacomelli et. al. 2017."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
 
                                         <tr class="tightrow">
-                                            <td># of IARC somatic mutations (human tumors)</td>
+                                            <td># of IARC somatic mutations (human tumors)  <a href="#" title="Add # IARC somatic mutations text here"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getSomaticIarcMutationCount()}</td>
                                         </tr>
 
                                         <tr class="tightrow">
-                                            <td># of IARC germline mutations (LFL/LFS individuals)</td>
+                                            <td># of IARC germline mutations (LFL/LFS individuals)  <a href="#" title="Add # IARC germline mutations text here"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getGermlineIarcMutationCount()}</td>
                                         </tr>
 
                                         <tr class="tightrow">
-                                            <td># of ExAC germline mutations (unselected individuals)</td>
+                                            <td># of ExAC germline mutations (unselected individuals)  <a href="#" title="Add # ExAC germline mutations text here"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getGermlineExacMutationCount()}</td>
                                         </tr>
 
                                         <tr class="tightrow">
-                                            <td>Transcriptional activity in yeast (% of wild-type)</td>
+                                            <td>Transcriptional activity in yeast (% of wild-type)  <a href="#" title="Add Transcriptional activity in yeast text here"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getTranscriptionalActivityYeastPercent()}</td>
                                         </tr>
 
                                         <tr class="tightrow">
-                                            <td>Mutation probability (COSMIC Signature 1 percentile)</td>
+                                            <td>Mutation probability (COSMIC Signature 1 percentile)  <a href="#" title="Add Mutration probablity text here"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getMutationProbability()}</td>
                                         </tr>
 
