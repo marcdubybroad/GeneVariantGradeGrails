@@ -605,3 +605,24 @@ a.skip {
 	position: absolute;
 	left: -9999px;
 }
+
+span.linewrap {
+	display: block;
+	white-space: pre-wrap;
+}
+
+.tooltip-inner {
+	white-space: pre-wrap;
+}
+
+[data-tooltip] {
+	cursor: default;
+	font: normal 1em sans-serif;
+}
+
+[data-tooltip]:hover:after {
+	display: block;
+	content: attr(data-tooltip);
+	white-space: pre-wrap;
+	color: #f00;
+}

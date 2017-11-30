@@ -127,7 +127,7 @@
                         <p class="bold-text">Enter Variant</p>
                         <input id="searchbox" value="${lastQuery}" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
                         <p class="text-muted small-text">
-                            Examples - Protein change <a href="#" title='Numbering with respect to PPAR&#611; isoform 2 (to convert isoform 1 to 2 add 28)'><g:img dir="images" file="question2.png" width="17" height="17"/></a>:
+                            Examples - Protein change <a href="#" title='Numbering with respect to p53 isoform a'><g:img dir="images" file="question2.png" width="17" height="17"/></a>:
                             <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.R273H', prevalence: '1.0e-5']">p.R273H</g:link> or
                             <g:link action="proteinSearch" controller="heatMap" params="[query: 'p.Arg273His', prevalence: '1.0e-5']">p.Arg273His</g:link>,
 
@@ -232,37 +232,49 @@
                                 </g:if>
 
                                         <tr class="tightrow">
-                                            <td>Protein change</td>
+                                            <td>Protein change <a href="#" title="Numbering with respect to p53 isoform a"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getScientificAlleleCode()}</td>
                                         </tr>
 
                                         <tr class="tightrow">
-                                            <td>Experimental function score  <a href="#" title="Also referred to as integrated functional score (IFS) in Giacomelli et. al. 2017."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Experimental function score  <a href="#" title="Also referred to as phenotype score in Giacomelli et al. 2017"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
 
                                         <tr class="tightrow">
-                                            <td># of IARC somatic mutations (human tumors)  <a href="#" title="Add # IARC somatic mutations text here"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td># of IARC somatic mutations (human tumors)  <a href="#" title="Petitjean et al. Human Mutation. 2007
+
+Bouaoun et al. Human Mutation. 2016
+
+IARC database R18 April 2016"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getSomaticIarcMutationCount()}</td>
                                         </tr>
 
                                         <tr class="tightrow">
-                                            <td># of IARC germline mutations (LFL/LFS individuals)  <a href="#" title="Add # IARC germline mutations text here"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td># of IARC germline mutations (LFL/LFS individuals)  <a href="#" title="Petitjean et al. Human Mutation. 2007
+
+Bouaoun et al. Human Mutation. 2016
+
+IARC database R18 April 2016"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getGermlineIarcMutationCount()}</td>
                                         </tr>
 
                                         <tr class="tightrow">
-                                            <td># of ExAC germline mutations (unselected individuals)  <a href="#" title="Add # ExAC germline mutations text here"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td># of ExAC germline mutations (unselected individuals)  <a href="#" title="Lek et al. Nature. 2016%&nbsp;&nbsp;
+
+Data release 1.0 February 2017"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getGermlineExacMutationCount()}</td>
                                         </tr>
 
                                         <tr class="tightrow">
-                                            <td>Transcriptional activity in yeast (% of wild-type)  <a href="#" title="Add Transcriptional activity in yeast text here"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Transcriptional activity in yeast (% of wild-type)  <a href="#" title="Kato et al. PNAS. 2003"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getTranscriptionalActivityYeastPercent()}</td>
                                         </tr>
 
                                         <tr class="tightrow">
-                                            <td>Mutation probability (COSMIC Signature 1 percentile)  <a href="#" title="Add Mutration probablity text here"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Mutation probability (COSMIC Signature 1 percentile)  <a href="#" title="Alexandrov et al. Nature. 2013
+
+Alexandrov et al. Nature Genetics. 2015"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getMutationProbability()}</td>
                                         </tr>
 
