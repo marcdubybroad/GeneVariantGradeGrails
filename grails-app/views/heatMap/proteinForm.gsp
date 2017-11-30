@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Interpretation of Mutant TP53 Activity</title>
+    <title>Phenotypic Annotation of TP53 Mutations</title>
     <style type="text/css" media="screen">
     .axis path,
     .axis line {
@@ -121,7 +121,7 @@
             <div class="col-md-12">
                 <g:form name="myForm" action="proteinSearch" id="1">
                     <div class="formWrapper">
-                        <div class="description">The IMPACT classifier provides functional classification for any missense and nonsense variant using comprehensive experimental data. It currently supports functional classification for missense and nonsense variants in the gene <span class="miterItalic">TP53</span>.
+                        <div class="description">The PHANTM classifier provides functional classification for any missense and nonsense variant using comprehensive experimental data. It currently supports functional classification for missense and nonsense variants in the gene <span class="miterItalic">TP53</span>.
                         <br/>See <a href="http://dx.doi.org/10.1038/ng.3700" target="newWindow">paper link</a> for details.</div>
                         <div class="apptitle-black description">TP53</div>
                         <p class="bold-text">Enter Variant</p>

@@ -14,7 +14,7 @@
 		<g:layoutHead/>
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner" class="apptitle"><span class="title-black">I</span>nterpretation of <span class="title-black">M</span>utant <span class="title-black">P</span>53 <span class="title-black">ACT</span>ivity (beta)</div>
+		<div id="grailsLogo" role="banner" class="apptitle"><span class="title-black">PH</span>enotypic <span class="title-black">AN</span>notation of <span class="title-black">T</span>P53 <span class="title-black">M</span>utations (beta)</div>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo">
         <div>Software version 0.36. Data version 1.0.</div>
