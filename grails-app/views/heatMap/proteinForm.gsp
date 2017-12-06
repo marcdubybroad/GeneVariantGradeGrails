@@ -122,7 +122,7 @@
                 <g:form name="myForm" action="proteinSearch" id="1">
                     <div class="formWrapper">
                         <div class="description">The PHANTM classifier provides functional classification for any missense and nonsense variant using comprehensive experimental data. It currently supports functional classification for missense and nonsense variants in the gene <span class="miterItalic">TP53</span>.
-                        <br/>See <a href="http://dx.doi.org/10.1038/ng.3700" target="newWindow">paper link</a> for details.</div>
+                        <br/>See <a href="https://www.nature.com/ng/" target="newWindow">paper link</a> for details.</div>
                         <div class="apptitle-black description">TP53</div>
                         <p class="bold-text">Enter Variant</p>
                         <input id="searchbox" value="${lastQuery}" name="query" class="form-control input-lg awesomebar searchbox" type="text" placeholder="Search for a protein change or variant"/>
