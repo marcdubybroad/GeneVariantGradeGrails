@@ -260,7 +260,7 @@ IARC database R18 April 2016"><g:img dir="images" file="question2.png" width="17
                                         </tr>
 
                                         <tr class="tightrow">
-                                            <td># of ExAC germline mutations (unselected individuals)  <a href="#" title="Lek et al. Nature. 2016%&nbsp;&nbsp;
+                                            <td># of ExAC germline mutations (unselected individuals)  <a href="#" title="Lek et al. Nature. 2016.&nbsp;&nbsp;
 
 Data release 1.0 February 2017"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getGermlineExacMutationCount()}</td>
