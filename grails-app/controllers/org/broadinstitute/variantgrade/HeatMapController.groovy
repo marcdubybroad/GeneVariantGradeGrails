@@ -7,7 +7,7 @@ class HeatMapController {
     HeatMapService heatMapService
 
     // instance variables
-    private String passcode = "broadvariantfunction";
+    private String passcode = "broaddeviationstandard";
 
     def index() { }
 
