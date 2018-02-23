@@ -238,7 +238,7 @@
 
                                         <tr class="tightrow">
                                             <td>Experimental function score  <a href="#" title="Also referred to as phenotype score in Giacomelli et al. 2017"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
-                                            <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
+                                            <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /> &#177; <g:formatNumber number="${proteinResult.getHeatAmountStandardDeviation()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
 
                                         <tr class="tightrow">

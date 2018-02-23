@@ -15,6 +15,7 @@ public class ProteinResult {
     private String inputAllele;
     private String referenceAllele;
     private Double heatAmount;
+    private Double heatAmountStandardDeviation;
     private String referenceCodon;
     private String alternateCodon;
     private String scientificAlleleCode;
@@ -75,6 +76,14 @@ public class ProteinResult {
 
     public void setHeatAmount(Double heatAmount) {
         this.heatAmount = heatAmount;
+    }
+
+    public Double getHeatAmountStandardDeviation() {
+        return heatAmountStandardDeviation;
+    }
+
+    public void setHeatAmountStandardDeviation(Double heatAmountStandardDeviation) {
+        this.heatAmountStandardDeviation = heatAmountStandardDeviation;
     }
 
     public String getReferenceCodon() {

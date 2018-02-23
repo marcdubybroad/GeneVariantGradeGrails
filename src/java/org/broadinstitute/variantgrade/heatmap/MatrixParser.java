@@ -1,5 +1,6 @@
 package org.broadinstitute.variantgrade.heatmap;
 
+import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 import org.apache.log4j.Logger;
 import org.broadinstitute.variantgrade.bean.AminoAcidBean;
 import org.broadinstitute.variantgrade.bean.CodingRegion;
@@ -576,7 +577,8 @@ public class MatrixParser {
         thirdDouble = this.getMatrixValueAtPositionAndLetterAndType(position, letter, MatrixParser.MATRIX_TYPE_POSITION_HEAT_C, false);
 
         // get the position heat
-        heatNumber = firstDouble + secondDouble - thirdDouble;
+//        heatNumber = firstDouble + secondDouble - thirdDouble;
+        heatNumber = this.getCancerGradeFunctionScore(firstDouble, secondDouble, thirdDouble);
 
         // if null, error
         if (heatNumber == null) {
@@ -586,6 +588,82 @@ public class MatrixParser {
         // return
         return heatNumber;
     }
+
+    /**
+     * central method to return the functional score standard deviation
+     * <br/>
+     * modify this method if changes to score calculation are made
+     *
+     * @param position
+     * @param letter
+     * @return
+     * @throws GradeException
+     */
+    public Double getFunctionalScoreStandardDeviationAtPositionAndLetter(Integer position, String letter) throws GradeException {
+        // local variables
+        Double heatNumber = null;
+        String diabetesRiskString = "";
+        Double firstDouble = null;
+        Double secondDouble = null;
+        Double thirdDouble = null;
+
+        // get the numbers
+        firstDouble = this.getMatrixValueAtPositionAndLetterAndType(position, letter, MatrixParser.MATRIX_TYPE_POSITION_HEAT_A, false);
+        secondDouble = this.getMatrixValueAtPositionAndLetterAndType(position, letter, MatrixParser.MATRIX_TYPE_POSITION_HEAT_B, false);
+        thirdDouble = this.getMatrixValueAtPositionAndLetterAndType(position, letter, MatrixParser.MATRIX_TYPE_POSITION_HEAT_C, false);
+
+        // get the position heat
+//        heatNumber = firstDouble + secondDouble - thirdDouble;
+        heatNumber = this.getCancerGradeFunctionScoreStandardDev(firstDouble, secondDouble, thirdDouble);
+
+        // if null, error
+        if (heatNumber == null) {
+            throw new GradeException("Got null heat number heat standard deviation for position: " + position + " and letter: " + letter);
+        }
+
+        // return
+        return heatNumber;
+    }
+
+    /**
+     * returns mutant p53 application experimental function score
+     *
+     * @param zScore1
+     * @param zScore2
+     * @param zScore3
+     * @return
+     */
+    protected Double getCancerGradeFunctionScore(Double zScore1, Double zScore2, Double zScore3) {
+        Double result = null;
+
+        // get the result
+        result = (zScore1 + zScore2 - zScore3)/new Double(3);
+
+        // return
+        return result;
+    }
+
+    /**
+     * returns mutant p53 application experimental function score standard deviation
+     *
+     * @param zScore1
+     * @param zScore2
+     * @param zScore3
+     * @return
+     */
+    protected Double getCancerGradeFunctionScoreStandardDev(Double zScore1, Double zScore2, Double zScore3) {
+        Double result = null;
+        double[] standard = {zScore1.doubleValue(), zScore2.doubleValue(), -1.0 * zScore3.doubleValue()};
+        StandardDeviation standardDeviation = new StandardDeviation();
+
+        // get the result
+        result = standardDeviation.evaluate(standard) / Math.sqrt(3.0);
+
+        // return
+        return result;
+    }
+
+
 
     /**
      * get the position heat at the position

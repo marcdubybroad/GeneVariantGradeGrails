@@ -367,4 +367,36 @@ public class MatrixParserTest extends TestCase {
         assertNotNull(result);
         assertEquals(0.9486996994900958, result);
     }
+
+    @Test
+    public void testGetCancerGradeFunctionScore() {
+        Double double1 = 3.0;
+        Double double2 = 2.0;
+        Double double3 = -3.0;
+        Double expectedResult = 2.6666666666666665;
+        Double result = null;
+
+        // get the result
+        result = this.matrixParser.getCancerGradeFunctionScore(double1, double2, double3);
+
+        // test
+        assertNotNull(result);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testGetCancerGradeFunctionScoreStandardDev() {
+        Double double1 = 3.0;
+        Double double2 = 2.0;
+        Double double3 = -3.0;
+        Double expectedResult = 0.33333333333333337;
+        Double result = null;
+
+        // get the result
+        result = this.matrixParser.getCancerGradeFunctionScoreStandardDev(double1, double2, double3);
+
+        // test
+        assertNotNull(result);
+        assertEquals(expectedResult, result);
+    }
 }

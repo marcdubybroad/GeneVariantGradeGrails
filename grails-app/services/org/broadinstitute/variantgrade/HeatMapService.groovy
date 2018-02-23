@@ -141,6 +141,10 @@ class HeatMapService {
             proteinGrade = this.getMatrixParser().getFunctionalScoreAtPositionAndLetter(position, allele);
             result.setHeatAmount(proteinGrade);
 
+            // get the heat amount standard deviation
+            Double standardDeviation = this.getMatrixParser().getFunctionalScoreStandardDeviationAtPositionAndLetter(position, allele);
+            result.setHeatAmountStandardDeviation(standardDeviation);
+
             // set the somatic mutation count (IARC)
             Double iarcSomaticMutationCount = this.getMatrixParser().getMatrixValueAtPositionAndLetterAndType(position, allele, MatrixParser.MATRIX_TYPE_IARC_SOMATIC_COUNT, true);
             result.setSomaticIarcMutationCount(iarcSomaticMutationCount);
