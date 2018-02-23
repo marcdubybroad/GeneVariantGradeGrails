@@ -335,8 +335,8 @@ Alexandrov et al. Nature Genetics. 2015"><g:img dir="images" file="question2.png
     var x = d3.scale.linear().range([0, w]);
     var y = d3.scale.linear().range([h, 0]);
 
-    x.domain([-6, 7]);
-    y.domain([0, 0.6]);
+    x.domain([-2.5, 2.5]);
+    y.domain([0, 2.2]);
 
     var xAxis = d3.svg.axis()
             .scale(x)
@@ -365,7 +365,7 @@ Alexandrov et al. Nature Genetics. 2015"><g:img dir="images" file="question2.png
 
 
     //    d3.csv("${g.resource(file:'data_01.csv')}", function(error, data) {
-    d3.csv("${g.resource(file:'nonsenseCancer.csv')}", function(error, data) {
+    d3.csv("${g.resource(file:'nonsenseCancer2.csv')}", function(error, data) {
         // Here we will put all the SVG elements affected by the data
         // on the file!!!
         data.forEach(function(d) {
@@ -385,7 +385,7 @@ Alexandrov et al. Nature Genetics. 2015"><g:img dir="images" file="question2.png
         svg.select('path.red').attr("stroke", "red");
     });
 
-    d3.csv("${g.resource(file:'silentCancer.csv')}", function(error, data) {
+    d3.csv("${g.resource(file:'silentCancer2.csv')}", function(error, data) {
         // Here we will put all the SVG elements affected by the data
         // on the file!!!
         data.forEach(function(d) {
@@ -405,7 +405,7 @@ Alexandrov et al. Nature Genetics. 2015"><g:img dir="images" file="question2.png
         svg.selectAll('path.green').attr("stroke", "green");
     });
 
-    var scoreData = [{xdata: ${proteinResult.getHeatAmount()}, ydata:0}, {xdata: ${proteinResult.getHeatAmount()}, ydata: 0.5}];
+    var scoreData = [{xdata: ${proteinResult.getHeatAmount()}, ydata:0}, {xdata: ${proteinResult.getHeatAmount()}, ydata: 1.8}];
     var scoreLine = d3.svg.line()
             .x(function(d) { return x(d.xdata); })
             .y(function(d) { return y(d.ydata); });
@@ -415,7 +415,7 @@ Alexandrov et al. Nature Genetics. 2015"><g:img dir="images" file="question2.png
     svg.selectAll('path.black').attr("stroke", "black");
 
     svg.append("g").append("svg:text")
-            .attr("x", w * ((${proteinResult.getHeatAmount()} + 6)/12))
+            .attr("x", w * ((${proteinResult.getHeatAmount()} + 2.5)/5))
             .attr("y", 30)
             .attr("text-anchor", "middle")
             .style("font-size", "16px")
@@ -443,18 +443,18 @@ Alexandrov et al. Nature Genetics. 2015"><g:img dir="images" file="question2.png
             .text("density known variants");
 
     labels.append("text")
-            .attr("transform", "translate(0," + (h - 40) + ")")
-            .attr("x", 330)
-            .attr("style","font-size:12px;")
+            .attr("transform", "translate(0," + (h - 50) + ")")
+            .attr("x", 344)
+            .attr("style","font-size:13px;")
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
             .style("stroke", "red")
-            .text("LOF (nonsense)");
+            .text("Common Cancer Missense");
 
     labels.append("text")
-            .attr("transform", "translate(0," + (h - 40) + ")")
-            .attr("x", 205)
-            .attr("style","font-size:12px;")
+            .attr("transform", "translate(0," + (h - 50) + ")")
+            .attr("x", 225)
+            .attr("style","font-size:13px;")
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
             .style("stroke", "green")
