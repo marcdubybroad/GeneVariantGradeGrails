@@ -174,7 +174,7 @@
                                             <td>${proteinResult.getScientificAlleleCode()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Experimental function score  <a href="#" title="Also referred to as integrated functional score (IFS) in Majithia et. al. 2016, quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Combined phenotype score  <a href="#" title="Also referred to as phenotype score in Giacomelli et al. 2017, quantitative measure of the ability of PPARG containing the variant to stimulate CD36 across multiple agonist conditions and doses."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
 
@@ -237,7 +237,7 @@
                                         </tr>
 
                                         <tr class="tightrow">
-                                            <td>Experimental function score  <a href="#" title="Also referred to as phenotype score in Giacomelli et al. 2017"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Combined phenotype score  <a href="#" title="Also referred to as combined phenotype score in Giacomelli et al. 2018"><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td><g:formatNumber number="${proteinResult.getHeatAmount()}" type="number" maxFractionDigits="3" /> &#177; <g:formatNumber number="${proteinResult.getHeatAmountStandardDeviation()}" type="number" maxFractionDigits="3" /></td>
                                         </tr>
 
@@ -285,7 +285,7 @@ Alexandrov et al. Nature Genetics. 2015"><g:img dir="images" file="question2.png
                                             <td>${proteinResult.getInputPrevalence()}</td>
                                         </tr>
                                         <tr>
-                                            <td>Probability of causing FPLD3  <a href="#" title="The likelihood that the variant queried causes FPLD3. Calculated by combining experimental function score with disease prevalence inputted."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
+                                            <td>Probability of causing FPLD3  <a href="#" title="The likelihood that the variant queried causes FPLD3. Calculated by combining the combined phenotype score with disease prevalence inputted."><g:img dir="images" file="question2.png" width="17" height="17"/></a></td>
                                             <td>${proteinResult.getOddsRatioOfDiseaseString()}</td>
                                         </tr>
                                         <tr>
@@ -431,7 +431,7 @@ Alexandrov et al. Nature Genetics. 2015"><g:img dir="images" file="question2.png
             .attr("style","font-size:20px;")
             .attr("dx", "-1.0em")
             .attr("dy", "2.0em")
-            .text("experimental function score");
+            .text("combined phenotype score");
 
     labels.append("text")
             .attr("transform", "rotate(-90)")
