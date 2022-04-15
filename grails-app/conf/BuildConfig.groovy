@@ -47,6 +47,17 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
+
+	// added 2022/03/08
+	mavenRepo "http://repo.grails.org/grails/core"
+
+	mavenRepo "https://mvnrepository.com/artifact/"
+	mavenRepo "https://repo1.maven.org/maven2/"
+	mavenRepo "https://repo.maven.apache.org/maven2/"
+
+        mavenRepo 'https://raw.github.com/fernandezpablo85/scribe-java/mvn-repo/'
+        mavenRepo "http://repo.desirableobjects.co.uk/"
+
     }
 
     dependencies {
